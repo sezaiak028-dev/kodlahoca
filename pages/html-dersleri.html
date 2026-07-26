@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>HTML Ders Notları & Etiket Rehberi</title>
     <style>
-        /* GENEL SIFIRLAMA VE TEMEL TİPOGRAFİ */
+        /* GENEL SIFIRLAMA VE BAZ STİLLER */
         * {
             box-sizing: border-box;
             margin: 0;
@@ -19,7 +19,7 @@
             color: #333;
         }
 
-        /* HEADER VE NAVİGASYON */
+        /* HEADER / MENÜ */
         header {
             background-color: #2c3e50;
             color: #fff;
@@ -27,7 +27,7 @@
             position: sticky;
             top: 0;
             z-index: 1000;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
         }
 
         .nav-container {
@@ -39,7 +39,7 @@
         }
 
         .logo {
-            font-size: 1.5rem;
+            font-size: 1.4rem;
             font-weight: bold;
             color: #e74c3c;
             text-decoration: none;
@@ -55,122 +55,137 @@
             color: #ecf0f1;
             text-decoration: none;
             font-weight: 500;
-            transition: color 0.3s;
         }
 
-        .nav-links a:hover, .nav-links a.active {
+        .nav-links a.active {
             color: #e74c3c;
         }
 
-        .menu-toggle {
-            display: none;
-            flex-direction: column;
-            cursor: pointer;
-        }
-
-        .menu-toggle span {
-            width: 25px;
-            height: 3px;
-            background-color: #fff;
-            margin: 3px 0;
-            transition: 0.4s;
-        }
-
-        /* SAYFA İÇERİK DÜZENİ */
-        .container {
+        /* SAYFA DÜZENİ (SOL MENÜ + SAĞ İÇERİK LAYOUT) */
+        .layout-container {
             max-width: 1200px;
             margin: 2rem auto;
-            padding: 0 1.5rem;
-        }
-
-        .page-header {
-            text-align: center;
-            margin-bottom: 2.5rem;
-        }
-
-        .page-header h1 {
-            color: #2c3e50;
-            font-size: 2.2rem;
-            margin-bottom: 0.5rem;
-        }
-
-        .page-header p {
-            color: #7f8c8d;
-            font-size: 1.1rem;
-        }
-
-        /* İÇERİK KARTLARI */
-        .grid-container {
+            padding: 0 1rem;
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            grid-template-columns: 280px 1fr; /* Sol menü 280px, Sağ içerik kalan alan */
             gap: 2rem;
         }
 
-        .tag-card {
+        /* SOL TARAF: ETIKET LISTESI (SIDEBAR) */
+        .sidebar {
+            background: #fff;
+            border-radius: 8px;
+            padding: 1.2rem;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            height: fit-content;
+            position: sticky;
+            top: 80px;
+        }
+
+        .sidebar h3 {
+            font-size: 1.1rem;
+            color: #2c3e50;
+            margin-bottom: 1rem;
+            border-bottom: 2px solid #e74c3c;
+            padding-bottom: 0.4rem;
+        }
+
+        .tag-list {
+            list-style: none;
+        }
+
+        .tag-list li {
+            margin-bottom: 0.5rem;
+        }
+
+        .tag-btn {
+            width: 100%;
+            text-align: left;
+            padding: 0.6rem 0.8rem;
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+            color: #334155;
+            transition: all 0.2s ease;
+        }
+
+        .tag-btn:hover, .tag-btn.active {
+            background: #e74c3c;
+            color: #fff;
+            border-color: #e74c3c;
+        }
+
+        /* SAĞ TARAF: DETAY VE DETAY KARTLARI */
+        .content-area {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+            min-width: 0; /* Grid taşmalarını engeller */
+        }
+
+        .lesson-card {
             background: #fff;
             border-radius: 8px;
             padding: 1.5rem;
             box-shadow: 0 4px 6px rgba(0,0,0,0.05);
-            border-top: 4px solid #e74c3c;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            max-width: 100%;
+            border-left: 5px solid #2c3e50;
             box-sizing: border-box;
+            max-width: 100%;
             overflow: hidden;
         }
 
-        .tag-card h3 {
+        .lesson-card h2 {
+            font-size: 1.4rem;
             color: #2c3e50;
-            margin-bottom: 0.8rem;
-            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
         }
 
-        .tag-card p {
+        .lesson-card p {
+            color: #64748b;
             font-size: 0.95rem;
-            color: #555;
             margin-bottom: 1rem;
         }
 
-        /* KOD KUTUSU VE ÖNİZLEME */
-        .code-block {
-            background-color: #272822;
-            color: #f8f8f2;
+        /* KOD VE ÖNİZLEME KUTULARI */
+        .code-box {
+            background-color: #1e293b;
+            color: #f8fafc;
             padding: 1rem;
             border-radius: 6px;
             font-family: 'Courier New', Courier, monospace;
             font-size: 0.85rem;
             overflow-x: auto;
             white-space: pre-wrap;
-            word-break: break-word;
+            word-break: break-all;
             margin-bottom: 1rem;
-            max-width: 100%;
         }
 
+        /* MAVİ ÖNİZLEME KUTUSU (TAŞMA KORUMALI) */
         .preview-box {
-            background-color: #fdfdfd;
-            border: 1px dashed #cbd5e1;
-            padding: 1rem;
-            border-radius: 6px;
-            margin-top: 0.5rem;
+            background-color: #f0f7ff;
+            border: 2px solid #007bff;
+            padding: 1.2rem;
+            border-radius: 8px;
             max-width: 100%;
             box-sizing: border-box;
-            overflow: hidden;
+            overflow-x: auto; /* Mobilde taşmayı önler */
         }
 
         .preview-title {
-            font-size: 0.8rem;
+            font-size: 0.75rem;
             font-weight: bold;
-            color: #94a3b8;
+            color: #007bff;
             text-transform: uppercase;
             margin-bottom: 0.8rem;
             letter-spacing: 0.5px;
         }
 
-        /* FORM DÜZENLEMELERİ (TAŞMAYI ÖNLEYEN KORUMALAR) */
+        /* FORM BİLEŞENLERİ (FIELDSET, INPUT, BUTON) */
         .demo-fieldset {
-            border: 2px solid #2c3e50;
-            border-radius: 8px;
+            border: 2px solid #007bff;
+            border-radius: 6px;
             padding: 0.8rem;
             background: #fff;
             max-width: 100%;
@@ -179,54 +194,79 @@
 
         .demo-fieldset legend {
             font-weight: bold;
-            color: #2c3e50;
+            color: #007bff;
             padding: 0 6px;
-            font-size: 0.95rem;
+            font-size: 0.9rem;
         }
 
-        .form-control-input {
+        .form-row {
+            margin-bottom: 0.6rem;
+        }
+
+        .form-row label {
+            display: block;
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin-bottom: 2px;
+            color: #334155;
+        }
+
+        .form-input {
             width: 100%;
             padding: 0.4rem;
-            border: 1px solid #ccc;
+            border: 1px solid #cbd5e1;
             border-radius: 4px;
             font-size: 0.85rem;
             box-sizing: border-box;
         }
 
+        .btn-group {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap; /* Mobilde butonlar alt satıra geçer */
+            margin-top: 0.8rem;
+        }
+
+        .btn-submit {
+            background: #28a745;
+            color: #fff;
+            border: none;
+            padding: 0.4rem 0.8rem;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 0.8rem;
+        }
+
+        .btn-reset {
+            background: #dc3545;
+            color: #fff;
+            border: none;
+            padding: 0.4rem 0.8rem;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 0.8rem;
+        }
+
         /* FOOTER */
         footer {
-            background-color: #2c3e50;
-            color: #bdc3c7;
+            background: #2c3e50;
+            color: #ccc;
             text-align: center;
             padding: 1.5rem;
-            margin-top: 4rem;
+            margin-top: 3rem;
             font-size: 0.9rem;
         }
 
-        /* MOBİL UYUMLULUK */
+        /* MOBİL UYUM */
         @media (max-width: 768px) {
-            .menu-toggle {
-                display: flex;
+            .layout-container {
+                grid-template-columns: 1fr; /* Mobilde üst üste biner */
             }
 
-            .nav-links {
-                display: none;
-                flex-direction: column;
-                width: 100%;
-                position: absolute;
-                top: 60px;
-                left: 0;
-                background-color: #2c3e50;
-                padding: 1rem;
-                box-shadow: 0 5px 10px rgba(0,0,0,0.2);
-            }
-
-            .nav-links.active {
-                display: flex;
-            }
-
-            .grid-container {
-                grid-template-columns: 1fr;
+            .sidebar {
+                position: static;
             }
         }
     </style>
@@ -235,156 +275,77 @@
 
     <header>
         <div class="nav-container">
-            <a href="../index.html" class="logo">💻 KodDersleri</a>
-            <div class="menu-toggle" id="mobile-menu">
-                <span></span>
-                <span></span>
-                <span></span>
-            </div>
+            <a href="#" class="logo">💻 KodDersleri</a>
             <ul class="nav-links">
-                <li><a href="../index.html">Ana Sayfa</a></li>
-                <li><a href="html-dersleri.html" class="active">HTML Dersleri</a></li>
-                <li><a href="#css-dersleri">CSS Dersleri</a></li>
-                <li><a href="#js-dersleri">JS Dersleri</a></li>
+                <li><a href="#" class="active">HTML Dersleri</a></li>
+                <li><a href="#">CSS Dersleri</a></li>
+                <li><a href="#">JS Dersleri</a></li>
             </ul>
         </div>
     </header>
 
-    <main class="container">
-        <section class="page-header">
-            <h1>🌐 HTML5 Ders Notları &amp; Etiket Rehberi</h1>
-            <p>Web geliştirmenin temel yapı taşı olan HTML etiketlerini, canlı önizlemeleri ve kod örnekleriyle inceleyin.</p>
-        </section>
+    <div class="layout-container">
 
-        <section class="grid-container">
+        <aside class="sidebar">
+            <h3>📌 HTML Etiketleri</h3>
+            <ul class="tag-list">
+                <li><button class="tag-btn active" onclick="scrollToLesson('sec-iskelet')">📄 Sayfa İskeleti</button></li>
+                <li><button class="tag-btn" onclick="scrollToLesson('sec-baslik')">✍️ Başlıklar (&lt;h1-h6&gt;)</button></li>
+                <li><button class="tag-btn" onclick="scrollToLesson('sec-paragraf')">📝 Paragraf (&lt;p&gt;)</button></li>
+                <li><button class="tag-btn" onclick="scrollToLesson('sec-form')">🏷️ Form &amp; Fieldset</button></li>
+                <li><button class="tag-btn" onclick="scrollToLesson('sec-liste')">📋 Listeler (&lt;ul/ol&gt;)</button></li>
+            </ul>
+        </aside>
 
-            <article class="tag-card">
-                <div>
-                    <h3>📄 Temel Sayfa İskeleti</h3>
-                    <p>Her standart HTML5 belgesinde bulunması gereken zorunlu ana etiketler bütünüdür.</p>
-                    <div class="code-block">&lt;!DOCTYPE html&gt;
+        <main class="content-area">
+
+            <section id="sec-iskelet" class="lesson-card">
+                <h2>📄 HTML5 Temel İskelet</h2>
+                <p>Bir web sayfasının çalışması için gerekli standart başlangıç kodlarıdır.</p>
+                <div class="code-box">&lt;!DOCTYPE html&gt;
 &lt;html lang="tr"&gt;
   &lt;head&gt;
-    &lt;meta charset="UTF-8"&gt;
-    &lt;title&gt;Sayfa Başlığı&lt;/title&gt;
+    &lt;title&gt;İlk Web Sayfam&lt;/title&gt;
   &lt;/head&gt;
   &lt;body&gt;
     &lt;h1&gt;Merhaba Dünya!&lt;/h1&gt;
   &lt;/body&gt;
 &lt;/html&gt;</div>
-                </div>
                 <div class="preview-box">
-                    <div class="preview-title">📺 Ekran Çıktısı</div>
-                    <h1 style="font-size: 1.4rem; color: #2c3e50;">Merhaba Dünya!</h1>
+                    <div class="preview-title">📺 Mavi Ekran Çıktısı (Önizleme)</div>
+                    <h1 style="font-size: 1.3rem; color: #2c3e50;">Merhaba Dünya!</h1>
                 </div>
-            </article>
+            </section>
 
-            <article class="tag-card">
-                <div>
-                    <h3>✍️ Başlıklar ve Paragraflar</h3>
-                    <p><code>&lt;h1&gt;</code> - <code>&lt;h6&gt;</code> arası başlıklar ve <code>&lt;p&gt;</code> etiketleri metin hiyerarşisini sağlar.</p>
-                    <div class="code-block">&lt;h1&gt;Ana Başlık (H1)&lt;/h1&gt;
-&lt;h3&gt;Alt Başlık (H3)&lt;/h3&gt;
-&lt;p&gt;Bu bir paragraf metnidir. &lt;b&gt;Kalın&lt;/b&gt; kelimeler içerir.&lt;/p&gt;</div>
-                </div>
+            <section id="sec-baslik" class="lesson-card">
+                <h2>✍️ Başlık Etiketleri (&lt;h1&gt; - &lt;h6&gt;)</h2>
+                <p>Arama motorları ve okunabilirlik için başlık hiyerarşisini belirler.</p>
+                <div class="code-box">&lt;h1&gt;H1 En Büyük Başlık&lt;/h1&gt;
+&lt;h3&gt;H3 Orta Boyut Başlık&lt;/h3&gt;
+&lt;h6&gt;H6 En Küçük Başlık&lt;/h6&gt;</div>
                 <div class="preview-box">
-                    <div class="preview-title">📺 Ekran Çıktısı</div>
-                    <h2 style="font-size: 1.2rem;">Ana Başlık (H1)</h2>
-                    <h4 style="font-size: 0.95rem; color: #555;">Alt Başlık (H3)</h4>
-                    <p style="font-size: 0.85rem; margin-top: 4px;">Bu bir paragraf metnidir. <b>Kalın</b> kelimeler içerir.</p>
+                    <div class="preview-title">📺 Mavi Ekran Çıktısı (Önizleme)</div>
+                    <h1 style="font-size: 1.4rem; color: #111;">H1 En Büyük Başlık</h1>
+                    <h3 style="font-size: 1.1rem; color: #444;">H3 Orta Boyut Başlık</h3>
+                    <h6 style="font-size: 0.8rem; color: #777;">H6 En Küçük Başlık</h6>
                 </div>
-            </article>
+            </section>
 
-            <article class="tag-card" style="border-top-color: #27ae60;">
-                <div>
-                    <h3>🏷️ &lt;fieldset&gt;, &lt;legend&gt; &amp; Butonlar</h3>
-                    <p>Form elemanlarını çerçeveye almak için <code>&lt;fieldset&gt;</code>, çerçevenin başlığı için <code>&lt;legend&gt;</code>, göndermek için <code>&lt;button&gt;</code> kullanılır.</p>
-                    <div class="code-block">&lt;form action="kaydet.php" method="POST"&gt;
+            <section id="sec-paragraf" class="lesson-card">
+                <h2>📝 Paragraf Etiketi (&lt;p&gt;)</h2>
+                <p>Metin içeriklerini düzenli bloklar halinde yazmayı sağlar.</p>
+                <div class="code-box">&lt;p&gt;Bu bir HTML paragrafıdır. İçerisinde &lt;b&gt;koyu&lt;/b&gt; ve &lt;i&gt;eğik&lt;/i&gt; metinler bulunabilir.&lt;/p&gt;</div>
+                <div class="preview-box">
+                    <div class="preview-title">📺 Mavi Ekran Çıktısı (Önizleme)</div>
+                    <p style="font-size: 0.9rem;">Bu bir HTML paragrafıdır. İçerisinde <b>koyu</b> ve <i>eğik</i> metinler bulunabilir.</p>
+                </div>
+            </section>
+
+            <section id="sec-form" class="lesson-card">
+                <h2>🏷️ Form, Fieldset &amp; Legend Kullanımı</h2>
+                <p>Kullanıcıdan veri almak ve alanları gruplamak için kullanılan form bileşenleri.</p>
+                <div class="code-box">&lt;form action="#"&gt;
   &lt;fieldset&gt;
-    &lt;legend&gt;Kayıt Formu&lt;/legend&gt;
-    
+    &lt;legend&gt;Öğrenci Bilgileri&lt;/legend&gt;
     &lt;label&gt;Ad Soyad:&lt;/label&gt;
-    &lt;input type="text" required&gt;
-
-    &lt;label&gt;Şehir:&lt;/label&gt;
-    &lt;select&gt;
-      &lt;option&gt;Diyarbakır&lt;/option&gt;
-    &lt;/select&gt;
-
-    &lt;button type="submit"&gt;💾 Kaydet&lt;/button&gt;
-    &lt;button type="reset"&gt;🧹 Temizle&lt;/button&gt;
-  &lt;/fieldset&gt;
-&lt;/form&gt;</div>
-                </div>
-                <div class="preview-box">
-                    <div class="preview-title">📺 Ekran Çıktısı</div>
-                    <form onsubmit="alert('Form başarıyla gönderildi!'); return false;">
-                        <fieldset class="demo-fieldset">
-                            <legend>Öğrenci Kayıt Formu</legend>
-
-                            <div style="margin-bottom: 0.5rem;">
-                                <label style="font-weight:600; font-size:0.8rem; color:#2c3e50; display:block;">Ad Soyad:</label>
-                                <input type="text" class="form-control-input" placeholder="Ahmet Yılmaz" required>
-                            </div>
-
-                            <div style="margin-bottom: 0.5rem;">
-                                <label style="font-weight:600; font-size:0.8rem; color:#2c3e50; display:block;">Şehir:</label>
-                                <select class="form-control-input" style="background:#fff;">
-                                    <option>Diyarbakır</option>
-                                    <option>İstanbul</option>
-                                    <option>Ankara</option>
-                                </select>
-                            </div>
-
-                            <div style="display:flex; gap:0.4rem; margin-top:0.8rem; flex-wrap:wrap;">
-                                <button type="submit" style="background:#27ae60; color:white; border:none; padding:0.4rem 0.8rem; border-radius:4px; font-weight:bold; font-size:0.8rem; cursor:pointer;">💾 Kaydet</button>
-                                <button type="reset" style="background:#e74c3c; color:white; border:none; padding:0.4rem 0.8rem; border-radius:4px; font-weight:bold; font-size:0.8rem; cursor:pointer;">🧹 Temizle</button>
-                            </div>
-                        </fieldset>
-                    </form>
-                </div>
-            </article>
-
-            <article class="tag-card">
-                <div>
-                    <h3>📋 Sıralı / Sırasız Listeler</h3>
-                    <p><code>&lt;ul&gt;</code> maddeli listeler için, <code>&lt;ol&gt;</code> ise numaralı listeler için kullanılır.</p>
-                    <div class="code-block">&lt;ul&gt;
-  &lt;li&gt;HTML5&lt;/li&gt;
-  &lt;li&gt;CSS3&lt;/li&gt;
-&lt;/ul&gt;
-&lt;ol&gt;
-  &lt;li&gt;Adım 1&lt;/li&gt;
-  &lt;li&gt;Adım 2&lt;/li&gt;
-&lt;/ol&gt;</div>
-                </div>
-                <div class="preview-box">
-                    <div class="preview-title">📺 Ekran Çıktısı</div>
-                    <ul style="margin-left: 18px; font-size: 0.85rem;">
-                        <li>HTML5</li>
-                        <li>CSS3</li>
-                    </ul>
-                    <ol style="margin-left: 18px; font-size: 0.85rem; margin-top: 4px;">
-                        <li>Adım 1</li>
-                        <li>Adım 2</li>
-                    </ol>
-                </div>
-            </article>
-
-        </section>
-    </main>
-
-    <footer>
-        <p>&copy; 2026 KodDersleri - Bilgisayar Dersi Eğitim Materyali. Tüm Hakları Saklıdır.</p>
-    </footer>
-
-    <script>
-        const menuToggle = document.getElementById('mobile-menu');
-        const navLinks = document.querySelector('.nav-links');
-
-        menuToggle.addEventListener('click', () => {
-            navLinks.classList.toggle('active');
-        });
-    </script>
-</body>
-</html>
+    &lt;input type="text"&gt;
