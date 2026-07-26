@@ -147,6 +147,46 @@
             .docs-layout { grid-template-columns: 1fr; }
             .sidebar { position: static; max-height: 250px; }
         }
+        /* --- MOBİL TAŞMA VE YATAY KAYDIRMA ENGELLEYİCİ STİLLER --- */
+
+/* 1. Sayfa genelinde dışa taşmayı engelle */
+html, body {
+    max-width: 100%;
+    overflow-x: hidden;
+}
+
+/* 2. Örnek Kod Kutuları (#FED24F) */
+.code-block {
+    max-width: 100%;
+    box-sizing: border-box;
+    white-space: pre-wrap;       /* Uzun kod satırlarını ekrana sığdırıp alt satıra geçirir */
+    word-break: break-word;      /* Çok uzun kelimeleri/kodları kırar */
+    overflow-x: auto;            /* İhtiyaç olursa sadece kutu içinde yatay kaydırma yapar */
+}
+
+/* 3. Canlı Önizleme Kutusu (Mavi Borderlı Kutu) */
+.preview-box {
+    max-width: 100%;
+    box-sizing: border-box;
+    overflow-x: auto;            /* İçerik genişse taşmayı engeller, kutu ekran genişliğinde kalır */
+    word-wrap: break-word;
+}
+
+/* 4. Mavi Kutunun İçindeki Form, Tablo ve Diğer Elemanlar */
+.preview-box *, 
+.preview-box form, 
+.preview-box table, 
+.preview-box fieldset {
+    max-width: 100% !important;
+    box-sizing: border-box;
+}
+
+/* Tabloların mobilde ekranı patlatmasını önler */
+.preview-box table {
+    display: block;
+    overflow-x: auto;
+    white-space: nowrap;
+}
     </style>
 </head>
 <body>
