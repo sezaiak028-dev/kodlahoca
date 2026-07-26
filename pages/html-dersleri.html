@@ -3,578 +3,384 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>HTML5 Etiket Kütüphanesi - KodlaHoca</title>
-
-    <meta name="mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-title" content="KodlaHoca">
-    <meta name="theme-color" content="#1a252f">
-
-    <link rel="icon" type="image/svg+xml;v=2" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Crect width='512' height='512' rx='120' fill='%231a252f'/%3E%3Cpath d='M160 170 L70 256 L160 342 M352 170 L442 256 L352 342 M290 140 L222 372' stroke='%2316a085' stroke-width='38' stroke-linecap='round' stroke-linejoin='round' fill='none'/%3E%3C/svg%3E">
-    <link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Crect width='512' height='512' rx='120' fill='%231a252f'/%3E%3Cpath d='M160 170 L70 256 L160 342 M352 170 L442 256 L352 342 M290 140 L222 372' stroke='%2316a085' stroke-width='38' stroke-linecap='round' stroke-linejoin='round' fill='none'/%3E%3C/svg%3E">
-
-    <link rel="stylesheet" href="../assets/css/style.css">
-    <link rel="stylesheet" href="../assets/css/responsive.css">
+    <title>HTML Ders Notları & Etiket Rehberi</title>
     <style>
-        /* MOBİL TAŞMA VE GENEL SIFIRLAMA */
-        html, body {
-            max-width: 100%;
-            overflow-x: hidden;
-        }
-
-        /* İKİ KOLONLU DOKÜMANTASYON DÜZENİ */
-        .docs-layout {
-            display: grid;
-            grid-template-columns: 260px 1fr;
-            gap: 2rem;
-            margin: 2rem auto;
-            align-items: start;
-        }
-
-        /* SOL YAN MENÜ (SIDEBAR) */
-        .sidebar {
-            background: white;
-            padding: 1.2rem;
-            border-radius: 10px;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
-            position: sticky;
-            top: 80px;
-            max-height: calc(100vh - 100px);
-            overflow-y: auto;
-        }
-
-        .sidebar h4 {
-            color: var(--primary-color, #2c3e50);
-            font-size: 0.95rem;
-            margin: 1.2rem 0 0.4rem 0;
-            padding-bottom: 0.3rem;
-            border-bottom: 2px solid #3498db;
-        }
-
-        .sidebar h4:first-child { margin-top: 0; }
-
-        .sidebar ul {
-            list-style: none;
-            padding: 0;
+        /* GENEL SIFIRLAMA VE TEMEL TİPOGRAFİ */
+        * {
+            box-sizing: border-box;
             margin: 0;
+            padding: 0;
         }
 
-        .sidebar ul li { margin-bottom: 0.2rem; }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            background-color: #f4f6f9;
+            color: #333;
+        }
 
-        .sidebar ul li a {
-            display: block;
-            padding: 0.35rem 0.5rem;
-            color: #444;
+        /* HEADER VE NAVİGASYON */
+        header {
+            background-color: #2c3e50;
+            color: #fff;
+            padding: 1rem 2rem;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #e74c3c;
             text-decoration: none;
-            border-radius: 4px;
-            font-size: 0.85rem;
-            font-family: monospace;
-            transition: all 0.2s;
         }
 
-        .sidebar ul li a:hover {
-            background-color: #e8f4fc;
-            color: #3498db;
-            padding-left: 0.75rem;
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 1.5rem;
         }
 
-        /* SAĞ ANA İÇERİK */
-        .docs-content {
-            background: white;
-            padding: 2rem;
-            border-radius: 10px;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
-            min-width: 0;
+        .nav-links a {
+            color: #ecf0f1;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover, .nav-links a.active {
+            color: #e74c3c;
+        }
+
+        .menu-toggle {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+        }
+
+        .menu-toggle span {
+            width: 25px;
+            height: 3px;
+            background-color: #fff;
+            margin: 3px 0;
+            transition: 0.4s;
+        }
+
+        /* SAYFA İÇERİK DÜZENİ */
+        .container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 1.5rem;
+        }
+
+        .page-header {
+            text-align: center;
+            margin-bottom: 2.5rem;
+        }
+
+        .page-header h1 {
+            color: #2c3e50;
+            font-size: 2.2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .page-header p {
+            color: #7f8c8d;
+            font-size: 1.1rem;
+        }
+
+        /* İÇERİK KARTLARI */
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2rem;
         }
 
         .tag-card {
-            margin-bottom: 3rem;
-            padding-bottom: 2rem;
-            border-bottom: 2px dashed #e0e0e0;
-            scroll-margin-top: 90px;
+            background: #fff;
+            border-radius: 8px;
+            padding: 1.5rem;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            border-top: 4px solid #e74c3c;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
         }
 
-        .tag-card:last-child { border-bottom: none; }
-
         .tag-card h3 {
-            color: var(--primary-color, #2c3e50);
-            font-size: 1.35rem;
-            margin-bottom: 0.5rem;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            flex-wrap: wrap;
+            color: #2c3e50;
+            margin-bottom: 0.8rem;
+            font-size: 1.3rem;
         }
 
         .tag-card p {
+            font-size: 0.95rem;
             color: #555;
-            line-height: 1.6;
             margin-bottom: 1rem;
         }
 
-        /* SARI ARKA PLANLI ÖRNEK KOD KUTUSU (#FED24F) */
+        /* KOD KUTUSU VE ÖNİZLEME */
         .code-block {
-            background-color: #FED24F;
-            color: #1a1a1a;
-            border: 1px solid #e0a800;
-            border-left: 5px solid #2c3e50;
-            padding: 1.2rem;
-            border-radius: 8px;
-            font-family: 'Consolas', 'Courier New', monospace;
-            font-size: 0.9rem;
-            line-height: 1.5;
-            margin: 1rem 0;
+            background-color: #272822;
+            color: #f8f8f2;
+            padding: 1rem;
+            border-radius: 6px;
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 0.85rem;
+            overflow-x: auto;
             white-space: pre-wrap;
             word-break: break-word;
-            max-width: 100%;
-            box-sizing: border-box;
-            font-weight: 600;
+            margin-bottom: 1rem;
         }
 
-        /* CANLI ÇIKTI KUTUSU (MAVİ BORDERLI) */
         .preview-box {
-            background-color: #ffffff;
-            border: 2px solid #3498db;
-            border-radius: 8px;
+            background-color: #fdfdfd;
+            border: 1px dashed #cbd5e1;
             padding: 1.2rem;
-            margin-top: 1rem;
-            max-width: 100%;
-            box-sizing: border-box;
-            overflow-x: auto;
-        }
-
-        .preview-box *, 
-        .preview-box form, 
-        .preview-box table, 
-        .preview-box fieldset {
-            max-width: 100% !important;
-            box-sizing: border-box;
+            border-radius: 6px;
+            margin-top: 0.5rem;
         }
 
         .preview-title {
             font-size: 0.8rem;
             font-weight: bold;
-            color: #3498db;
+            color: #94a3b8;
             text-transform: uppercase;
-            letter-spacing: 0.5px;
             margin-bottom: 0.8rem;
+            letter-spacing: 0.5px;
         }
 
-        /* FORM STİLLERİ (CANLI GÖSTERİM İÇİN) */
-        .demo-form {
-            display: flex;
-            flex-direction: column;
-            gap: 1rem;
-        }
-
-        .form-group {
-            display: flex;
-            flex-direction: column;
-            gap: 0.3rem;
-        }
-
-        .form-group label {
-            font-weight: 600;
-            color: #2c3e50;
+        /* FOOTER */
+        footer {
+            background-color: #2c3e50;
+            color: #bdc3c7;
+            text-align: center;
+            padding: 1.5rem;
+            margin-top: 4rem;
             font-size: 0.9rem;
         }
 
-        .form-control {
-            padding: 0.5rem;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            font-size: 0.9rem;
-            width: 100%;
-        }
-
-        .form-row {
-            display: flex;
-            gap: 1rem;
-            flex-wrap: wrap;
-            align-items: center;
-        }
-
-        .btn {
-            padding: 0.5rem 1rem;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            font-weight: bold;
-            font-size: 0.9rem;
-        }
-
-        .btn-primary { background: #3498db; color: white; }
-        .btn-secondary { background: #e74c3c; color: white; }
-
-        /* MOBİL UYUM */
+        /* MOBİL UYUMLULUK (RESPONSIVE) */
         @media (max-width: 768px) {
-            .docs-layout { grid-template-columns: 1fr; }
-            .sidebar { position: static; max-height: 250px; }
-            .docs-content { padding: 1rem; }
+            .menu-toggle {
+                display: flex;
+            }
+
+            .nav-links {
+                display: none;
+                flex-direction: column;
+                width: 100%;
+                position: absolute;
+                top: 60px;
+                left: 0;
+                background-color: #2c3e50;
+                padding: 1rem;
+                box-shadow: 0 5px 10px rgba(0,0,0,0.2);
+            }
+
+            .nav-links.active {
+                display: flex;
+            }
+
+            .grid-container {
+                grid-template-columns: 1fr;
+            }
         }
     </style>
 </head>
 <body>
 
     <header>
-        <nav class="nav-container">
-            <a href="../index.html" class="logo">&lt;Kodla<span>Hoca</span>/&gt;</a>
+        <div class="nav-container">
+            <a href="../index.html" class="logo">💻 KodDersleri</a>
             <div class="menu-toggle" id="mobile-menu">
-                <span></span><span></span><span></span>
+                <span></span>
+                <span></span>
+                <span></span>
             </div>
-            <ul class="nav-links" id="nav-links">
+            <ul class="nav-links">
                 <li><a href="../index.html">Ana Sayfa</a></li>
-                <li><a href="html-dersleri.html" style="color: var(--accent-color, #3498db);">HTML</a></li>
-                <li><a href="css-dersleri.html">CSS</a></li>
-                <li><a href="js-dersleri.html">JavaScript</a></li>
+                <li><a href="html-dersleri.html" class="active">HTML Dersleri</a></li>
+                <li><a href="#css-dersleri">CSS Dersleri</a></li>
+                <li><a href="#js-dersleri">JS Dersleri</a></li>
             </ul>
-        </nav>
+        </div>
     </header>
 
-    <section class="hero" style="padding: 2rem 1rem;">
-        <h1>HTML5 Etiket Kütüphanesi</h1>
-        <p>Sol menüden istediğiniz etiketi seçip örnek kodunu ve ekran çıktısını inceleyebilirsiniz.</p>
-    </section>
+    <main class="container">
+        <section class="page-header">
+            <h1>🌐 HTML5 Ders Notları &amp; Örnek Yapılar</h1>
+            <p>Web geliştirmenin temel yapı taşı olan HTML etiketlerini, canlı önizlemeleri ve kod örnekleriyle inceleyin.</p>
+        </section>
 
-    <main class="container docs-layout">
+        <section class="grid-container">
 
-        <aside class="sidebar">
-            <h4>Temel İskelet</h4>
-            <ul>
-                <li><a href="#tag-html">&lt;html&gt; &amp; &lt;head&gt;</a></li>
-                <li><a href="#tag-headings">&lt;h1&gt; - &lt;h6&gt;</a></li>
-                <li><a href="#tag-p">&lt;p&gt; Paragraf</a></li>
-            </ul>
-
-            <h4>Metin &amp; Biçim</h4>
-            <ul>
-                <li><a href="#tag-formatting">&lt;strong&gt; &amp; &lt;em&gt;</a></li>
-                <li><a href="#tag-span">&lt;span&gt; Satır İçi</a></li>
-                <li><a href="#tag-a">&lt;a&gt; Link</a></li>
-            </ul>
-
-            <h4>Medya &amp; Etkileşim</h4>
-            <ul>
-                <li><a href="#tag-img">&lt;img&gt; Resim</a></li>
-                <li><a href="#tag-iframe">&lt;iframe&gt; Çerçeve</a></li>
-                <li><a href="#tag-map">&lt;map&gt; Haritalama</a></li>
-                <li><a href="#tag-media">&lt;audio&gt; &amp; &lt;video&gt;</a></li>
-            </ul>
-
-            <h4>Listeler &amp; Göstergeler</h4>
-            <ul>
-                <li><a href="#tag-lists">&lt;ul&gt;, &lt;ol&gt;, &lt;li&gt;</a></li>
-                <li><a href="#tag-progress">&lt;progress&gt; İlerleme</a></li>
-            </ul>
-
-            <h4>Formlar &amp; Girdiler</h4>
-            <ul>
-                <li><a href="#tag-form-main">&lt;form&gt; Yapısı</a></li>
-                <li><a href="#tag-input-types">&lt;input&gt; Türleri</a></li>
-                <li><a href="#tag-label">&lt;label&gt; Etiket</a></li>
-                <li><a href="#tag-select">&lt;select&gt; Açılır Menü</a></li>
-                <li><a href="#tag-textarea">&lt;textarea&gt; Metin Alanı</a></li>
-                <li><a href="#tag-fieldset">&lt;fieldset&gt; Gruplama</a></li>
-                <li><a href="#tag-buttons">&lt;button&gt; Butonlar</a></li>
-            </ul>
-        </aside>
-
-        <div class="docs-content">
-
-            <article class="tag-card" id="tag-html">
-                <h3>🏷️ &lt;html&gt;, &lt;head&gt;, &lt;body&gt;</h3>
-                <p>Bir web sayfasının en temel yapısını oluşturan kök etiketlerdir.</p>
-                <div class="code-block">&lt;!DOCTYPE html&gt;
+            <article class="tag-card">
+                <div>
+                    <h3>📄 Temel Sayfa İskeleti</h3>
+                    <p>Her standart HTML5 belgesinde bulunması gereken zorunlu ana etiketler bütünüdür.</p>
+                    <div class="code-block">&lt;!DOCTYPE html&gt;
 &lt;html lang="tr"&gt;
   &lt;head&gt;
     &lt;meta charset="UTF-8"&gt;
     &lt;title&gt;Sayfa Başlığı&lt;/title&gt;
   &lt;/head&gt;
   &lt;body&gt;
-     Sayfa içeriği buraya yazılır.
+    &lt;h1&gt;Merhaba Dünya!&lt;/h1&gt;
   &lt;/body&gt;
 &lt;/html&gt;</div>
+                </div>
                 <div class="preview-box">
                     <div class="preview-title">📺 Ekran Çıktısı</div>
-                    <p style="margin:0; color:#555;">(Tarayıcı bu yapıyı okuyarak sayfayı tuval üzerine çizer.)</p>
+                    <h1 style="font-size: 1.5rem; color: #2c3e50;">Merhaba Dünya!</h1>
                 </div>
             </article>
 
-            <article class="tag-card" id="tag-headings">
-                <h3>🏷️ &lt;h1&gt; - &lt;h6&gt; Başlık Etiketleri</h3>
-                <p>Sayfadaki başlık hiyerarşisini belirler. <code>&lt;h1&gt;</code> en büyük, <code>&lt;h6&gt;</code> en küçük başlıktır.</p>
-                <div class="code-block">&lt;h1&gt;H1 Ana Başlık&lt;/h1&gt;
-&lt;h2&gt;H2 Alt Başlık&lt;/h2&gt;</div>
+            <article class="tag-card">
+                <div>
+                    <h3>✍️ Başlıklar ve Paragraflar</h3>
+                    <p><code>&lt;h1&gt;</code> - <code>&lt;h6&gt;</code> arası başlıklar ve <code>&lt;p&gt;</code> paragraf etiketleri metin hiyerarşisini sağlar.</p>
+                    <div class="code-block">&lt;h1&gt;Ana Başlık (H1)&lt;/h1&gt;
+&lt;h3&gt;Alt Başlık (H3)&lt;/h3&gt;
+&lt;p&gt;Bu bir paragraf metnidir. &lt;b&gt;Kalın&lt;/b&gt; ve &lt;i&gt;italik&lt;/i&gt; kelimeler içerir.&lt;/p&gt;</div>
+                </div>
                 <div class="preview-box">
                     <div class="preview-title">📺 Ekran Çıktısı</div>
-                    <h1 style="font-size:1.5rem; margin-bottom:0.3rem;">H1 Ana Başlık</h1>
-                    <h2 style="font-size:1.2rem; margin:0;">H2 Alt Başlık</h2>
+                    <h2 style="font-size: 1.3rem;">Ana Başlık (H1)</h2>
+                    <h4 style="font-size: 1rem; color: #555;">Alt Başlık (H3)</h4>
+                    <p style="font-size: 0.9rem; margin-top: 5px;">Bu bir paragraf metnidir. <b>Kalın</b> ve <i>italik</i> kelimeler içerir.</p>
                 </div>
             </article>
 
-            <article class="tag-card" id="tag-p">
-                <h3>🏷️ &lt;p&gt; Paragraf Etiketi</h3>
-                <p>Metin blokları oluşturmak için kullanılır. Otomatik olarak alt ve üstten boşluk bırakır.</p>
-                <div class="code-block">&lt;p&gt;Bu birinci paragraftır.&lt;/p&gt;</div>
+            <article class="tag-card">
+                <div>
+                    <h3>📋 Sıralı / Sırasız Listeler</h3>
+                    <p><code>&lt;ul&gt;</code> maddeli listeler için, <code>&lt;ol&gt;</code> ise numaralı listeler için kullanılır.</p>
+                    <div class="code-block">&lt;ul&gt;
+  &lt;li&gt;HTML5&lt;/li&gt;
+  &lt;li&gt;CSS3&lt;/li&gt;
+&lt;/ul&gt;
+&lt;ol&gt;
+  &lt;li&gt;Adım 1&lt;/li&gt;
+  &lt;li&gt;Adım 2&lt;/li&gt;
+&lt;/ol&gt;</div>
+                </div>
                 <div class="preview-box">
                     <div class="preview-title">📺 Ekran Çıktısı</div>
-                    <p style="margin:0;">Bu birinci paragraftır.</p>
+                    <ul style="margin-left: 20px; font-size: 0.9rem;">
+                        <li>HTML5</li>
+                        <li>CSS3</li>
+                    </ul>
+                    <ol style="margin-left: 20px; font-size: 0.9rem; margin-top: 5px;">
+                        <li>Adım 1</li>
+                        <li>Adım 2</li>
+                    </ol>
                 </div>
             </article>
 
-            <article class="tag-card" id="tag-span">
-                <h3>🏷️ &lt;span&gt; Satır İçi Biçimlendirme</h3>
-                <p>Cümle içindeki belirli bir kelimeyi veya karakter grubunu renklendirmek/stil vermek için kullanılır. Yeni satıra geçmez (inline).</p>
-                <div class="code-block">&lt;p&gt;Bugün hava çok &lt;span style="color:red; font-weight:bold;"&gt;güzel&lt;/span&gt; görünüyor.&lt;/p&gt;</div>
-                <div class="preview-box">
-                    <div class="preview-title">📺 Ekran Çıktısı</div>
-                    <p style="margin:0;">Bugün hava çok <span style="color:red; font-weight:bold;">güzel</span> görünüyor.</p>
-                </div>
-            </article>
+            <article class="tag-card" style="grid-column: 1 / -1; border-top-color: #27ae60;">
+                <div>
+                    <h3>🏷️ Formlar, Çerçeve (&lt;fieldset&gt; &amp; &lt;legend&gt;) ve Butonlar</h3>
+                    <p>
+                        Kullanıcıdan veri almak için <code>&lt;form&gt;</code> kullanılır. Form gruplarını çerçeveye almak için <code>&lt;fieldset&gt;</code>, çerçevenin üzerindeki başlık için <code>&lt;legend&gt;</code>, gönderme/temizleme işlemleri için ise <code>&lt;button&gt;</code> etiketinden yararlanılır.
+                    </p>
+                    <div class="code-block">&lt;form action="kaydet.php" method="POST"&gt;
+  &lt;!-- Kenarlıklı Form Grubu --&gt;
+  &lt;fieldset style="border: 2px solid #2c3e50; border-radius: 8px; padding: 1rem;"&gt;
+    &lt;legend style="font-weight: bold; color: #2c3e50; padding: 0 8px;"&gt;Öğrenci Kayıt Formu&lt;/legend&gt;
 
-            <article class="tag-card" id="tag-formatting">
-                <h3>🏷️ &lt;strong&gt; &amp; &lt;em&gt; Vurgu Etiketleri</h3>
-                <p>Önemli kelimeleri <strong>kalın (strong)</strong> veya <em>eğik (em)</em> yapmak için kullanılır.</p>
-                <div class="code-block">&lt;strong&gt;Önemli Metin&lt;/strong&gt; ve &lt;em&gt;İtalik Metin&lt;/em&gt;</div>
-                <div class="preview-box">
-                    <div class="preview-title">📺 Ekran Çıktısı</div>
-                    <strong>Önemli Metin</strong> ve <em>İtalik Metin</em>
-                </div>
-            </article>
+    &lt;!-- Metin Girdisi --&gt;
+    &lt;label for="ad"&gt;Ad Soyad:&lt;/label&gt;
+    &lt;input type="text" id="ad" name="ad" placeholder="Ahmet Yılmaz" required&gt;
 
-            <article class="tag-card" id="tag-a">
-                <h3>🏷️ &lt;a&gt; Bağlantı (Link) Etiketi</h3>
-                <p>Başka bir sayfaya veya siteye köprü kurmayı sağlar.</p>
-                <div class="code-block">&lt;a href="https://www.google.com" target="_blank"&gt;Google'a Git&lt;/a&gt;</div>
-                <div class="preview-box">
-                    <div class="preview-title">📺 Ekran Çıktısı</div>
-                    <a href="https://www.google.com" target="_blank" style="color:#3498db; text-decoration:underline;">Google'a Git</a>
-                </div>
-            </article>
+    &lt;!-- E-posta Girdisi --&gt;
+    &lt;label for="email"&gt;E-posta:&lt;/label&gt;
+    &lt;input type="email" id="email" name="email" placeholder="ornek@mail.com"&gt;
 
-            <article class="tag-card" id="tag-iframe">
-                <h3>🏷️ &lt;iframe&gt; Dahili Çerçeve</h3>
-                <p>Web sayfasının içine başka bir web sayfasını, YouTube videosunu veya Haritaları gömmek için kullanılır.</p>
-                <div class="code-block">&lt;iframe src="https://example.com" width="100%" height="150" title="Örnek Çerçeve"&gt;&lt;/iframe&gt;</div>
-                <div class="preview-box">
-                    <div class="preview-title">📺 Ekran Çıktısı</div>
-                    <iframe src="about:blank" style="width:100%; height:80px; border:1px solid #ccc; background:#f9f9f9;" title="Iframe Örneği"></iframe>
-                </div>
-            </article>
+    &lt;!-- Şehir Seçimi --&gt;
+    &lt;label for="sehir"&gt;Şehir:&lt;/label&gt;
+    &lt;select id="sehir" name="sehir"&gt;
+      &lt;option value="21"&gt;Diyarbakır&lt;/option&gt;
+      &lt;option value="34"&gt;İstanbul&lt;/option&gt;
+    &lt;/select&gt;
 
-            <article class="tag-card" id="tag-map">
-                <h3>🏷️ &lt;map&gt; &amp; &lt;area&gt; Tıklanabilir Resim Haritası</h3>
-                <p>Bir resmin üzerindeki belirli bölgelere (koordinatlara) tıklanabilir farklı linkler tanımlamak için kullanılır.</p>
-                <div class="code-block">&lt;img src="plan.jpg" usemap="#bilgisayar-map" alt="Plan"&gt;
+    &lt;!-- Mesaj Kutusu --&gt;
+    &lt;label for="not"&gt;Notunuz:&lt;/label&gt;
+    &lt;textarea id="not" name="not" rows="3" placeholder="Mesajınızı yazın..."&gt;&lt;/textarea&gt;
 
-&lt;map name="bilgisayar-map"&gt;
-  &lt;area shape="rect" coords="34,44,270,350" alt="Kasa" href="kasa.html"&gt;
-  &lt;area shape="circle" coords="337,300,44" alt="Fare" href="mouse.html"&gt;
-&lt;/map&gt;</div>
-                <div class="preview-box">
-                    <div class="preview-title">📺 Ekran Çıktısı</div>
-                    <p style="margin:0; font-size:0.9rem; color:#666;">(Görsel üzerinde görünmez tıklanabilir koordinat alanları oluşturur.)</p>
-                </div>
-            </article>
-
-            <article class="tag-card" id="tag-media">
-                <h3>🏷️ &lt;audio&gt; &amp; &lt;video&gt; Medya Etiketleri</h3>
-                <p>Sayfada harici bir oynatıcıya ihtiyaç duymadan ses ve video yürütmek için kullanılır.</p>
-                <div class="code-block">&lt;audio controls&gt;
-  &lt;source src="ses.mp3" type="audio/mpeg"&gt;
-&lt;/audio&gt;</div>
-                <div class="preview-box">
-                    <div class="preview-title">📺 Ekran Çıktısı</div>
-                    <audio controls style="width:100%; max-width:300px; height:40px;"></audio>
-                </div>
-            </article>
-
-            <article class="tag-card" id="tag-progress">
-                <h3>🏷️ &lt;progress&gt; İlerleme Çubuğu</h3>
-                <p>Bir işlemin tamamlanma yüzdesini veya yükleme durumunu gösteren çubuktur.</p>
-                <div class="code-block">&lt;label for="file"&gt;Yüklenme Durumu:&lt;/label&gt;
-&lt;progress id="file" value="70" max="100"&gt; 70% &lt;/progress&gt;</div>
-                <div class="preview-box">
-                    <div class="preview-title">📺 Ekran Çıktısı</div>
-                    <div style="display:flex; align-items:center; gap:0.5rem; flex-wrap:wrap;">
-                        <label for="p1" style="font-weight:bold;">Yüklenme Durumu (%70):</label>
-                        <progress id="p1" value="70" max="100" style="width:180px; height:20px;"></progress>
-                    </div>
-                </div>
-            </article>
-
-            <article class="tag-card" id="tag-form-main">
-                <h3>🏷️ &lt;form&gt; Ana Yapısı Ve Parametreleri</h3>
-                <p>Kullanıcı verilerini sunucuya göndermek için kapsayıcı etikettir. <code>action</code> verinin gideceği adresi, <code>method</code> ise gönderim türünü (GET veya POST) belirler.</p>
-                <div class="code-block">&lt;!-- Form Ana Yapısı --&gt;
-&lt;form action="kaydet.php" method="POST"&gt;
-  &lt;!-- Form Elemanları Buraya Gelir --&gt;
+    &lt;!-- İşlem Butonları --&gt;
+    &lt;div style="margin-top: 1rem; display: flex; gap: 0.5rem;"&gt;
+      &lt;button type="submit" class="btn btn-primary"&gt;💾 Kaydet / Gönder&lt;/button&gt;
+      &lt;button type="reset" class="btn btn-secondary"&gt;🧹 Temizle&lt;/button&gt;
+    &lt;/div&gt;
+  &lt;/fieldset&gt;
 &lt;/form&gt;</div>
-                <div class="preview-box">
-                    <div class="preview-title">📺 Ekran Çıktısı</div>
-                    <p style="margin:0; font-size:0.9rem; color:#555;">(Form kapsayıcıdır, içine eklenen girdileri tek paket halinde sunucuya iletir.)</p>
                 </div>
-            </article>
 
-            <article class="tag-card" id="tag-input-types">
-                <h3>🏷️ &lt;input&gt; Türleri &amp; Özellikleri (Çok Detaylı)</h3>
-                <p><code>type</code> parametresi ile verinin türünü belirleriz. <code>required</code> (zorunlu), <code>placeholder</code> (ipucu metni), <code>disabled</code> (devre dışı) gibi özellikler alır.</p>
-                <div class="code-block">&lt;!-- Metin, Şifre ve E-posta --&gt;
-&lt;input type="text" placeholder="Adınız" required&gt;
-&lt;input type="password" placeholder="Şifreniz"&gt;
-&lt;input type="email" placeholder="E-posta Adresiniz"&gt;
-
-&lt;!-- Sayı, Tarih ve Renk --&gt;
-&lt;input type="number" min="1" max="100" value="18"&gt;
-&lt;input type="date"&gt;
-&lt;input type="color" value="#3498db"&gt;
-
-&lt;!-- Dosya Yükleme --&gt;
-&lt;input type="file" accept="image/*"&gt;
-
-&lt;!-- Radio (Tekli Seçim) ve Checkbox (Çoklu Seçim) --&gt;
-&lt;input type="radio" name="cinsiyet" id="k"&gt; &lt;label for="k"&gt;Kadın&lt;/label&gt;
-&lt;input type="radio" name="cinsiyet" id="e"&gt; &lt;label for="e"&gt;Erkek&lt;/label&gt;
-
-&lt;input type="checkbox" id="onay" required&gt; &lt;label for="onay"&gt;Şartları Kabul Ediyorum&lt;/label&gt;</div>
                 <div class="preview-box">
-                    <div class="preview-title">📺 Ekran Çıktısı (Örnek Form Girdileri)</div>
-                    <form class="demo-form" onsubmit="return false;">
-                        <div class="form-group">
-                            <label>Metin Kutusu (required):</label>
-                            <input type="text" class="form-control" placeholder="Adınız Soyadınız" required>
-                        </div>
-                        <div class="form-group">
-                            <label>Şifre Kutusu (password):</label>
-                            <input type="password" class="form-control" placeholder="••••••••">
-                        </div>
-                        <div class="form-group">
-                            <label>E-posta &amp; Sayı Kutusu:</label>
-                            <div class="form-row">
-                                <input type="email" class="form-control" placeholder="ornek@mail.com" style="flex:2;">
-                                <input type="number" class="form-control" value="25" min="1" max="99" style="flex:1;">
+                    <div class="preview-title">📺 Ekran Çıktısı (Canlı Önizleme)</div>
+                    <form onsubmit="alert('Form verileri başarıyla gönderildi!'); return false;">
+                        <fieldset style="border: 2px solid #2c3e50; border-radius: 8px; padding: 1.2rem; background: #ffffff;">
+                            <legend style="font-weight: bold; color: #2c3e50; padding: 0 8px; font-size: 1rem;">Öğrenci Kayıt Formu</legend>
+
+                            <div style="margin-bottom: 0.8rem;">
+                                <label style="display:block; font-weight:600; color:#2c3e50; margin-bottom:0.2rem;">Ad Soyad:</label>
+                                <input type="text" placeholder="Ahmet Yılmaz" required style="width:100%; padding:0.5rem; border:1px solid #ccc; border-radius:4px; font-size:0.9rem;">
                             </div>
-                        </div>
-                        <div class="form-group">
-                            <label>Tarih &amp; Renk Seçici:</label>
-                            <div class="form-row">
-                                <input type="date" class="form-control" style="flex:2;">
-                                <input type="color" value="#3498db" style="height:38px; cursor:pointer; flex:1;">
+
+                            <div style="margin-bottom: 0.8rem;">
+                                <label style="display:block; font-weight:600; color:#2c3e50; margin-bottom:0.2rem;">E-posta Adresi:</label>
+                                <input type="email" placeholder="ornek@mail.com" style="width:100%; padding:0.5rem; border:1px solid #ccc; border-radius:4px; font-size:0.9rem;">
                             </div>
-                        </div>
-                        <div class="form-group">
-                            <label>Dosya Seçici (file):</label>
-                            <input type="file" class="form-control">
-                        </div>
-                        <div class="form-group">
-                            <label>Cinsiyet (Radio - Tekli Seçim):</label>
-                            <div class="form-row">
-                                <label><input type="radio" name="demo-cins" checked> Kadın</label>
-                                <label><input type="radio" name="demo-cins"> Erkek</label>
+
+                            <div style="margin-bottom: 0.8rem;">
+                                <label style="display:block; font-weight:600; color:#2c3e50; margin-bottom:0.2rem;">Şehir Seçimi:</label>
+                                <select style="width:100%; padding:0.5rem; border:1px solid #ccc; border-radius:4px; font-size:0.9rem; background-color:#fff;">
+                                    <option>Diyarbakır</option>
+                                    <option>İstanbul</option>
+                                    <option>Ankara</option>
+                                    <option>İzmir</option>
+                                </select>
                             </div>
-                        </div>
+
+                            <div style="margin-bottom: 0.8rem;">
+                                <label style="display:block; font-weight:600; color:#2c3e50; margin-bottom:0.2rem;">Ders Notu / Mesaj:</label>
+                                <textarea rows="3" placeholder="Öğretmene iletmek istediğiniz notu yazın..." style="width:100%; padding:0.5rem; border:1px solid #ccc; border-radius:4px; font-size:0.9rem;"></textarea>
+                            </div>
+
+                            <div style="display:flex; gap:0.5rem; margin-top:1rem; flex-wrap:wrap;">
+                                <button type="submit" style="background:#27ae60; color:white; border:none; padding:0.6rem 1.2rem; border-radius:4px; font-weight:bold; cursor:pointer; font-size:0.9rem; transition:0.2s;">💾 Kaydet / Gönder</button>
+                                <button type="reset" style="background:#e74c3c; color:white; border:none; padding:0.6rem 1.2rem; border-radius:4px; font-weight:bold; cursor:pointer; font-size:0.9rem; transition:0.2s;">🧹 Temizle</button>
+                            </div>
+                        </fieldset>
                     </form>
                 </div>
             </article>
 
-            <article class="tag-card" id="tag-label">
-                <h3>🏷️ &lt;label&gt; Form Elemanı Etiketi</h3>
-                <p>Form elemanlarına başlık vermek için kullanılır. <code>for</code> niteliği ile <code>input</code>'un <code>id</code> niteliği eşleştirilerek tıklanabilirlik alanı genişletilir.</p>
-                <div class="code-block">&lt;input type="checkbox" id="sozlesme"&gt;
-&lt;label for="sozlesme"&gt;Kullanım şartlarını okudum ve kabul ediyorum.&lt;/label&gt;</div>
-                <div class="preview-box">
-                    <div class="preview-title">📺 Ekran Çıktısı</div>
-                    <input type="checkbox" id="sozlesme-ex">
-                    <label for="sozlesme-ex" style="cursor:pointer; font-weight:500;">Kullanım şartlarını okudum ve kabul ediyorum.</label>
-                </div>
-            </article>
-
-            <article class="tag-card" id="tag-select">
-                <h3>🏷️ &lt;select&gt; &amp; &lt;option&gt; Açılır Seçenek Menüsü</h3>
-                <p>Kullanıcıya birden fazla seçenek arasından seçim yaptırmak için açılır liste menüsü oluşturur.</p>
-                <div class="code-block">&lt;label for="sehir"&gt;Şehir Seçin:&lt;/label&gt;
-&lt;select id="sehir" name="sehir" class="form-control"&gt;
-  &lt;option value="" disabled selected&gt;Seçiniz...&lt;/option&gt;
-  &lt;option value="21"&gt;Diyarbakır&lt;/option&gt;
-  &lt;option value="34"&gt;İstanbul&lt;/option&gt;
-  &lt;option value="06"&gt;Ankara&lt;/option&gt;
-&lt;/select&gt;</div>
-                <div class="preview-box">
-                    <div class="preview-title">📺 Ekran Çıktısı</div>
-                    <label for="sehir-ex" style="font-weight:bold; display:block; margin-bottom:0.4rem;">Şehir Seçin:</label>
-                    <select id="sehir-ex" class="form-control" style="max-width:250px;">
-                        <option disabled selected>Seçiniz...</option>
-                        <option>Diyarbakır</option>
-                        <option>İstanbul</option>
-                        <option>Ankara</option>
-                    </select>
-                </div>
-            </article>
-
-            <article class="tag-card" id="tag-textarea">
-                <h3>🏷️ &lt;textarea&gt; Çok Satırlı Metin Kutusu</h3>
-                <p>Görüş, öneri, adres veya mesaj gibi uzun metinlerin yazılmasına imkan sağlayan kutudur.</p>
-                <div class="code-block">&lt;label for="mesaj"&gt;Mesajınız:&lt;/label&gt;
-&lt;textarea id="mesaj" name="mesaj" rows="4" placeholder="Mesajınızı buraya yazın..." class="form-control"&gt;&lt;/textarea&gt;</div>
-                <div class="preview-box">
-                    <div class="preview-title">📺 Ekran Çıktısı</div>
-                    <textarea placeholder="Mesajınızı buraya yazın..." rows="3" class="form-control"></textarea>
-                </div>
-            </article>
-
-            <article class="tag-card" id="tag-fieldset">
-                <h3>🏷️ &lt;fieldset&gt; &amp; &lt;legend&gt; Form Gruplama</h3>
-                <p>Birbiriyle ilişkili form elemanlarını şık bir çerçeve içinde gruplamak için kullanılır.</p>
-                <div class="code-block">&lt;fieldset style="border:2px solid #2c3e50; border-radius:6px; padding:1rem;"&gt;
-  &lt;legend style="font-weight:bold; color:#2c3e50;"&gt;Kişisel Bilgiler&lt;/legend&gt;
-  &lt;input type="text" placeholder="İsim" class="form-control"&gt;
-&lt;/fieldset&gt;</div>
-                <div class="preview-box">
-                    <div class="preview-title">📺 Ekran Çıktısı</div>
-                    <fieldset style="border:2px solid #2c3e50; border-radius:6px; padding:0.8rem;">
-                        <legend style="font-weight:bold; color:#2c3e50; padding:0 6px;">Kişisel Bilgiler</legend>
-                        <input type="text" placeholder="İsim" class="form-control" style="margin-top:0.4rem;">
-                    </fieldset>
-                </div>
-            </article>
-
-            <article class="tag-card" id="tag-buttons">
-                <h3>🏷️ &lt;button&gt; Buton Türleri</h3>
-                <p>Formu göndermek (submit), formu temizlemek (reset) veya JavaScript tetiklemek (button) için kullanılır.</p>
-                <div class="code-block">&lt;button type="submit" class="btn btn-primary"&gt;Formu Gönder&lt;/button&gt;
-&lt;button type="reset" class="btn btn-secondary"&gt;Temizle&lt;/button&gt;</div>
-                <div class="preview-box">
-                    <div class="preview-title">📺 Ekran Çıktısı</div>
-                    <div class="form-row">
-                        <button type="button" class="btn btn-primary">Formu Gönder (submit)</button>
-                        <button type="button" class="btn btn-secondary">Temizle (reset)</button>
-                    </div>
-                </div>
-            </article>
-
-            <article class="tag-card" id="tag-lists">
-                <h3>🏷️ &lt;ul&gt;, &lt;ol&gt; &amp; &lt;li&gt; Listeler</h3>
-                <p>Sırasız (ul) ve sıralı (ol) listeler oluşturur.</p>
-                <div class="code-block">&lt;ul&gt;
-  &lt;li&gt;HTML5&lt;/li&gt;
-  &lt;li&gt;CSS3&lt;/li&gt;
-&lt;/ul&gt;</div>
-                <div class="preview-box">
-                    <div class="preview-title">📺 Ekran Çıktısı</div>
-                    <ul style="margin-left:1.2rem; margin-top:0;">
-                        <li>HTML5</li>
-                        <li>CSS3</li>
-                    </ul>
-                </div>
-            </article>
-
-        </div>
+        </section>
     </main>
 
     <footer>
-        <p>&copy; 2026 KodlaHoca Ders Portalı. Tüm Hakları Saklıdır.</p>
+        <p>&copy; 2026 KodDersleri - Bilgisayar Dersi Eğitim Materyali. Tüm Hakları Saklıdır.</p>
     </footer>
 
-    <script src="../assets/js/main.js"></script>
+    <script>
+        const menuToggle = document.getElementById('mobile-menu');
+        const navLinks = document.querySelector('.nav-links');
+
+        menuToggle.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+        });
+    </script>
 </body>
 </html>
