@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KodlaHoca - Web Ders Portalı</title>
+
+    <!-- Mobil Ana Ekran Uygulama ve İkon Ayarları -->
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-title" content="HocaKodla">
+    <meta name="theme-color" content="#1a252f">
+
+    <!-- Yeni Mavi-Koyu Zeminli </> Uygulama İkonu -->
+    <link rel="icon" type="image/svg+xml;v=2" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Crect width='512' height='512' rx='120' fill='%231a252f'/%3E%3Cpath d='M160 170 L70 256 L160 342 M352 170 L442 256 L352 342 M290 140 L222 372' stroke='%2316a085' stroke-width='38' stroke-linecap='round' stroke-linejoin='round' fill='none'/%3E%3C/svg%3E">
+    <link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Crect width='512' height='512' rx='120' fill='%231a252f'/%3E%3Cpath d='M160 170 L70 256 L160 342 M352 170 L442 256 L352 342 M290 140 L222 372' stroke='%2316a085' stroke-width='38' stroke-linecap='round' stroke-linejoin='round' fill='none'/%3E%3C/svg%3E">
+
+    <!-- CSS Dosyaların -->
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="assets/css/responsive.css">
+</head>
+
+<button id="scrollTopBtn" title="Yukarı Çık">&uarr;</button>
+<body>
+
+    <header>
+        <nav class="nav-container">
+            <a href="index.html" class="logo">&lt;Kodla<span>Hoca</span>/&gt;</a>
+            <div class="menu-toggle" id="mobile-menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <ul class="nav-links" id="nav-links">
+                <li><a href="index.html">Ana Sayfa</a></li>
+                <li><a href="pages/html-dersleri.html">HTML</a></li>
+                <li><a href="pages/css-dersleri.html">CSS</a></li>
+                <li><a href="pages/js-dersleri.html">JavaScript</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section class="hero">
+        <h1>Web Geliştirme Ders Notları</h1>
+        <p>HTML, CSS ve JS ders içeriklerine buradan ulaşabilirsiniz.</p>
+        <div class="search-box">
+            <input type="text" id="searchInput" placeholder="Ders notlarında ara... (Örn: Flexbox, DOM)">
+        </div>
+    </section>
+
+    <main class="container">
+        <h2 class="section-title">Son Eklenen Dersler</h2>
+        
+        <div class="grid" id="courseGrid">
+            <div class="card">
+                <div>
+                    <span class="tag html">HTML5</span>
+                    <h3>HTML Yapısı ve Temel Etiketler</h3>
+                    <p>HTML5 doküman yapısı, başlıklar ve semantik etiketler.</p>
+                </div>
+                <a href="pages/html-dersleri.html" class="btn">Notları İncele</a>
+            </div>
+
+            <div class="card">
+                <div>
+                    <span class="tag css">CSS3</span>
+                    <h3>Flexbox ile Sayfa Düzeni</h3>
+                    <p>Esnek kutu modeli (Flexbox) ile modern arayüz tasarımı.</p>
+                </div>
+                <a href="pages/css-dersleri.html" class="btn">Notları İncele</a>
+            </div>
+
+            <div class="card">
+                <div>
+                    <span class="tag js">JavaScript</span>
+                    <h3>DOM Manipülasyonu</h3>
+                    <p>JavaScript ile HTML elemanlarına erişme ve olay yönetimi.</p>
+                </div>
+                <a href="pages/js-dersleri.html" class="btn">Notları İncele</a>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 Bilgisayar Öğretmeni Ders Portalı. Tüm Hakları Saklıdır.</p>
+    </footer>
+
+    <script src="assets/js/main.js"></script>
+    <script src="assets/js/search.js"></script>
+</body>
+</html>
