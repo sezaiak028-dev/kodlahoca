@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Yazılım Ders Notları - Web Teacher</title>
+
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-title" content="HocaKodla">
+    <meta name="theme-color" content="#1a252f">
+
+    <link rel="icon" type="image/svg+xml;v=2" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Crect width='512' height='512' rx='120' fill='%231a252f'/%3E%3Cpath d='M160 170 L70 256 L160 342 M352 170 L442 256 L352 342 M290 140 L222 372' stroke='%2316a085' stroke-width='38' stroke-linecap='round' stroke-linejoin='round' fill='none'/%3E%3C/svg%3E">
+    <link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Crect width='512' height='512' rx='120' fill='%231a252f'/%3E%3Cpath d='M160 170 L70 256 L160 342 M352 170 L442 256 L352 342 M290 140 L222 372' stroke='%2316a085' stroke-width='38' stroke-linecap='round' stroke-linejoin='round' fill='none'/%3E%3C/svg%3E">
+
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="stylesheet" href="../assets/css/responsive.css">
+    <style>
+        /* İKİ KOLONLU DOKÜMANTASYON DÜZENİ */
+        .docs-layout {
+            display: grid;
+            grid-template-columns: 260px 1fr;
+            gap: 2rem;
+            margin: 2rem auto;
+            align-items: start;
+        }
+
+        /* SOL YAN MENÜ (SIDEBAR) */
+        .sidebar {
+            background: white;
+            padding: 1.2rem;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+            position: sticky;
+            top: 80px;
+            max-height: calc(100vh - 100px);
+            overflow-y: auto;
+        }
+
+        .sidebar h4 {
+            color: var(--primary-color, #2c3e50);
+            font-size: 1rem;
+            margin: 1rem 0 0.5rem 0;
+            padding-bottom: 0.3rem;
+            border-bottom: 2px solid #3498db;
+        }
+
+        .sidebar h4:first-child { margin-top: 0; }
+
+        .sidebar ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .sidebar ul li { margin-bottom: 0.3rem; }
+
+        .sidebar ul li a {
+            display: block;
+            padding: 0.4rem 0.6rem;
+            color: #444;
+            text-decoration: none;
+            border-radius: 4px;
+            font-size: 0.9rem;
+            font-family: monospace;
+            transition: all 0.2s;
+        }
+
+        .sidebar ul li a:hover {
+            background-color: #e8f4fc;
+            color: #3498db;
+            padding-left: 0.9rem;
+        }
+
+        /* SAĞ ANA İÇERİK */
+        .docs-content {
+            background: white;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+        }
+
+        .tag-card {
+            margin-bottom: 3rem;
+            padding-bottom: 2rem;
+            border-bottom: 2px dashed #e0e0e0;
+            scroll-margin-top: 90px;
+        }
+
+        .tag-card:last-child { border-bottom: none; }
+
+        .tag-card h3 {
+            color: var(--primary-color, #2c3e50);
+            font-size: 1.4rem;
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .tag-card p {
+            color: #555;
+            line-height: 1.6;
+            margin-bottom: 1rem;
+        }
+
+        /* SARI ARKA PLANLI ÖRNEK KOD KUTUSU (#FED24F) */
+        .code-block {
+            background-color: #FED24F;
+            color: #1a1a1a;
+            border: 1px solid #e0a800;
+            border-left: 5px solid #2c3e50;
+            padding: 1.2rem;
+            border-radius: 8px;
+            font-family: 'Consolas', 'Courier New', monospace;
+            font-size: 0.95rem;
+            line-height: 1.5;
+            margin: 1rem 0;
+            white-space: pre-wrap;
+            word-break: break-word;
+            overflow-x: auto;
+            font-weight: 600;
+        }
+
+        /* CANLI ÇIKTI KUTUSU (MAVİ BORDERLI) */
+        .preview-box {
+            background-color: #ffffff;
+            border: 2px solid #3498db;
+            border-radius: 8px;
+            padding: 1.2rem;
+            margin-top: 1rem;
+            max-width: 100%;
+            box-sizing: border-box;
+            overflow-x: auto;
+            word-wrap: break-word;
+        }
+
+        .preview-title {
+            font-size: 0.8rem;
+            font-weight: bold;
+            color: #3498db;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 0.8rem;
+        }
+
+        /* YUKARI ÇIK BUTONU */
+        .back-to-top {
+            position: fixed;
+            bottom: 25px;
+            right: 25px;
+            background-color: #3498db;
+            color: white;
+            border: none;
+            border-radius: 50px;
+            padding: 12px 20px;
+            font-size: 0.9rem;
+            font-weight: bold;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.25);
+            display: none;
+            align-items: center;
+            gap: 8px;
+            z-index: 10000;
+            transition: all 0.3s ease;
+        }
+
+        .back-to-top:hover {
+            background-color: #2980b9;
+            transform: translateY(-3px);
+        }
+
+        /* MOBİL UYUM & TAŞMA ENGELLEYİCİ STİLLER */
+        html, body {
+            max-width: 100%;
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+        }
+
+        .preview-box *, 
+        .preview-box form, 
+        .preview-box table, 
+        .preview-box fieldset {
+            max-width: 100% !important;
+            box-sizing: border-box;
+        }
+
+        .preview-box table {
+            display: block;
+            overflow-x: auto;
+            white-space: nowrap;
+        }
+
+        @media (max-width: 768px) {
+            .docs-layout { grid-template-columns: 1fr; }
+            .sidebar { position: static; max-height: 250px; }
+            .back-to-top { bottom: 15px; right: 15px; padding: 10px 15px; font-size: 0.85rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <nav class="nav-container">
+            <a href="../index.html" class="logo">&lt;Kodla<span>Hoca</span>/&gt;</a>
+            <div class="menu-toggle" id="mobile-menu">
+                <span></span><span></span><span></span>
+            </div>
+            <ul class="nav-links" id="nav-links">
+                <li><a href="../index.html">Ana Sayfa</a></li>
+                <li><a href="html-dersleri.html">HTML</a></li>
+                <li><a href="css-dersleri.html" style="color: var(--accent-color, #3498db);">CSS</a></li>
+                <li><a href="js-dersleri.html">JavaScript</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section class="hero" style="padding: 2.5rem 1rem; text-align:center; background-color: #3498DB !important; color: white !important;">
+        <h1 style="color: #ffffff !important; margin-bottom: 0.5rem;">🎨 CSS3 Ders Notları &amp; Rehberi</h1>
+        <p style="color: #ffffff !important; opacity: 0.95;">Web sayfalarını renklendirmek, düzenlemek ve stil kazandırmak için CSS özelliklerini inceleyin.</p>
+    </section>
+
+    <main class="container docs-layout">
+
+        <aside class="sidebar">
+            <h4>Temel Kurallar</h4>
+            <ul>
+                <li><a href="#css-selectors">Seçiciler (Selectors)</a></li>
+                <li><a href="#css-colors">Renkler &amp; Arka Plan</a></li>
+            </ul>
+
+            <h4>Kutu Modeli</h4>
+            <ul>
+                <li><a href="#css-boxmodel">Margin &amp; Padding</a></li>
+                <li><a href="#css-border">Kenarlık (Border)</a></li>
+            </ul>
+
+            <h4>Tipografi &amp; Hizalama</h4>
+            <ul>
+                <li><a href="#css-text">Metin &amp; Font Stilleri</a></li>
+            </ul>
+
+            <h4>Esnek Düzenler</h4>
+            <ul>
+                <li><a href="#css-flexbox">Flexbox Düzeni</a></li>
+                <li><a href="#css-grid">CSS Grid Düzeni</a></li>
+            </ul>
+
+            <h4>Konumlandırma &amp; Efekt</h4>
+            <ul>
+                <li><a href="#css-position">Position Özelliği</a></li>
+                <li><a href="#css-shadows">Gölge &amp; Yuvarlatma</a></li>
+            </ul>
+        </aside>
+
+        <div class="docs-content">
+
+            <article class="tag-card" id="css-selectors">
+                <h3>🎯 CSS Seçiciler (Selectors)</h3>
+                <p>HTML elemanlarını hedef alarak stil uygulamamızı sağlar. Eleman adı, Sınıf (Class - <code>.</code>) ve Kimlik (ID - <code>#</code>) seçicileri en sık kullanılanlardır.</p>
+                <div class="code-block">/* Eleman Seçici */
+p { color: #2c3e50; }
+
+/* Class (Sınıf) Seçici */
+.vurgu-metni { color: #e74c3c; font-weight: bold; }
+
+/* ID (Kimlik) Seçici */
+#ozel-baslik { background-color: #f1c40f; padding: 5px; }</div>
+                <div class="preview-box">
+                    <div class="preview-title">📺 Ekran Çıktısı</div>
+                    <p style="color: #2c3e50; margin-bottom: 5px;">Standart Paragraf Metni (Eleman Seçici)</p>
+                    <p style="color: #e74c3c; font-weight: bold; margin-bottom: 5px;">Class ile Vurgulanmış Metin (.vurgu-metni)</p>
+                    <div style="background-color: #f1c40f; padding: 5px; font-weight:bold;">ID ile Özelleştirilmiş Alan (#ozel-baslik)</div>
+                </div>
+            </article>
+
+            <article class="tag-card" id="css-colors">
+                <h3>🎨 Renkler &amp; Arka Plan (Background)</h3>
+                <p>Metin rengi için <code>color</code>, arka plan rengi için <code>background-color</code> kullanılır.</p>
+                <div class="code-block">.renkli-kutu {
+  color: #ffffff;
+  background-color: #3498db;
+  padding: 10px;
+}</div>
+                <div class="preview-box">
+                    <div class="preview-title">📺 Ekran Çıktısı</div>
+                    <div style="color: #ffffff; background-color: #3498db; padding: 10px; border-radius: 4px; text-align: center; font-weight: bold;">
+                        Mavi Arka Planlı ve Beyaz Yazılı Kutu
+                    </div>
+                </div>
+            </article>
+
+            <article class="tag-card" id="css-boxmodel">
+                <h3>📦 Kutu Modeli (Margin &amp; Padding)</h3>
+                <p><code>padding</code> elemanın içindeki içeriğe boşluk verir, <code>margin</code> ise dış boşluk bırakır.</p>
+                <div class="code-block">.kutu {
+  background-color: #e8f4fc;
+  border: 1px solid #3498db;
+  padding: 15px;
+  margin: 10px 0;
+}</div>
+                <div class="preview-box">
+                    <div class="preview-title">📺 Ekran Çıktısı</div>
+                    <div style="background-color: #e8f4fc; border: 1px solid #3498db; padding: 15px; margin: 5px 0;">
+                        İçten 15px boşluğu (Padding) olan kutu alanı.
+                    </div>
+                </div>
+            </article>
+
+            <article class="tag-card" id="css-border">
+                <h3>🖼️ Kenarlık (Border) Özellikleri</h3>
+                <p>Elemanların etrafına çizgi ekler. Çizgi kalınlığı, türü (solid, dashed, dotted) ve rengi belirlenebilir.</p>
+                <div class="code-block">.duz-kenar { border: 2px solid #2ecc71; }
+.kesikli-kenar { border: 2px dashed #e74c3c; }</div>
+                <div class="preview-box">
+                    <div class="preview-title">📺 Ekran Çıktısı</div>
+                    <div style="border: 2px solid #2ecc71; padding: 8px; margin-bottom: 8px; font-weight: bold;">Düz Yeşil Kenarlık (solid)</div>
+                    <div style="border: 2px dashed #e74c3c; padding: 8px; font-weight: bold;">Kesikli Kırmızı Kenarlık (dashed)</div>
+                </div>
+            </article>
+
+            <article class="tag-card" id="css-text">
+                <h3>🔤 Metin Stilleri &amp; Fontlar</h3>
+                <p><code>font-family</code> yazı tipini, <code>text-align</code> hizalamayı yönetir.</p>
+                <div class="code-block">.metin-tasarim {
+  font-family: Arial, sans-serif;
+  text-align: center;
+  text-transform: uppercase;
+}</div>
+                <div class="preview-box">
+                    <div class="preview-title">📺 Ekran Çıktısı</div>
+                    <div style="font-family: Arial, sans-serif; text-align: center; text-transform: uppercase; letter-spacing: 2px; color: #8e44ad; font-weight: bold;">
+                        Ortalanmış Büyük Harf Metin
+                    </div>
+                </div>
+            </article>
+
+            <article class="tag-card" id="css-flexbox">
+                <h3>🔀 Flexbox Esnek Yerleşim</h3>
+                <p>Elemanları tek bir eksende esnek olarak hizalamayı sağlar.</p>
+                <div class="code-block">.flex-kapsayici {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+}</div>
+                <div class="preview-box">
+                    <div class="preview-title">📺 Ekran Çıktısı</div>
+                    <div style="display: flex; justify-content: space-between; align-items: center; gap: 10px; background: #f8f9fa; padding: 10px; border-radius: 4px;">
+                        <div style="background: #e74c3c; color: white; padding: 10px; flex: 1; text-align: center;">Kutu 1</div>
+                        <div style="background: #3498db; color: white; padding: 10px; flex: 1; text-align: center;">Kutu 2</div>
+                        <div style="background: #2ecc71; color: white; padding: 10px; flex: 1; text-align: center;">Kutu 3</div>
+                    </div>
+                </div>
+            </article>
+
+            <article class="tag-card" id="css-grid">
+                <h3>📐 CSS Grid Izgara Düzeni</h3>
+                <p>İki boyutlu (satır ve sütun) sayfa düzenleri oluşturur.</p>
+                <div class="code-block">.grid-kapsayici {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+}</div>
+                <div class="preview-box">
+                    <div class="preview-title">📺 Ekran Çıktısı</div>
+                    <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px;">
+                        <div style="background: #9b59b6; color: white; padding: 10px; text-align: center;">Grid 1</div>
+                        <div style="background: #34495e; color: white; padding: 10px; text-align: center;">Grid 2</div>
+                        <div style="background: #16a085; color: white; padding: 10px; text-align: center;">Grid 3</div>
+                        <div style="background: #f39c12; color: white; padding: 10px; text-align: center;">Grid 4</div>
+                    </div>
+                </div>
+            </article>
+
+            <article class="tag-card" id="css-position">
+                <h3>📍 Position (Konumlandırma)</h3>
+                <p>Elemanların konumunu bağımsızca belirler.</p>
+                <div class="code-block">.kapsayici { position: relative; }
+.rozet { position: absolute; top: 5px; right: 5px; }</div>
+                <div class="preview-box">
+                    <div class="preview-title">📺 Ekran Çıktısı</div>
+                    <div style="position: relative; height: 70px; background: #ecf0f1; border-radius: 4px; padding: 10px;">
+                        <div>Relative Kapsayıcı Alanı</div>
+                        <div style="position: absolute; top: 5px; right: 5px; background: #e74c3c; color: white; padding: 3px 8px; border-radius: 12px; font-size: 0.75rem; font-weight: bold;">Yeni</div>
+                    </div>
+                </div>
+            </article>
+
+            <article class="tag-card" id="css-shadows">
+                <h3>✨ Gölge &amp; Köşe Yuvarlatma</h3>
+                <p><code>border-radius</code> ve <code>box-shadow</code> ile görsel derinlik katar.</p>
+                <div class="code-block">.golgeli-kart {
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+}</div>
+                <div class="preview-box">
+                    <div class="preview-title">📺 Ekran Çıktısı</div>
+                    <div style="border-radius: 10px; box-shadow: 0 4px 10px rgba(0,0,0,0.15); padding: 15px; background: #fff; text-align: center; font-weight: bold; color: #2c3e50;">
+                        Köşeleri Yuvarlatılmış ve Gölgeli Şık Kart
+                    </div>
+                </div>
+            </article>
+
+        </div>
+    </main>
+
+    <button id="scrollTopBtn" class="back-to-top" onclick="scrollToTop()">
+        ⬆️ Yukarı Çık
+    </button>
+
+    <footer style="background:#1a252f; color:#bdc3c7; text-align:center; padding:1.5rem; margin-top:2rem;">
+        <p>&copy; 2026 KodlaHoca Ders Portalı. Tüm Hakları Saklıdır.</p>
+    </footer>
+
+    <script>
+        const scrollTopBtn = document.getElementById("scrollTopBtn");
+
+        window.onscroll = function() {
+            if (document.body.scrollTop > 300 || document.documentElement.scrollTop > 300) {
+                scrollTopBtn.style.display = "flex";
+            } else {
+                scrollTopBtn.style.display = "none";
+            }
+        };
+
+        function scrollToTop() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        }
+    </script>
+    <script src="../assets/js/main.js"></script>
+</body>
+</html>
