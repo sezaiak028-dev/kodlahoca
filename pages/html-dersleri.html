@@ -102,7 +102,7 @@
         /* İÇERİK KARTLARI */
         .grid-container {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 2rem;
         }
 
@@ -115,6 +115,9 @@
             display: flex;
             flex-direction: column;
             justify-content: space-between;
+            max-width: 100%;
+            box-sizing: border-box;
+            overflow: hidden;
         }
 
         .tag-card h3 {
@@ -141,14 +144,18 @@
             white-space: pre-wrap;
             word-break: break-word;
             margin-bottom: 1rem;
+            max-width: 100%;
         }
 
         .preview-box {
             background-color: #fdfdfd;
             border: 1px dashed #cbd5e1;
-            padding: 1.2rem;
+            padding: 1rem;
             border-radius: 6px;
             margin-top: 0.5rem;
+            max-width: 100%;
+            box-sizing: border-box;
+            overflow: hidden;
         }
 
         .preview-title {
@@ -158,6 +165,32 @@
             text-transform: uppercase;
             margin-bottom: 0.8rem;
             letter-spacing: 0.5px;
+        }
+
+        /* FORM DÜZENLEMELERİ (TAŞMAYI ÖNLEYEN KORUMALAR) */
+        .demo-fieldset {
+            border: 2px solid #2c3e50;
+            border-radius: 8px;
+            padding: 0.8rem;
+            background: #fff;
+            max-width: 100%;
+            box-sizing: border-box;
+        }
+
+        .demo-fieldset legend {
+            font-weight: bold;
+            color: #2c3e50;
+            padding: 0 6px;
+            font-size: 0.95rem;
+        }
+
+        .form-control-input {
+            width: 100%;
+            padding: 0.4rem;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 0.85rem;
+            box-sizing: border-box;
         }
 
         /* FOOTER */
@@ -170,7 +203,7 @@
             font-size: 0.9rem;
         }
 
-        /* MOBİL UYUMLULUK (RESPONSIVE) */
+        /* MOBİL UYUMLULUK */
         @media (max-width: 768px) {
             .menu-toggle {
                 display: flex;
@@ -219,7 +252,7 @@
 
     <main class="container">
         <section class="page-header">
-            <h1>🌐 HTML5 Ders Notları &amp; Örnek Yapılar</h1>
+            <h1>🌐 HTML5 Ders Notları &amp; Etiket Rehberi</h1>
             <p>Web geliştirmenin temel yapı taşı olan HTML etiketlerini, canlı önizlemeleri ve kod örnekleriyle inceleyin.</p>
         </section>
 
@@ -242,23 +275,73 @@
                 </div>
                 <div class="preview-box">
                     <div class="preview-title">📺 Ekran Çıktısı</div>
-                    <h1 style="font-size: 1.5rem; color: #2c3e50;">Merhaba Dünya!</h1>
+                    <h1 style="font-size: 1.4rem; color: #2c3e50;">Merhaba Dünya!</h1>
                 </div>
             </article>
 
             <article class="tag-card">
                 <div>
                     <h3>✍️ Başlıklar ve Paragraflar</h3>
-                    <p><code>&lt;h1&gt;</code> - <code>&lt;h6&gt;</code> arası başlıklar ve <code>&lt;p&gt;</code> paragraf etiketleri metin hiyerarşisini sağlar.</p>
+                    <p><code>&lt;h1&gt;</code> - <code>&lt;h6&gt;</code> arası başlıklar ve <code>&lt;p&gt;</code> etiketleri metin hiyerarşisini sağlar.</p>
                     <div class="code-block">&lt;h1&gt;Ana Başlık (H1)&lt;/h1&gt;
 &lt;h3&gt;Alt Başlık (H3)&lt;/h3&gt;
-&lt;p&gt;Bu bir paragraf metnidir. &lt;b&gt;Kalın&lt;/b&gt; ve &lt;i&gt;italik&lt;/i&gt; kelimeler içerir.&lt;/p&gt;</div>
+&lt;p&gt;Bu bir paragraf metnidir. &lt;b&gt;Kalın&lt;/b&gt; kelimeler içerir.&lt;/p&gt;</div>
                 </div>
                 <div class="preview-box">
                     <div class="preview-title">📺 Ekran Çıktısı</div>
-                    <h2 style="font-size: 1.3rem;">Ana Başlık (H1)</h2>
-                    <h4 style="font-size: 1rem; color: #555;">Alt Başlık (H3)</h4>
-                    <p style="font-size: 0.9rem; margin-top: 5px;">Bu bir paragraf metnidir. <b>Kalın</b> ve <i>italik</i> kelimeler içerir.</p>
+                    <h2 style="font-size: 1.2rem;">Ana Başlık (H1)</h2>
+                    <h4 style="font-size: 0.95rem; color: #555;">Alt Başlık (H3)</h4>
+                    <p style="font-size: 0.85rem; margin-top: 4px;">Bu bir paragraf metnidir. <b>Kalın</b> kelimeler içerir.</p>
+                </div>
+            </article>
+
+            <article class="tag-card" style="border-top-color: #27ae60;">
+                <div>
+                    <h3>🏷️ &lt;fieldset&gt;, &lt;legend&gt; &amp; Butonlar</h3>
+                    <p>Form elemanlarını çerçeveye almak için <code>&lt;fieldset&gt;</code>, çerçevenin başlığı için <code>&lt;legend&gt;</code>, göndermek için <code>&lt;button&gt;</code> kullanılır.</p>
+                    <div class="code-block">&lt;form action="kaydet.php" method="POST"&gt;
+  &lt;fieldset&gt;
+    &lt;legend&gt;Kayıt Formu&lt;/legend&gt;
+    
+    &lt;label&gt;Ad Soyad:&lt;/label&gt;
+    &lt;input type="text" required&gt;
+
+    &lt;label&gt;Şehir:&lt;/label&gt;
+    &lt;select&gt;
+      &lt;option&gt;Diyarbakır&lt;/option&gt;
+    &lt;/select&gt;
+
+    &lt;button type="submit"&gt;💾 Kaydet&lt;/button&gt;
+    &lt;button type="reset"&gt;🧹 Temizle&lt;/button&gt;
+  &lt;/fieldset&gt;
+&lt;/form&gt;</div>
+                </div>
+                <div class="preview-box">
+                    <div class="preview-title">📺 Ekran Çıktısı</div>
+                    <form onsubmit="alert('Form başarıyla gönderildi!'); return false;">
+                        <fieldset class="demo-fieldset">
+                            <legend>Öğrenci Kayıt Formu</legend>
+
+                            <div style="margin-bottom: 0.5rem;">
+                                <label style="font-weight:600; font-size:0.8rem; color:#2c3e50; display:block;">Ad Soyad:</label>
+                                <input type="text" class="form-control-input" placeholder="Ahmet Yılmaz" required>
+                            </div>
+
+                            <div style="margin-bottom: 0.5rem;">
+                                <label style="font-weight:600; font-size:0.8rem; color:#2c3e50; display:block;">Şehir:</label>
+                                <select class="form-control-input" style="background:#fff;">
+                                    <option>Diyarbakır</option>
+                                    <option>İstanbul</option>
+                                    <option>Ankara</option>
+                                </select>
+                            </div>
+
+                            <div style="display:flex; gap:0.4rem; margin-top:0.8rem; flex-wrap:wrap;">
+                                <button type="submit" style="background:#27ae60; color:white; border:none; padding:0.4rem 0.8rem; border-radius:4px; font-weight:bold; font-size:0.8rem; cursor:pointer;">💾 Kaydet</button>
+                                <button type="reset" style="background:#e74c3c; color:white; border:none; padding:0.4rem 0.8rem; border-radius:4px; font-weight:bold; font-size:0.8rem; cursor:pointer;">🧹 Temizle</button>
+                            </div>
+                        </fieldset>
+                    </form>
                 </div>
             </article>
 
@@ -277,93 +360,14 @@
                 </div>
                 <div class="preview-box">
                     <div class="preview-title">📺 Ekran Çıktısı</div>
-                    <ul style="margin-left: 20px; font-size: 0.9rem;">
+                    <ul style="margin-left: 18px; font-size: 0.85rem;">
                         <li>HTML5</li>
                         <li>CSS3</li>
                     </ul>
-                    <ol style="margin-left: 20px; font-size: 0.9rem; margin-top: 5px;">
+                    <ol style="margin-left: 18px; font-size: 0.85rem; margin-top: 4px;">
                         <li>Adım 1</li>
                         <li>Adım 2</li>
                     </ol>
-                </div>
-            </article>
-
-            <article class="tag-card" style="grid-column: 1 / -1; border-top-color: #27ae60;">
-                <div>
-                    <h3>🏷️ Formlar, Çerçeve (&lt;fieldset&gt; &amp; &lt;legend&gt;) ve Butonlar</h3>
-                    <p>
-                        Kullanıcıdan veri almak için <code>&lt;form&gt;</code> kullanılır. Form gruplarını çerçeveye almak için <code>&lt;fieldset&gt;</code>, çerçevenin üzerindeki başlık için <code>&lt;legend&gt;</code>, gönderme/temizleme işlemleri için ise <code>&lt;button&gt;</code> etiketinden yararlanılır.
-                    </p>
-                    <div class="code-block">&lt;form action="kaydet.php" method="POST"&gt;
-  &lt;!-- Kenarlıklı Form Grubu --&gt;
-  &lt;fieldset style="border: 2px solid #2c3e50; border-radius: 8px; padding: 1rem;"&gt;
-    &lt;legend style="font-weight: bold; color: #2c3e50; padding: 0 8px;"&gt;Öğrenci Kayıt Formu&lt;/legend&gt;
-
-    &lt;!-- Metin Girdisi --&gt;
-    &lt;label for="ad"&gt;Ad Soyad:&lt;/label&gt;
-    &lt;input type="text" id="ad" name="ad" placeholder="Ahmet Yılmaz" required&gt;
-
-    &lt;!-- E-posta Girdisi --&gt;
-    &lt;label for="email"&gt;E-posta:&lt;/label&gt;
-    &lt;input type="email" id="email" name="email" placeholder="ornek@mail.com"&gt;
-
-    &lt;!-- Şehir Seçimi --&gt;
-    &lt;label for="sehir"&gt;Şehir:&lt;/label&gt;
-    &lt;select id="sehir" name="sehir"&gt;
-      &lt;option value="21"&gt;Diyarbakır&lt;/option&gt;
-      &lt;option value="34"&gt;İstanbul&lt;/option&gt;
-    &lt;/select&gt;
-
-    &lt;!-- Mesaj Kutusu --&gt;
-    &lt;label for="not"&gt;Notunuz:&lt;/label&gt;
-    &lt;textarea id="not" name="not" rows="3" placeholder="Mesajınızı yazın..."&gt;&lt;/textarea&gt;
-
-    &lt;!-- İşlem Butonları --&gt;
-    &lt;div style="margin-top: 1rem; display: flex; gap: 0.5rem;"&gt;
-      &lt;button type="submit" class="btn btn-primary"&gt;💾 Kaydet / Gönder&lt;/button&gt;
-      &lt;button type="reset" class="btn btn-secondary"&gt;🧹 Temizle&lt;/button&gt;
-    &lt;/div&gt;
-  &lt;/fieldset&gt;
-&lt;/form&gt;</div>
-                </div>
-
-                <div class="preview-box">
-                    <div class="preview-title">📺 Ekran Çıktısı (Canlı Önizleme)</div>
-                    <form onsubmit="alert('Form verileri başarıyla gönderildi!'); return false;">
-                        <fieldset style="border: 2px solid #2c3e50; border-radius: 8px; padding: 1.2rem; background: #ffffff;">
-                            <legend style="font-weight: bold; color: #2c3e50; padding: 0 8px; font-size: 1rem;">Öğrenci Kayıt Formu</legend>
-
-                            <div style="margin-bottom: 0.8rem;">
-                                <label style="display:block; font-weight:600; color:#2c3e50; margin-bottom:0.2rem;">Ad Soyad:</label>
-                                <input type="text" placeholder="Ahmet Yılmaz" required style="width:100%; padding:0.5rem; border:1px solid #ccc; border-radius:4px; font-size:0.9rem;">
-                            </div>
-
-                            <div style="margin-bottom: 0.8rem;">
-                                <label style="display:block; font-weight:600; color:#2c3e50; margin-bottom:0.2rem;">E-posta Adresi:</label>
-                                <input type="email" placeholder="ornek@mail.com" style="width:100%; padding:0.5rem; border:1px solid #ccc; border-radius:4px; font-size:0.9rem;">
-                            </div>
-
-                            <div style="margin-bottom: 0.8rem;">
-                                <label style="display:block; font-weight:600; color:#2c3e50; margin-bottom:0.2rem;">Şehir Seçimi:</label>
-                                <select style="width:100%; padding:0.5rem; border:1px solid #ccc; border-radius:4px; font-size:0.9rem; background-color:#fff;">
-                                    <option>Diyarbakır</option>
-                                    <option>İstanbul</option>
-                                    <option>Ankara</option>
-                                    <option>İzmir</option>
-                                </select>
-                            </div>
-
-                            <div style="margin-bottom: 0.8rem;">
-                                <label style="display:block; font-weight:600; color:#2c3e50; margin-bottom:0.2rem;">Ders Notu / Mesaj:</label>
-                                <textarea rows="3" placeholder="Öğretmene iletmek istediğiniz notu yazın..." style="width:100%; padding:0.5rem; border:1px solid #ccc; border-radius:4px; font-size:0.9rem;"></textarea>
-                            </div>
-
-                            <div style="display:flex; gap:0.5rem; margin-top:1rem; flex-wrap:wrap;">
-                                <button type="submit" style="background:#27ae60; color:white; border:none; padding:0.6rem 1.2rem; border-radius:4px; font-weight:bold; cursor:pointer; font-size:0.9rem; transition:0.2s;">💾 Kaydet / Gönder</button>
-                                <button type="reset" style="background:#e74c3c; color:white; border:none; padding:0.6rem 1.2rem; border-radius:4px; font-weight:bold; cursor:pointer; font-size:0.9rem; transition:0.2s;">🧹 Temizle</button>
-                            </div>
-                        </fieldset>
-                    </form>
                 </div>
             </article>
 
