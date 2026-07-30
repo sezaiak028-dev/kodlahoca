@@ -32,15 +32,17 @@
                 <li><a href="pages/css-dersleri.html">CSS</a></li>
                 <li><a href="pages/bootstrap-dersleri.html">Bootstrap</a></li>
                 <li><a href="pages/js-dersleri.html">JavaScript</a></li>
+                <li><a href="pages/react-dersleri.html">React</a></li>
+                <li><a href="pages/node-dersleri.html">Node</a></li>
             </ul>
         </nav>
     </header>
 
     <section class="hero">
         <h1>👨‍🏫 Web Tasarım &amp; Programlama Ders Notları</h1>
-        <p>HTML, CSS, Bootstrap ve JavaScript ders içeriklerine hızlıca ulaşın.</p>
+        <p>HTML, CSS, Bootstrap, JavaScript, React ve Node.js ders içeriklerine hızlıca ulaşın.</p>
         <div class="search-box">
-            <input type="text" id="searchInput" placeholder="Konularda ara... (Örn: iframe, table, flexbox, dom, form, grid)">
+            <input type="text" id="searchInput" placeholder="Konularda ara... (Örn: iframe, flexbox, dom, react, express, api)">
         </div>
     </section>
 
@@ -64,7 +66,7 @@
             <div class="card" data-keywords="css css3 flexbox grid margin padding border color background hover animation font position display shadow responsive duzen kutu">
                 <div>
                     <span class="tag css">CSS3</span>
-                    <h3>Flexbox ile Sayfa Düzeni</h3>
+                    <h3>CSS3 &amp; Flexbox Düzeni</h3>
                     <p>Esnek kutu modeli (Flexbox), Izgara (Grid) ve modern CSS stilleri.</p>
                     <p style="font-size:0.8rem; color:#666; margin-top:0.4rem;">
                         <strong>Konular:</strong> Flexbox, Grid, Margin, Padding, Colors, Layout
@@ -76,7 +78,7 @@
             <div class="card" data-keywords="bootstrap bs bs5 grid row col container button card alert form badge navbar modal flex izgara kütüphane bileşen">
                 <div>
                     <span class="tag bs">Bootstrap 5</span>
-                    <h3>Hazır Izgara ve Bileşenler</h3>
+                    <h3>Bootstrap 5 Bileşenleri</h3>
                     <p>Bootstrap CSS framework'ü ile hızlı ve mobil uyumlu site geliştirme.</p>
                     <p style="font-size:0.8rem; color:#666; margin-top:0.4rem;">
                         <strong>Konular:</strong> Grid (row/col), Cards, Buttons, Alerts, Forms, Badges
@@ -88,13 +90,37 @@
             <div class="card" data-keywords="javascript js dom event listener click function arrow let const var loop for while array map filter fetch async await degisken kosul">
                 <div>
                     <span class="tag js">JavaScript</span>
-                    <h3>DOM Manipülasyonu &amp; Etkileşim</h3>
+                    <h3>JavaScript &amp; DOM</h3>
                     <p>JavaScript ile HTML elemanlarına erişme, olay yönetimi ve ES6+ konuları.</p>
                     <p style="font-size:0.8rem; color:#666; margin-top:0.4rem;">
                         <strong>Konular:</strong> DOM, Events, Variables (let/const), Functions, Fetch
                     </p>
                 </div>
                 <a href="pages/js-dersleri.html" class="btn">Notları İncele</a>
+            </div>
+
+            <div class="card" data-keywords="react reactjs jsx component props state useState useEffect hooks frontend spa virtual dom rout">
+                <div>
+                    <span class="tag react">React.js</span>
+                    <h3 class="card-title-react">React.js - Bileşen Tabanlı Arayüz (UI)</h3>
+                    <p>React kütüphanesi ile modern, dinamik ve modüler web uygulamaları geliştirme.</p>
+                    <p style="font-size:0.8rem; color:#666; margin-top:0.4rem;">
+                        <strong>Konular:</strong> JSX, Components, Props, useState, useEffect, Hooks
+                    </p>
+                </div>
+                <a href="pages/react-dersleri.html" class="btn">Notları İncele</a>
+            </div>
+
+            <div class="card" data-keywords="node nodejs express backend server api rest npm database mongodb async middleware json web server">
+                <div>
+                    <span class="tag node">Node.js</span>
+                    <h3 class="card-title-node">Node.js - Sunucu Tarafı &amp; REST API</h3>
+                    <p>Node.js ve Express framework'ü ile backend sunucu mimarisi ve API geliştirme.</p>
+                    <p style="font-size:0.8rem; color:#666; margin-top:0.4rem;">
+                        <strong>Konular:</strong> Express, REST API, NPM, Middleware, Server, JSON
+                    </p>
+                </div>
+                <a href="pages/nodejs-dersleri.html" class="btn">Notları İncele</a>
             </div>
 
         </div>
@@ -107,7 +133,6 @@
     </footer>
 
     <script>
-        // Sayfa Kaydırılınca Yuvarlak Yukarı Çık Butonunu Göster/Gizle
         const scrollTopBtn = document.getElementById("scrollTopBtn");
 
         window.onscroll = function() {
@@ -125,7 +150,6 @@
             });
         }
 
-        // AKILLI KONU ARAMA MOTORU
         const searchInput = document.getElementById('searchInput');
         const cards = document.querySelectorAll('.card');
 
@@ -134,12 +158,9 @@
                 const term = e.target.value.toLowerCase().trim();
 
                 cards.forEach(card => {
-                    // Kartın tüm iç metnini alıyoruz
                     const cardContent = card.textContent.toLowerCase();
-                    // Kartın gizli anahtar kelimelerini (data-keywords) alıyoruz
                     const keywords = card.getAttribute('data-keywords') ? card.getAttribute('data-keywords').toLowerCase() : '';
 
-                    // Hem kart metninde hem gizli kelimelerde arıyoruz
                     if (cardContent.includes(term) || keywords.includes(term)) {
                         card.style.display = 'flex';
                     } else {
@@ -149,7 +170,6 @@
             });
         }
 
-        // Mobil Menü Toggle
         const mobileMenu = document.getElementById('mobile-menu');
         const navLinks = document.getElementById('nav-links');
 
