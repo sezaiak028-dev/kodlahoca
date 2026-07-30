@@ -3,23 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>KodlaHoca - Web Ders Portalı</title>
+    <title>Yazılım Ders Notları - KodlaHoca</title>
 
-    <!-- Mobil Ana Ekran Uygulama ve İkon Ayarları -->
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-title" content="HocaKodla">
-    <meta name="theme-color" content="#1a252f">
+    <meta name="theme-color" content="#2c3e50">
 
-    <!-- Yeni Mavi-Koyu Zeminli </> Uygulama İkonu -->
     <link rel="icon" type="image/svg+xml;v=2" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Crect width='512' height='512' rx='120' fill='%231a252f'/%3E%3Cpath d='M160 170 L70 256 L160 342 M352 170 L442 256 L352 342 M290 140 L222 372' stroke='%2316a085' stroke-width='38' stroke-linecap='round' stroke-linejoin='round' fill='none'/%3E%3C/svg%3E">
     <link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Crect width='512' height='512' rx='120' fill='%231a252f'/%3E%3Cpath d='M160 170 L70 256 L160 342 M352 170 L442 256 L352 342 M290 140 L222 372' stroke='%2316a085' stroke-width='38' stroke-linecap='round' stroke-linejoin='round' fill='none'/%3E%3C/svg%3E">
 
-    <!-- CSS Dosyaların -->
     <link rel="stylesheet" href="assets/css/style.css">
     <link rel="stylesheet" href="assets/css/responsive.css">
 </head>
-
 <body>
 
     <header>
@@ -44,7 +40,7 @@
         <h1>👨‍🏫 Web Tasarım &amp; Programlama Ders Notları</h1>
         <p>HTML, CSS, Bootstrap ve JavaScript ders içeriklerine hızlıca ulaşın.</p>
         <div class="search-box">
-            <input type="text" id="searchInput" placeholder="Ders notlarında veya konularda ara...">
+            <input type="text" id="searchInput" placeholder="Konularda ara... (Örn: iframe, table, flexbox, dom, form, grid)">
         </div>
     </section>
 
@@ -53,38 +49,50 @@
 
         <div class="grid">
 
-            <div class="card">
+            <div class="card" data-keywords="html html5 iframe table tablo form input img image resim list ul ol hr p h1 fieldset legend button select textarea link a skeleton iskelet">
                 <div>
                     <span class="tag html">HTML5</span>
                     <h3>HTML5 Etiket Kütüphanesi</h3>
                     <p>Web sayfalarının temel iskeletini oluşturan HTML5 etiket rehberi.</p>
+                    <p style="font-size:0.8rem; color:#666; margin-top:0.4rem;">
+                        <strong>Konular:</strong> iframe, table, form, img, listeler, hr, fieldset
+                    </p>
                 </div>
                 <a href="pages/html-dersleri.html" class="btn">Notları İncele</a>
             </div>
 
-            <div class="card">
+            <div class="card" data-keywords="css css3 flexbox grid margin padding border color background hover animation font position display shadow responsive duzen kutu">
                 <div>
                     <span class="tag css">CSS3</span>
                     <h3>Flexbox ile Sayfa Düzeni</h3>
-                    <p>Esnek kutu modeli (Flexbox) ile modern arayüz tasarımı.</p>
+                    <p>Esnek kutu modeli (Flexbox), Izgara (Grid) ve modern CSS stilleri.</p>
+                    <p style="font-size:0.8rem; color:#666; margin-top:0.4rem;">
+                        <strong>Konular:</strong> Flexbox, Grid, Margin, Padding, Colors, Layout
+                    </p>
                 </div>
                 <a href="pages/css-dersleri.html" class="btn">Notları İncele</a>
             </div>
 
-            <div class="card">
+            <div class="card" data-keywords="bootstrap bs bs5 grid row col container button card alert form badge navbar modal flex izgara kütüphane bileşen">
                 <div>
                     <span class="tag bs">Bootstrap 5</span>
                     <h3>Hazır Izgara ve Bileşenler</h3>
                     <p>Bootstrap CSS framework'ü ile hızlı ve mobil uyumlu site geliştirme.</p>
+                    <p style="font-size:0.8rem; color:#666; margin-top:0.4rem;">
+                        <strong>Konular:</strong> Grid (row/col), Cards, Buttons, Alerts, Forms, Badges
+                    </p>
                 </div>
                 <a href="pages/bootstrap-dersleri.html" class="btn">Notları İncele</a>
             </div>
 
-            <div class="card">
+            <div class="card" data-keywords="javascript js dom event listener click function arrow let const var loop for while array map filter fetch async await degisken kosul">
                 <div>
                     <span class="tag js">JavaScript</span>
-                    <h3>DOM Manipülasyonu</h3>
-                    <p>JavaScript ile HTML elemanlarına erişme ve olay yönetimi.</p>
+                    <h3>DOM Manipülasyonu &amp; Etkileşim</h3>
+                    <p>JavaScript ile HTML elemanlarına erişme, olay yönetimi ve ES6+ konuları.</p>
+                    <p style="font-size:0.8rem; color:#666; margin-top:0.4rem;">
+                        <strong>Konular:</strong> DOM, Events, Variables (let/const), Functions, Fetch
+                    </p>
                 </div>
                 <a href="pages/js-dersleri.html" class="btn">Notları İncele</a>
             </div>
@@ -117,25 +125,37 @@
             });
         }
 
-        // Arama Kutusu Filtreleme
+        // AKILLI KONU ARAMA MOTORU
         const searchInput = document.getElementById('searchInput');
         const cards = document.querySelectorAll('.card');
 
         if (searchInput) {
             searchInput.addEventListener('keyup', function(e) {
-                const term = e.target.value.toLowerCase();
+                const term = e.target.value.toLowerCase().trim();
 
                 cards.forEach(card => {
-                    const title = card.querySelector('h3').textContent.toLowerCase();
-                    const description = card.querySelector('p').textContent.toLowerCase();
-                    const tag = card.querySelector('.tag').textContent.toLowerCase();
+                    // Kartın tüm iç metnini alıyoruz
+                    const cardContent = card.textContent.toLowerCase();
+                    // Kartın gizli anahtar kelimelerini (data-keywords) alıyoruz
+                    const keywords = card.getAttribute('data-keywords') ? card.getAttribute('data-keywords').toLowerCase() : '';
 
-                    if (title.includes(term) || description.includes(term) || tag.includes(term)) {
+                    // Hem kart metninde hem gizli kelimelerde arıyoruz
+                    if (cardContent.includes(term) || keywords.includes(term)) {
                         card.style.display = 'flex';
                     } else {
                         card.style.display = 'none';
                     }
                 });
+            });
+        }
+
+        // Mobil Menü Toggle
+        const mobileMenu = document.getElementById('mobile-menu');
+        const navLinks = document.getElementById('nav-links');
+
+        if (mobileMenu && navLinks) {
+            mobileMenu.addEventListener('click', () => {
+                navLinks.classList.toggle('active');
             });
         }
     </script>
