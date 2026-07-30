@@ -3,24 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>KodlaHoca - Web Ders Portalı</title>
+    <title>Yazılım Ders Notları - Web Teacher</title>
 
-    <!-- Mobil Ana Ekran Uygulama ve İkon Ayarları -->
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-title" content="HocaKodla">
-    <meta name="theme-color" content="#1a252f">
+    <meta name="theme-color" content="#2c3e50">
 
-    <!-- Yeni Mavi-Koyu Zeminli </> Uygulama İkonu -->
-    <link rel="icon" type="image/svg+xml;v=2" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Crect width='512' height='512' rx='120' fill='%231a252f'/%3E%3Cpath d='M160 170 L70 256 L160 342 M352 170 L442 256 L352 342 M290 140 L222 372' stroke='%2316a085' stroke-width='38' stroke-linecap='round' stroke-linejoin='round' fill='none'/%3E%3C/svg%3E">
-    <link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Crect width='512' height='512' rx='120' fill='%231a252f'/%3E%3Cpath d='M160 170 L70 256 L160 342 M352 170 L442 256 L352 342 M290 140 L222 372' stroke='%2316a085' stroke-width='38' stroke-linecap='round' stroke-linejoin='round' fill='none'/%3E%3C/svg%3E">
-
-    <!-- CSS Dosyaların -->
     <link rel="stylesheet" href="assets/css/style.css">
     <link rel="stylesheet" href="assets/css/responsive.css">
 </head>
-
-<button id="scrollTopBtn" title="Yukarı Çık">&uarr;</button>
 <body>
 
     <header>
@@ -32,31 +24,33 @@
                 <span></span>
             </div>
             <ul class="nav-links" id="nav-links">
-                <li><a href="index.html">Ana Sayfa</a></li>
+                <li><a href="index.html" style="color: var(--accent-color);">Ana Sayfa</a></li>
                 <li><a href="pages/html-dersleri.html">HTML</a></li>
                 <li><a href="pages/css-dersleri.html">CSS</a></li>
+                <li><a href="pages/bootstrap-dersleri.html">Bootstrap</a></li>
                 <li><a href="pages/js-dersleri.html">JavaScript</a></li>
             </ul>
         </nav>
     </header>
 
     <section class="hero">
-        <h1>Web Geliştirme Ders Notları</h1>
-        <p>HTML, CSS ve JS ders içeriklerine buradan ulaşabilirsiniz.</p>
+        <h1>👨‍🏫 Web Tasarım &amp; Programlama Ders Notları</h1>
+        <p>HTML, CSS, Bootstrap ve JavaScript ders içeriklerine hızlıca ulaşın.</p>
         <div class="search-box">
-            <input type="text" id="searchInput" placeholder="Ders notlarında ara... (Örn: Flexbox, DOM)">
+            <input type="text" id="searchInput" placeholder="Ders notlarında veya konularda ara...">
         </div>
     </section>
 
     <main class="container">
-        <h2 class="section-title">Son Eklenen Dersler</h2>
-        
-        <div class="grid" id="courseGrid">
+        <h2 class="section-title">Ders Kategorileri</h2>
+
+        <div class="grid">
+
             <div class="card">
                 <div>
                     <span class="tag html">HTML5</span>
-                    <h3>HTML Yapısı ve Temel Etiketler</h3>
-                    <p>HTML5 doküman yapısı, başlıklar ve semantik etiketler.</p>
+                    <h3>HTML5 Etiket Kütüphanesi</h3>
+                    <p>Web sayfalarının temel iskeletini oluşturan HTML5 etiket rehberi.</p>
                 </div>
                 <a href="pages/html-dersleri.html" class="btn">Notları İncele</a>
             </div>
@@ -69,13 +63,14 @@
                 </div>
                 <a href="pages/css-dersleri.html" class="btn">Notları İncele</a>
             </div>
-              <div class="card">
+
+            <div class="card">
                 <div>
-                    <span class="tag css">CSS3</span>
-                    <h3>Flexbox ile Sayfa Düzeni</h3>
-                    <p>Esnek kutu modeli (Flexbox) ile modern arayüz tasarımı.</p>
+                    <span class="tag bs">Bootstrap 5</span>
+                    <h3>Hazır Izgara ve Bileşenler</h3>
+                    <p>Bootstrap CSS framework'ü ile hızlı ve mobil uyumlu site geliştirme.</p>
                 </div>
-                <a href="pages/css-dersleri.html" class="btn">Notları İncele</a>
+                <a href="pages/bootstrap-dersleri.html" class="btn">Notları İncele</a>
             </div>
 
             <div class="card">
@@ -86,14 +81,57 @@
                 </div>
                 <a href="pages/js-dersleri.html" class="btn">Notları İncele</a>
             </div>
+
         </div>
     </main>
 
+    <button id="scrollTopBtn" onclick="scrollToTop()">⬆</button>
+
     <footer>
-        <p>&copy; 2026 Bilgisayar Öğretmeni Ders Portalı. Tüm Hakları Saklıdır.</p>
+        <p>&copy; 2026 KodlaHoca Ders Portalı. Tüm Hakları Saklıdır.</p>
     </footer>
 
+    <script>
+        // Sayfa Kaydırılınca Yuvarlak Yukarı Çık Butonunu Göster/Gizle
+        const scrollTopBtn = document.getElementById("scrollTopBtn");
+
+        window.onscroll = function() {
+            if (document.body.scrollTop > 300 || document.documentElement.scrollTop > 300) {
+                scrollTopBtn.style.display = "block";
+            } else {
+                scrollTopBtn.style.display = "none";
+            }
+        };
+
+        function scrollToTop() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        }
+
+        // Arama Kutusu Filtreleme
+        const searchInput = document.getElementById('searchInput');
+        const cards = document.querySelectorAll('.card');
+
+        if (searchInput) {
+            searchInput.addEventListener('keyup', function(e) {
+                const term = e.target.value.toLowerCase();
+
+                cards.forEach(card => {
+                    const title = card.querySelector('h3').textContent.toLowerCase();
+                    const description = card.querySelector('p').textContent.toLowerCase();
+                    const tag = card.querySelector('.tag').textContent.toLowerCase();
+
+                    if (title.includes(term) || description.includes(term) || tag.includes(term)) {
+                        card.style.display = 'flex';
+                    } else {
+                        card.style.display = 'none';
+                    }
+                });
+            });
+        }
+    </script>
     <script src="assets/js/main.js"></script>
-    <script src="assets/js/search.js"></script>
 </body>
 </html>
