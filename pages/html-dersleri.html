@@ -3,98 +3,80 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Yazılım Ders Notları - Web Teacher</title>
-
-    <!-- Mobil Ana Ekran Uygulama ve İkon Ayarları -->
-    <meta name="mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-title" content="HocaKodla">
-    <meta name="theme-color" content="#1a252f">
-
-    <!-- Yeni Mavi-Turkuaz Zeminli </> Uygulama İkonu -->
-    <link rel="icon" type="image/svg+xml;v=2" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Crect width='512' height='512' rx='120' fill='%231a252f'/%3E%3Cpath d='M160 170 L70 256 L160 342 M352 170 L442 256 L352 342 M290 140 L222 372' stroke='%2316a085' stroke-width='38' stroke-linecap='round' stroke-linejoin='round' fill='none'/%3E%3C/svg%3E">
-    <link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Crect width='512' height='512' rx='120' fill='%231a252f'/%3E%3Cpath d='M160 170 L70 256 L160 342 M352 170 L442 256 L352 342 M290 140 L222 372' stroke='%2316a085' stroke-width='38' stroke-linecap='round' stroke-linejoin='round' fill='none'/%3E%3C/svg%3E">
-
-    <!-- Stil Dosyaları -->
-    <link rel="stylesheet" href="../assets/css/style.css">
-    <link rel="stylesheet" href="../assets/css/responsive.css">
+    <title>HTML5 Ders Notları ve Rehberi</title>
     <style>
-        /* İKİ KOLONLU DOKÜMANTASYON DÜZENİ */
-        .docs-layout {
-            display: grid;
-            grid-template-columns: 260px 1fr;
-            gap: 2rem;
-            margin: 2rem auto;
-            align-items: start;
+        :root {
+            --primary: #e34f26;
+            --secondary: #007acc;
+            --bg-color: #f8f9fa;
+            --card-bg: #ffffff;
+            --text-color: #212529;
+            --border-color: #e9ecef;
+            --code-bg: #1e1e1e;
         }
 
-        /* SOL YAN MENÜ (SIDEBAR) */
-        .sidebar {
-            background: white;
-            padding: 1.2rem;
-            border-radius: 10px;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
-            position: sticky;
-            top: 80px;
-            max-height: calc(100vh - 100px);
-            overflow-y: auto;
-        }
-
-        .sidebar h4 {
-            color: var(--primary-color, #2c3e50);
-            font-size: 1rem;
-            margin: 1rem 0 0.5rem 0;
-            padding-bottom: 0.3rem;
-            border-bottom: 2px solid #3498db;
-        }
-
-        .sidebar h4:first-child { margin-top: 0; }
-
-        .sidebar ul {
-            list-style: none;
-            padding: 0;
+        * {
+            box-sizing: border-box;
             margin: 0;
+            padding: 0;
         }
 
-        .sidebar ul li { margin-bottom: 0.3rem; }
-
-        .sidebar ul li a {
-            display: block;
-            padding: 0.4rem 0.6rem;
-            color: #444;
-            text-decoration: none;
-            border-radius: 4px;
-            font-size: 0.9rem;
-            font-family: monospace;
-            transition: all 0.2s;
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            padding-bottom: 50px;
         }
 
-        .sidebar ul li a:hover {
-            background-color: #e8f4fc;
-            color: #3498db;
-            padding-left: 0.9rem;
+        header {
+            background-color: var(--primary);
+            color: white;
+            text-align: center;
+            padding: 2.5rem 1rem;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
         }
 
-        /* SAĞ ANA İÇERİK */
-        .docs-content {
-            background: white;
-            padding: 2rem;
-            border-radius: 10px;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+        header h1 {
+            font-size: 2.2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+        }
+
+        .search-box {
+            margin-bottom: 2rem;
+        }
+
+        .search-box input {
+            width: 100%;
+            padding: 0.8rem 1.2rem;
+            font-size: 1rem;
+            border: 2px solid var(--border-color);
+            border-radius: 8px;
+            outline: none;
+            transition: border-color 0.3s;
+        }
+
+        .search-box input:focus {
+            border-color: var(--primary);
         }
 
         .tag-card {
-            margin-bottom: 3rem;
-            padding-bottom: 2rem;
-            border-bottom: 2px dashed #e0e0e0;
-            scroll-margin-top: 90px;
+            background: var(--card-bg);
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            border: 1px solid var(--border-color);
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
         }
 
-        .tag-card:last-child { border-bottom: none; }
-
         .tag-card h3 {
-            color: var(--primary-color, #2c3e50);
-            font-size: 1.4rem;
+            color: var(--primary);
             margin-bottom: 0.5rem;
             display: flex;
             align-items: center;
@@ -102,361 +84,291 @@
         }
 
         .tag-card p {
-            color: #555;
-            line-height: 1.6;
             margin-bottom: 1rem;
+            color: #495057;
         }
 
-        /* SARI ARKA PLANLI ÖRNEK KOD KUTUSU (#FED24F) */
         .code-block {
-            background-color: #7EC151;
-            color: #1a1a1a;
-            border: 1px solid #e0a800;
-            border-left: 5px solid #2c3e50;
-            padding: 1.2rem;
-            border-radius: 8px;
-            font-family: 'Consolas', 'Courier New', monospace;
-            font-size: 0.95rem;
-            line-height: 1.5;
-            margin: 1rem 0;
-            white-space: pre;
+            background-color: var(--code-bg);
+            color: #d4d4d4;
+            padding: 1rem;
+            border-radius: 6px;
+            font-family: 'Consolas', 'Courier New', Courier, monospace;
+            font-size: 0.9rem;
             overflow-x: auto;
-            font-weight: 600;
+            white-space: pre-wrap;
         }
 
-        /* CANLI ÇIKTI KUTUSU */
-        .preview-box {
-            background-color: #ffffff;
-            border: 2px solid #3498db;
-            border-radius: 8px;
-            padding: 1.2rem;
-            margin-top: 1rem;
+        /* ----- DERS İÇİ FORM STİLLERİ ----- */
+        form {
+            background: #fdfdfd;
+            padding: 1rem;
+            border-radius: 6px;
+            border: 1px solid #e2e8f0;
         }
 
-        .preview-title {
-            font-size: 0.8rem;
+        fieldset {
+            border: 1px solid #cbd5e1;
+            padding: 1rem;
+            border-radius: 6px;
+            margin-bottom: 1rem;
+            background: #ffffff;
+        }
+
+        legend {
             font-weight: bold;
-            color: #3498db;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            margin-bottom: 0.8rem;
+            padding: 0 0.5rem;
+            color: var(--primary);
         }
 
-        /* MOBİL UYUM */
-        @media (max-width: 768px) {
-            .docs-layout { grid-template-columns: 1fr; }
-            .sidebar { position: static; max-height: 250px; }
+        label {
+            display: block;
+            margin-top: 0.5rem;
+            margin-bottom: 0.2rem;
+            font-weight: 600;
+            font-size: 0.9rem;
         }
-        /* --- MOBİL TAŞMA VE YATAY KAYDIRMA ENGELLEYİCİ STİLLER --- */
 
-/* 1. Sayfa genelinde dışa taşmayı engelle */
-html, body {
-    max-width: 100%;
-    overflow-x: hidden;
-}
+        input[type="text"],
+        input[type="email"],
+        input[type="password"],
+        input[type="tel"],
+        input[type="date"],
+        select,
+        textarea {
+            width: 100%;
+            padding: 0.5rem;
+            margin-bottom: 0.5rem;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-family: inherit;
+        }
 
-/* 2. Örnek Kod Kutuları (#FED24F) */
-.code-block {
-    max-width: 100%;
-    box-sizing: border-box;
-    white-space: pre-wrap;       /* Uzun kod satırlarını ekrana sığdırıp alt satıra geçirir */
-    word-break: break-word;      /* Çok uzun kelimeleri/kodları kırar */
-    overflow-x: auto;            /* İhtiyaç olursa sadece kutu içinde yatay kaydırma yapar */
-}
+        input[type="radio"],
+        input[type="checkbox"] {
+            margin-right: 0.3rem;
+            margin-top: 0.4rem;
+        }
 
-/* 3. Canlı Önizleme Kutusu (Mavi Borderlı Kutu) */
-.preview-box {
-    max-width: 100%;
-    box-sizing: border-box;
-    overflow-x: auto;            /* İçerik genişse taşmayı engeller, kutu ekran genişliğinde kalır */
-    word-wrap: break-word;
-}
+        .radio-group, .checkbox-group {
+            margin-bottom: 0.5rem;
+        }
 
-/* 4. Mavi Kutunun İçindeki Form, Tablo ve Diğer Elemanlar */
-.preview-box *, 
-.preview-box form, 
-.preview-box table, 
-.preview-box fieldset {
-    max-width: 100% !important;
-    box-sizing: border-box;
-}
+        button {
+            padding: 0.6rem 1.2rem;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: bold;
+            margin-right: 0.5rem;
+            margin-top: 0.5rem;
+        }
 
-/* Tabloların mobilde ekranı patlatmasını önler */
-.preview-box table {
-    display: block;
-    overflow-x: auto;
-    white-space: nowrap;
-}
+        button[type="submit"] {
+            background-color: #28a745;
+            color: white;
+        }
+
+        button[type="reset"] {
+            background-color: #dc3545;
+            color: white;
+        }
+
+        button:hover {
+            opacity: 0.9;
+        }
     </style>
 </head>
 <body>
 
-    <!-- NAVİGASYON -->
     <header>
-        <nav class="nav-container">
-            <a href="../index.html" class="logo">&lt;Kodla<span>Hoca</span>/&gt;</a>
-            <div class="menu-toggle" id="mobile-menu">
-                <span></span><span></span><span></span>
-            </div>
-            <ul class="nav-links" id="nav-links">
-                <li><a href="../index.html">Ana Sayfa</a></li>
-                <li><a href="html-dersleri.html" style="color: var(--accent-color, #3498db);">HTML</a></li>
-                <li><a href="css-dersleri.html">CSS</a></li>
-                <li><a href="js-dersleri.html">JavaScript</a></li>
-            </ul>
-        </nav>
+        <h1>🌐 HTML5 Ders Notları</h1>
+        <p>Web geliştirmenin temeli olan HTML etiketleri ve kullanım örnekleri</p>
     </header>
 
-    <!-- BAŞLIK -->
-    <section class="hero" style="padding: 2rem 1rem;">
-        <h1>HTML5 Etiket Kütüphanesi</h1>
-        <p>Sol menüden istediğiniz etiketi seçip örnek kodunu ve ekran çıktısını inceleyebilirsiniz.</p>
-    </section>
+    <div class="container">
+        
+        <div class="search-box">
+            <input type="text" id="searchInput" placeholder="HTML etiketlerinde ara... (Örn: form, table, img, iframe)">
+        </div>
 
-    <!-- ANA DOKÜMANTASYON ALANI -->
-    <main class="container docs-layout">
+        <main id="contentList">
 
-        <!-- SOL TARAF: ETIKET MENÜSÜ -->
-        <aside class="sidebar">
-            <h4>Temel İskelet</h4>
-            <ul>
-                <li><a href="#tag-html">&lt;html&gt; &amp; &lt;head&gt;</a></li>
-                <li><a href="#tag-headings">&lt;h1&gt; - &lt;h6&gt;</a></li>
-                <li><a href="#tag-p">&lt;p&gt; Paragraf</a></li>
-            </ul>
-
-            <h4>Metin &amp; Biçim</h4>
-            <ul>
-                <li><a href="#tag-formatting">&lt;strong&gt; &amp; &lt;em&gt;</a></li>
-                <li><a href="#tag-a">&lt;a&gt; Link</a></li>
-            </ul>
-
-            <h4>Medya &amp; Listeler</h4>
-            <ul>
-                <li><a href="#tag-img">&lt;img&gt; Resim</a></li>
-                <li><a href="#tag-lists">&lt;ul&gt;, &lt;ol&gt;, &lt;li&gt;</a></li>
-            </ul>
-
-            <h4>Tablo &amp; Formlar</h4>
-            <ul>
-                <li><a href="#tag-table">&lt;table&gt; Tablo</a></li>
-                <li><a href="#tag-form">&lt;form&gt; Form Yapısı</a></li>
-                <li><a href="#tag-fieldset">&lt;fieldset&gt; Kenarlık</a></li>
-            </ul>
-        </aside>
-
-        <!-- SAĞ TARAF: DETAYLI İÇERİK -->
-        <div class="docs-content">
-
-            <!-- 1. HTML İSKELETİ -->
-            <article class="tag-card" id="tag-html">
-                <h3>🏷️ &lt;html&gt;, &lt;head&gt;, &lt;body&gt;</h3>
-                <p>Bir web sayfasının en temel yapısını oluşturan kök etiketlerdir.</p>
+            <article class="tag-card" id="tag-skeleton">
+                <h3>🏷️ &lt;!DOCTYPE html&gt; &amp; Temel İskelet</h3>
+                <p>Bir HTML5 belgesinin standart yapısını oluşturur.</p>
                 <div class="code-block">&lt;!DOCTYPE html&gt;
 &lt;html lang="tr"&gt;
-  &lt;head&gt;
+&lt;head&gt;
     &lt;meta charset="UTF-8"&gt;
     &lt;title&gt;Sayfa Başlığı&lt;/title&gt;
-  &lt;/head&gt;
-  &lt;body&gt;
-     Sayfa içeriği buraya yazılır.
-  &lt;/body&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;h1&gt;Merhaba Dünya!&lt;/h1&gt;
+&lt;/body&gt;
 &lt;/html&gt;</div>
-                <div class="preview-box">
-                    <div class="preview-title">📺 Ekran Çıktısı (Örnek Görünüm)</div>
-                    <p style="margin:0; color:#555;">(Tarayıcı bu yapıyı okuyarak sayfayı beyaz tuval üzerine çizer.)</p>
-                </div>
             </article>
 
-            <!-- 2. BAŞLIKLAR -->
             <article class="tag-card" id="tag-headings">
                 <h3>🏷️ &lt;h1&gt; - &lt;h6&gt; Başlık Etiketleri</h3>
-                <p>Sayfadaki başlık hiyerarşisini belirler. <code>&lt;h1&gt;</code> en büyük, <code>&lt;h6&gt;</code> en küçük başlıktır.</p>
-                <div class="code-block">&lt;h1&gt;H1 Ana Başlık&lt;/h1&gt;
-&lt;h2&gt;H2 Alt Başlık&lt;/h2&gt;
-&lt;h3&gt;H3 Konu Başlığı&lt;/h3&gt;</div>
-                <div class="preview-box">
-                    <div class="preview-title">📺 Ekran Çıktısı</div>
-                    <h1 style="font-size:1.6rem; margin-bottom:0.3rem;">H1 Ana Başlık</h1>
-                    <h2 style="font-size:1.3rem; margin-bottom:0.3rem;">H2 Alt Başlık</h2>
-                    <h3 style="font-size:1.1rem; margin:0;">H3 Konu Başlığı</h3>
-                </div>
+                <p>Arama motorları ve sayfa hiyerarşisi için başlıkları derecelendirir (h1 en önemli, h6 en az önemli).</p>
+                <div class="code-block">&lt;h1&gt;Ana Başlık (H1)&lt;/h1&gt;
+&lt;h2&gt;Alt Başlık (H2)&lt;/h2&gt;
+&lt;h3&gt;Küçük Başlık (H3)&lt;/h3&gt;</div>
             </article>
 
-            <!-- 3. PARAGRAF -->
-            <article class="tag-card" id="tag-p">
-                <h3>🏷️ &lt;p&gt; Paragraf Etiketi</h3>
-                <p>Metin blokları oluşturmak için kullanılır. Otomatik olarak alt ve üstten boşluk bırakır.</p>
-                <div class="code-block">&lt;p&gt;Bu birinci paragraftır.&lt;/p&gt;
-&lt;p&gt;Bu da ikinci paragraftır.&lt;/p&gt;</div>
-                <div class="preview-box">
-                    <div class="preview-title">📺 Ekran Çıktısı</div>
-                    <p style="margin-bottom:0.5rem;">Bu birinci paragraftır.</p>
-                    <p style="margin:0;">Bu da ikinci paragraftır.</p>
-                </div>
+            <article class="tag-card" id="tag-text">
+                <h3>🏷️ &lt;p&gt; Paragraf ve &lt;hr&gt; Yatay Çizgi</h3>
+                <p>Metin içeriği yazmak için &lt;p&gt;, konular veya paragraflar arasına yatay ayraç çizgisi eklemek için &lt;hr&gt; etiketi kullanılır.</p>
+                <div class="code-block">&lt;p&gt;Birinci paragraf metni buraya yazılır.&lt;/p&gt;
+&lt;hr&gt; &lt;!-- Yatay Ayraç Çizgisi --&gt;
+&lt;p&gt;İkinci paragraf metni çizginin altında devam eder.&lt;/p&gt;</div>
             </article>
 
-            <!-- 4. METİN BİÇİMLENDİRME -->
-            <article class="tag-card" id="tag-formatting">
-                <h3>🏷️ &lt;strong&gt; &amp; &lt;em&gt; Vurgu Etiketleri</h3>
-                <p>Metin içerisinde önemli kelimeleri <strong>kalın (strong)</strong> veya <em>eğik/italik (em)</em> yaparak vurgulamak için kullanılır.</p>
-                <div class="code-block">&lt;p&gt;
-  Bu metinde &lt;strong&gt;önemli kelimeler koyu&lt;/strong&gt;,
-  &lt;em&gt;dikkat çekmek istenen kelimeler ise eğik&lt;/em&gt; yazılır.
-&lt;/p&gt;</div>
-                <div class="preview-box">
-                    <div class="preview-title">📺 Ekran Çıktısı</div>
-                    <p style="margin:0; color:#333;">
-                        Bu metinde <strong>önemli kelimeler koyu</strong>,
-                        <em>dikkat çekmek istenen kelimeler ise eğik</em> yazılır.
-                    </p>
-                </div>
-            </article>
-
-            <!-- 5. LİNK -->
-            <article class="tag-card" id="tag-a">
-                <h3>🏷️ &lt;a&gt; Bağlantı (Link) Etiketi</h3>
-                <p>Başka bir sayfaya veya siteye köprü kurmayı sağlar. <code>target="_blank"</code> yeni sekmede açar.</p>
-                <div class="code-block">&lt;a href="https://www.google.com" target="_blank"&gt;
-  Google'a Git
-&lt;/a&gt;</div>
-                <div class="preview-box">
-                    <div class="preview-title">📺 Ekran Çıktısı</div>
-                    <a href="https://www.google.com" target="_blank" style="color:#3498db; text-decoration:underline; font-weight:bold;">Google'a Git</a>
-                </div>
-            </article>
-
-            <!-- 6. RESİM -->
-            <article class="tag-card" id="tag-img">
-                <h3>🏷️ &lt;img&gt; Resim Etiketi</h3>
-                <p>Sayfaya görsel ekler. Kapanış etiketi yoktur (self-closing).</p>
-                <div class="code-block">&lt;img src="../assets/images/logo.png" alt="Logo Açıklaması" width="150"&gt;</div>
-                <div class="preview-box">
-                    <div class="preview-title">📺 Ekran Çıktısı</div>
-                    <div style="background:#2c3e50; color:white; display:inline-block; padding:0.5rem 1rem; border-radius:4px; font-weight:bold;">
-                        &lt;HocaKodlama/&gt; (Görsel Temsili)
-                    </div>
-                </div>
-            </article>
-
-            <!-- 7. LİSTELER -->
             <article class="tag-card" id="tag-lists">
-                <h3>🏷️ &lt;ul&gt;, &lt;ol&gt; &amp; &lt;li&gt; Liste Etiketleri</h3>
-                <p>Sırasız maddeli liste için <code>&lt;ul&gt;</code>, numaralı liste için <code>&lt;ol&gt;</code>, her bir madde için <code>&lt;li&gt;</code> kullanılır.</p>
+                <h3>🏷️ &lt;ul&gt;, &lt;ol&gt;, &lt;li&gt; Liste Etiketleri</h3>
+                <p>Sırasız (maddeli - &lt;ul&gt;) veya sıralı (numaralı - &lt;ol&gt;) listeler oluşturmak için kullanılır.</p>
                 <div class="code-block">&lt;!-- Sırasız Liste --&gt;
 &lt;ul&gt;
-  &lt;li&gt;HTML5&lt;/li&gt;
-  &lt;li&gt;CSS3&lt;/li&gt;
+    &lt;li&gt;HTML5&lt;/li&gt;
+    &lt;li&gt;CSS3&lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;!-- Sıralı Liste --&gt;
 &lt;ol&gt;
-  &lt;li&gt;Birinci Adım&lt;/li&gt;
-  &lt;li&gt;İkinci Adım&lt;/li&gt;
+    &lt;li&gt;Birinci Adım&lt;/li&gt;
+    &lt;li&gt;İkinci Adım&lt;/li&gt;
 &lt;/ol&gt;</div>
-                <div class="preview-box">
-                    <div class="preview-title">📺 Ekran Çıktısı</div>
-                    <div style="display:flex; gap:3rem;">
-                        <div>
-                            <strong>Sırasız Liste (&lt;ul&gt;)</strong>
-                            <ul style="margin-left:1.2rem; margin-top:0.3rem;">
-                                <li>HTML5</li>
-                                <li>CSS3</li>
-                            </ul>
-                        </div>
-                        <div>
-                            <strong>Sıralı Liste (&lt;ol&gt;)</strong>
-                            <ol style="margin-left:1.2rem; margin-top:0.3rem;">
-                                <li>Birinci Adım</li>
-                                <li>İkinci Adım</li>
-                            </ol>
-                        </div>
-                    </div>
-                </div>
             </article>
 
-            <!-- 8. TABLO -->
+            <article class="tag-card" id="tag-image">
+                <h3>🏷️ &lt;img&gt; Görsel Ekleme Etiketi</h3>
+                <p>Web sayfasına resim veya görsel eklemek için kullanılır. 'src' resmin yolunu, 'alt' ise alternatif metni belirtir.</p>
+                <div class="code-block">&lt;img src="resim.jpg" alt="Açıklama Metni" width="100%" style="max-width:400px; border-radius:6px;"&gt;</div>
+            </article>
+
+            <article class="tag-card" id="tag-iframe">
+                <h3>🏷️ &lt;iframe&gt; Dahili Çerçeve</h3>
+                <p>Sayfa içine harici bir web sitesi, Harita (Google Maps) veya Video (YouTube) gömmek için kullanılır.</p>
+                <div class="code-block">&lt;iframe src="https://example.com" width="100%" height="250" style="border:1px solid #ccc; border-radius:6px;"&gt;&lt;/iframe&gt;</div>
+            </article>
+
+            <article class="tag-card" id="tag-anchor">
+                <h3>🏷️ &lt;a&gt; Bağlantı (Link) Etiketi</h3>
+                <p>Başka bir sayfaya veya web adresine yönlendirme yapar.</p>
+                <div class="code-block">&lt;a href="https://www.google.com" target="_blank"&gt;Google'a Git (Yeni Sekme)&lt;/a&gt;</div>
+            </article>
+
             <article class="tag-card" id="tag-table">
-                <h3>🏷️ &lt;table&gt; Tablo Etiketi</h3>
-                <p>Satır (<code>&lt;tr&gt;</code>), başlık hücresi (<code>&lt;th&gt;</code>) ve veri hücresi (<code>&lt;td&gt;</code>) ile tablo dizilimi:</p>
-                <div class="code-block">&lt;table border="1"&gt;
-  &lt;tr&gt;
-    &lt;th&gt;Ders&lt;/th&gt;
-    &lt;th&gt;Not&lt;/th&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-    &lt;td&gt;HTML5&lt;/td&gt;
-    &lt;td&gt;100&lt;/td&gt;
-  &lt;/tr&gt;
+                <h3>🏷️ &lt;table&gt;, &lt;tr&gt;, &lt;td&gt;, &lt;th&gt; Tablo Yapısı</h3>
+                <p>Satır ve sütunlardan oluşan veri tabloları hazırlar.</p>
+                <div class="code-block">&lt;table border="1" style="width:100%; border-collapse:collapse;"&gt;
+    &lt;tr&gt;
+        &lt;th style="padding:8px;"&gt;Ders&lt;/th&gt;
+        &lt;th style="padding:8px;"&gt;Saat&lt;/th&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+        &lt;td style="padding:8px;"&gt;HTML5&lt;/td&gt;
+        &lt;td style="padding:8px;"&gt;2 Saat&lt;/td&gt;
+    &lt;/tr&gt;
 &lt;/table&gt;</div>
-                <div class="preview-box">
-                    <div class="preview-title">📺 Ekran Çıktısı</div>
-                    <table style="width:100%; border-collapse:collapse;" border="1">
-                        <tr style="background:#2c3e50; color:white;"><th style="padding:0.4rem;">Ders</th><th style="padding:0.4rem;">Not</th></tr>
-                        <tr><td style="padding:0.4rem;">HTML5</td><td style="padding:0.4rem;">100</td></tr>
-                    </table>
-                </div>
             </article>
 
-            <!-- 9. FORM YAPISI -->
             <article class="tag-card" id="tag-form">
                 <h3>🏷️ &lt;form&gt; Form ve Girdi Elemanları</h3>
-                <p>Kullanıcıdan metin, şifre veya seçim gibi bilgileri toplamak için kullanılır.</p>
+                <p>Kullanıcıdan metin, şifre, telefon, tarih, şehir ve mesaj gibi bilgileri toplamak için kullanılan kapsamlı öğrenci kayıt formu.</p>
+                
                 <div class="code-block">&lt;form action="#" method="POST"&gt;
-  &lt;label for="ad"&gt;Adınız:&lt;/label&gt;
-  &lt;input type="text" id="ad" placeholder="Adınızı yazın"&gt;
 
-  &lt;label for="sifre"&gt;Şifre:&lt;/label&gt;
-  &lt;input type="password" id="sifre"&gt;
+  &lt;!-- Öğrenci Bilgileri Grubu --&gt;
+  &lt;fieldset&gt;
+    &lt;legend&gt;Öğrenci Kayıt Formu&lt;/legend&gt;
 
-  &lt;button type="submit"&gt;Giriş Yap&lt;/button&gt;
+    &lt;label for="ad"&gt;Ad Soyad:&lt;/label&gt;
+    &lt;input type="text" id="ad" name="ad" placeholder="Ahmet Yılmaz" required&gt;
+
+    &lt;label for="email"&gt;E-posta Adresi:&lt;/label&gt;
+    &lt;input type="email" id="email" name="email" placeholder="ornek@mail.com" required&gt;
+
+    &lt;label for="tel"&gt;Telefon Numarası:&lt;/label&gt;
+    &lt;input type="tel" id="tel" name="tel" placeholder="0555 555 55 55"&gt;
+
+    &lt;label for="tarih"&gt;Doğum Tarihi:&lt;/label&gt;
+    &lt;input type="date" id="tarih" name="tarih"&gt;
+
+    &lt;label for="sehir"&gt;Şehir Seçiniz:&lt;/label&gt;
+    &lt;select id="sehir" name="sehir"&gt;
+      &lt;option value="21"&gt;Diyarbakır&lt;/option&gt;
+      &lt;option value="34"&gt;İstanbul&lt;/option&gt;
+      &lt;option value="06"&gt;Ankara&lt;/option&gt;
+      &lt;option value="35"&gt;İzmir&lt;/option&gt;
+    &lt;/select&gt;
+
+    &lt;label for="mesaj"&gt;Notunuz / Mesajınız:&lt;/label&gt;
+    &lt;textarea id="mesaj" name="mesaj" rows="3" placeholder="Mesajınızı buraya yazın..."&gt;&lt;/textarea&gt;
+
+    &lt;button type="submit"&gt;💾 Kaydet / Gönder&lt;/button&gt;
+    &lt;button type="reset"&gt;🧹 Sıfırla&lt;/button&gt;
+  &lt;/fieldset&gt;
+
 &lt;/form&gt;</div>
-                <div class="preview-box">
-                    <div class="preview-title">📺 Ekran Çıktısı</div>
-                    <form style="display:flex; flex-direction:column; gap:0.5rem; max-width:250px;" onclick="event.preventDefault();">
-                        <label style="font-size:0.9rem; font-weight:bold;">Adınız:</label>
-                        <input type="text" placeholder="Adınızı yazın" style="padding:0.4rem; border:1px solid #ccc; border-radius:4px;">
-                        
-                        <label style="font-size:0.9rem; font-weight:bold;">Şifre:</label>
-                        <input type="password" style="padding:0.4rem; border:1px solid #ccc; border-radius:4px;">
 
-                        <button style="background:#3498db; color:white; border:none; padding:0.5rem; border-radius:4px; cursor:pointer; font-weight:bold; margin-top:0.3rem;">Giriş Yap</button>
-                    </form>
-                </div>
-            </article>
+                <p style="margin-top: 1rem; font-weight: bold; color: var(--primary);">📺 Canlı Form Önizlemesi:</p>
+                <form onsubmit="alert('Form verileri gönderildi!'); return false;">
+                    <fieldset>
+                        <legend>Öğrenci Kayıt Formu</legend>
 
-            <!-- 10. FIELDSET & LEGEND -->
-            <article class="tag-card" id="tag-fieldset">
-                <h3>🏷️ &lt;fieldset&gt; &amp; &lt;legend&gt; Form Kenarlıkları</h3>
-                <p>Form elemanlarını şık bir çerçeve içinde gruplamak ve grubun başlığını belirlemek için kullanılır.</p>
-                <div class="code-block">&lt;fieldset&gt;
-  &lt;legend&gt;Giriş Bilgileri&lt;/legend&gt;
-  
-  &lt;label for="k"&gt;Kullanıcı Adı:&lt;/label&gt;
-  &lt;input type="text" id="k"&gt;
-&lt;/fieldset&gt;</div>
-                <div class="preview-box">
-                    <div class="preview-title">📺 Ekran Çıktısı</div>
-                    <fieldset style="border:2px solid #2c3e50; border-radius:6px; padding:1rem;">
-                        <legend style="font-weight:bold; color:#2c3e50; padding:0 6px;">Giriş Bilgileri</legend>
-                        <label style="font-size:0.9rem; font-weight:bold;">Kullanıcı Adı:</label>
-                        <input type="text" placeholder="Örn: ahmet123" style="padding:0.4rem; border:1px solid #ccc; border-radius:4px; margin-left:0.5rem;">
+                        <label for="f-ad">Ad Soyad:</label>
+                        <input type="text" id="f-ad" placeholder="Ahmet Yılmaz" required>
+
+                        <label for="f-email">E-posta Adresi:</label>
+                        <input type="email" id="f-email" placeholder="ornek@mail.com" required>
+
+                        <label for="f-tel">Telefon Numarası:</label>
+                        <input type="tel" id="f-tel" placeholder="0555 555 55 55">
+
+                        <label for="f-tarih">Doğum Tarihi:</label>
+                        <input type="date" id="f-tarih">
+
+                        <label for="f-sehir">Şehir Seçiniz:</label>
+                        <select id="f-sehir">
+                            <option value="21">Diyarbakır</option>
+                            <option value="34">İstanbul</option>
+                            <option value="06">Ankara</option>
+                            <option value="35">İzmir</option>
+                        </select>
+
+                        <label for="f-mesaj">Notunuz / Mesajınız:</label>
+                        <textarea id="f-mesaj" rows="3" placeholder="Mesajınızı buraya yazın..."></textarea>
+
+                        <button type="submit">💾 Kaydet / Gönder</button>
+                        <button type="reset">🧹 Sıfırla</button>
                     </fieldset>
-                </div>
+                </form>
             </article>
 
-        </div>
-    </main>
+        </main>
+    </div>
 
-    <!-- FOOTER -->
-    <footer>
-        <p>&copy; 2026 HocaKodla Ders Portalı. Tüm Hakları Saklıdır.</p>
-    </footer>
+    <script>
+        const searchInput = document.getElementById('searchInput');
+        const cards = document.querySelectorAll('.tag-card');
 
-    <!-- YUKARI ÇIK BUTONU -->
-    <button id="scrollTopBtn" title="Yukarı Çık">&uarr;</button>
+        searchInput.addEventListener('keyup', function(e) {
+            const term = e.target.value.toLowerCase();
 
-    <!-- Scriptler -->
-    <script src="../assets/js/main.js"></script>
+            cards.forEach(card => {
+                const title = card.querySelector('h3').textContent.toLowerCase();
+                const description = card.querySelector('p').textContent.toLowerCase();
+                const code = card.querySelector('.code-block').textContent.toLowerCase();
+
+                if (title.includes(term) || description.includes(term) || code.includes(term)) {
+                    card.style.display = 'block';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        });
+    </script>
 </body>
 </html>
