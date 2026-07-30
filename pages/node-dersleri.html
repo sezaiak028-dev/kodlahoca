@@ -1,0 +1,556 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Node.js Detaylı Ders Notları & Rehberi - KodlaHoca</title>
+
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-title" content="HocaKodla">
+    <meta name="theme-color" content="#222222">
+
+    <link rel="icon" type="image/svg+xml;v=2" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Crect width='512' height='512' rx='120' fill='%23222222'/%3E%3Cpath d='M160 170 L70 256 L160 342 M352 170 L442 256 L352 342 M290 140 L222 372' stroke='%23339933' stroke-width='38' stroke-linecap='round' stroke-linejoin='round' fill='none'/%3E%3C/svg%3E">
+    <link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Crect width='512' height='512' rx='120' fill='%23222222'/%3E%3Cpath d='M160 170 L70 256 L160 342 M352 170 L442 256 L352 342 M290 140 L222 372' stroke='%23339933' stroke-width='38' stroke-linecap='round' stroke-linejoin='round' fill='none'/%3E%3C/svg%3E">
+
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="stylesheet" href="../assets/css/responsive.css">
+    <style>
+        /* İKİ KOLONLU DOKÜMANTASYON DÜZENİ */
+        .docs-layout {
+            display: grid;
+            grid-template-columns: 260px 1fr;
+            gap: 2rem;
+            margin: 2rem auto;
+            align-items: start;
+        }
+
+        /* SOL YAN MENÜ (SIDEBAR) */
+        .sidebar {
+            background: white;
+            padding: 1.2rem;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+            position: sticky;
+            top: 80px;
+            max-height: calc(100vh - 100px);
+            overflow-y: auto;
+        }
+
+        .sidebar h4 {
+            color: var(--primary-color, #2c3e50);
+            font-size: 1rem;
+            margin: 1rem 0 0.5rem 0;
+            padding-bottom: 0.3rem;
+            border-bottom: 2px solid #339933;
+        }
+
+        .sidebar h4:first-child { margin-top: 0; }
+
+        .sidebar ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .sidebar ul li { margin-bottom: 0.3rem; }
+
+        .sidebar ul li a {
+            display: block;
+            padding: 0.4rem 0.6rem;
+            color: #444;
+            text-decoration: none;
+            border-radius: 4px;
+            font-size: 0.9rem;
+            font-family: monospace;
+            transition: all 0.2s;
+        }
+
+        .sidebar ul li a:hover {
+            background-color: #eafaf1;
+            color: #27ae60;
+            padding-left: 0.9rem;
+        }
+
+        /* SAĞ ANA İÇERİK */
+        .docs-content {
+            background: white;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+        }
+
+        .tag-card {
+            margin-bottom: 3rem;
+            padding-bottom: 2rem;
+            border-bottom: 2px dashed #e0e0e0;
+            scroll-margin-top: 90px;
+        }
+
+        .tag-card:last-child { border-bottom: none; }
+
+        .tag-card h3 {
+            color: var(--primary-color, #2c3e50);
+            font-size: 1.4rem;
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .tag-card p {
+            color: #555;
+            line-height: 1.6;
+            margin-bottom: 1rem;
+        }
+
+        /* ÖRNEK KOD KUTUSU (YEŞİL ARKA PLANLI) */
+        .code-block {
+            background-color: #7EC151;
+            color: #1a1a1a;
+            border: 1px solid #e0a800;
+            border-left: 5px solid #2c3e50;
+            padding: 1.2rem;
+            border-radius: 8px;
+            font-family: 'Consolas', 'Courier New', monospace;
+            font-size: 0.95rem;
+            line-height: 1.5;
+            margin: 1rem 0;
+            white-space: pre-wrap;
+            word-break: break-word;
+            overflow-x: auto;
+            font-weight: 600;
+        }
+
+        /* CANLI ÇIKTI KUTUSU */
+        .preview-box {
+            background-color: #ffffff;
+            border: 2px solid #3498db;
+            border-radius: 8px;
+            padding: 1.2rem;
+            margin-top: 1rem;
+            max-width: 100%;
+            box-sizing: border-box;
+            overflow-x: auto;
+            word-wrap: break-word;
+        }
+
+        .preview-title {
+            font-size: 0.8rem;
+            font-weight: bold;
+            color: #3498db;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 0.8rem;
+        }
+
+        /* YUKARI ÇIK BUTONU */
+        .back-to-top {
+            position: fixed;
+            bottom: 25px;
+            right: 25px;
+            background-color: #339933;
+            color: white;
+            border: none;
+            border-radius: 50px;
+            padding: 12px 20px;
+            font-size: 0.9rem;
+            font-weight: bold;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.25);
+            display: none;
+            align-items: center;
+            gap: 8px;
+            z-index: 10000;
+            transition: all 0.3s ease;
+        }
+
+        .back-to-top:hover {
+            background-color: #27ae60;
+            transform: translateY(-3px);
+        }
+
+        /* MOBİL UYUM */
+        @media (max-width: 768px) {
+            .docs-layout { grid-template-columns: 1fr; }
+            .sidebar { position: static; max-height: 250px; }
+            .back-to-top { bottom: 15px; right: 15px; padding: 10px 15px; font-size: 0.85rem; }
+        }
+
+        /* MOBİL TAŞMA VE YATAY KAYDIRMA ENGELLEYİCİ STİLLER */
+        html, body {
+            max-width: 100%;
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+        }
+
+        .preview-box *, 
+        .preview-box form, 
+        .preview-box table, 
+        .preview-box fieldset {
+            max-width: 100% !important;
+            box-sizing: border-box;
+        }
+
+        .preview-box table {
+            display: block;
+            overflow-x: auto;
+            white-space: nowrap;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <nav class="nav-container">
+            <a href="../index.html" class="logo">&lt;Kodla<span>Hoca</span>/&gt;</a>
+            <div class="menu-toggle" id="mobile-menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <ul class="nav-links" id="nav-links">
+                <li><a href="../index.html">Ana Sayfa</a></li>
+                <li><a href="html-dersleri.html">HTML</a></li>
+                <li><a href="css-dersleri.html">CSS</a></li>
+                <li><a href="bootstrap-dersleri.html">Bootstrap</a></li>
+                <li><a href="js-dersleri.html">JavaScript</a></li>
+                <li><a href="react-dersleri.html">React.js</a></li>
+                <li><a href="node-dersleri.html" style="color: #339933; font-weight: bold;">Node.js</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section class="hero" style="padding: 2.5rem 1rem; text-align:center; background: #222222; color:#339933; box-shadow: 0 4px 6px rgba(0,0,0,0.05);">
+        <h1 style="font-size: 2.2rem; margin-bottom: 0.5rem; color:#339933;">🟢 Kapsamlı Node.js &amp; Express.js Rehberi</h1>
+        <p style="font-size: 1.1rem; opacity: 0.9; max-width: 750px; margin: 0 auto; color: #bdc3c7; font-weight: 500;">Event Loop, NPM, Dahili Modüller, Express.js, REST API, SQLite Veritabanı ve JWT ile Sunucu Tarafı Programlama.</p>
+    </section>
+
+    <main class="container docs-layout">
+
+        <aside class="sidebar">
+            <h4>1. Temel &amp; Çalışma Mantığı</h4>
+            <ul>
+                <li><a href="#tag-intro">Node.js &amp; Event Loop</a></li>
+                <li><a href="#tag-npm">NPM &amp; Package.json</a></li>
+                <li><a href="#tag-modules">Modüller (CommonJS vs ES)</a></li>
+            </ul>
+
+            <h4>2. Dahili Modüller</h4>
+            <ul>
+                <li><a href="#tag-fs">FS (Dosya İşlemleri)</a></li>
+                <li><a href="#tag-http">Dahili HTTP Sunucusu</a></li>
+            </ul>
+
+            <h4>3. Express.js &amp; API</h4>
+            <ul>
+                <li><a href="#tag-express">Express.js Sunucusu</a></li>
+                <li><a href="#tag-routing">Routing &amp; HTTP Metotları</a></li>
+                <li><a href="#tag-middleware">Middleware Mantığı</a></li>
+                <li><a href="#tag-rest">REST API &amp; JSON Yanıtı</a></li>
+            </ul>
+
+            <h4>4. Veritabanı &amp; Güvenlik</h4>
+            <ul>
+                <li><a href="#tag-sqlite">SQLite Veritabanı</a></li>
+                <li><a href="#tag-env">dotenv (.env Güvenliği)</a></li>
+                <li><a href="#tag-jwt">JWT ile Auth</a></li>
+            </ul>
+        </aside>
+
+        <div class="docs-content">
+
+            <article class="tag-card" id="tag-intro">
+                <h3>🏷️ 1. Node.js Nedir &amp; Event Loop Mimarisi</h3>
+                <p>Node.js, Chrome'un V8 JavaScript motoru üzerine kurulmuş, sunucu tarafında çalışan asenkron ve olay güdümlü (Event-Driven) bir çalışma zamanı ortamıdır (Runtime). Tek iş parçacıklı (Single-Threaded) yapısına rağmen <strong>Non-blocking I/O</strong> sayesinde eşzamanlı yüksek istekleri karşılar.</p>
+                <div class="code-block">// Node.js versiyon kontrolü ve dosya çalıştırma
+node -v
+node index.js</div>
+                <div class="preview-box">
+                    <div class="preview-title">📺 Ekran Çıktısı</div>
+                    <p style="margin:0; font-weight:bold; color:#2c3e50;">v20.11.0 ➔ Node.js çalışma ortamı hazır.</p>
+                </div>
+            </article>
+
+            <article class="tag-card" id="tag-npm">
+                <h3>🏷️ 2. NPM (Node Package Manager) &amp; Package.json</h3>
+                <p>NPM, projenin bağımlılıklarını (kütüphanelerini) yöneten paket yöneticisidir. Projeyi başlatmak için <code>package.json</code> dosyası oluşturulur.</p>
+                <div class="code-block">// Proje paket dosyasını varsayılan ayarlarla başlatma
+npm init -y
+
+// Bağımlılık yükleme (Örn: Express ve SQLite3)
+npm install express sqlite3
+
+// Geliştirici bağımlılığı yükleme (Örn: Nodemon)
+npm install -D nodemon</div>
+                <div class="preview-box">
+                    <div class="preview-title">📺 Ekran Çıktısı</div>
+                    <p style="margin:0; font-family:monospace; color:#27ae60;">package.json dosyası ve node_modules klasörü başarıyla oluşturuldu.</p>
+                </div>
+            </article>
+
+            <article class="tag-card" id="tag-modules">
+                <h3>🏷️ 3. Modül Sistemleri (CommonJS vs ES Modules)</h3>
+                <p>Node.js geleneksel olarak <code>require/module.exports</code> (CommonJS) yapısını kullanır. Modern projelerde `package.json` içine <code>"type": "module"</code> eklenerek <code>import/export</code> (ESM) kullanılabilir.</p>
+                <div class="code-block">// --- CommonJS Yöntemi ---
+const math = require('./math');
+module.exports = { topla, cikar };
+
+// --- ES Modules Yöntemi ---
+import express from 'express';
+export const topla = (a, b) => a + b;</div>
+                <div class="preview-box">
+                    <div class="preview-title">📺 Ekran Çıktısı</div>
+                    <p style="margin:0; font-weight:bold; color:#2c3e50;">Modüller sorunsuz içe/dışa aktarıldı.</p>
+                </div>
+            </article>
+
+            <article class="tag-card" id="tag-fs">
+                <h3>🏷️ 4. Dahili FS (File System) Modülü İşlemleri</h3>
+                <p>Sunucudaki dosyaları okuma, yeni dosya yazma, güncelleme veya silme işlemleri için Node.js'in dahili <code>fs</code> veya <code>fs/promises</code> kütüphanesi kullanılır.</p>
+                <div class="code-block">const fs = require('fs/promises');
+
+async function dosyaIslemleri() {
+    try {
+        // Dosyaya veri yazma
+        await fs.writeFile('notlar.txt', 'KodlaHoca Node.js Ders Notları');
+        
+        // Dosyayı okuma
+        const veri = await fs.readFile('notlar.txt', 'utf-8');
+        console.log("Okunan Veri:", veri);
+    } catch (err) {
+        console.error("Hata:", err);
+    }
+}
+dosyaIslemleri();</div>
+                <div class="preview-box">
+                    <div class="preview-title">📺 Ekran Çıktısı</div>
+                    <p style="margin:0; font-weight:bold; color:#27ae60;">Okunan Veri: KodlaHoca Node.js Ders Notları</p>
+                </div>
+            </article>
+
+            <article class="tag-card" id="tag-http">
+                <h3>🏷️ 5. Dahili http Modülü ile İlk Sunucu</h3>
+                <p>Herhangi bir harici framework kullanmadan varsayılan <code>http</code> modülüyle temel bir HTTP sunucusu yayına alınabilir.</p>
+                <div class="code-block">const http = require('http');
+
+const server = http.createServer((req, res) => {
+    res.writeHead(200, { 'Content-Type': 'text/plain; charset=utf-8' });
+    res.end('Node.js Dahili HTTP Sunucusundan Merhaba!');
+});
+
+server.listen(3000, () => {
+    console.log('Sunucu 3000 portunda dinleniyor...');
+});</div>
+                <div class="preview-box">
+                    <div class="preview-title">📺 Ekran Çıktısı</div>
+                    <p style="margin:0; font-weight:bold; color:#3498db;">HTTP/1.1 200 OK ➔ Node.js Dahili HTTP Sunucusundan Merhaba!</p>
+                </div>
+            </article>
+
+            <article class="tag-card" id="tag-express">
+                <h3>🏷️ 6. Express.js Mimarisi &amp; Sunucu Kurulumu</h3>
+                <p>Express, Node.js üzerinde web uygulamaları ve API'ler geliştirmek için kullanılan en popüler, esnek ve hızlı web framework'üdür.</p>
+                <div class="code-block">const express = require('express');
+const app = express();
+const PORT = 5000;
+
+app.get('/', (req, res) => {
+    res.send('Express.js Sunucusu Yayında! 🚀');
+});
+
+app.listen(PORT, () => {
+    console.log(`Sunucu http://localhost:${PORT} üzerinde çalışıyor.`);
+});</div>
+                <div class="preview-box">
+                    <div class="preview-title">📺 Ekran Çıktısı</div>
+                    <p style="margin:0; font-weight:bold; color:#27ae60;">Sunucu http://localhost:5000 üzerinde çalışıyor. 🚀</p>
+                </div>
+            </article>
+
+            <article class="tag-card" id="tag-routing">
+                <h3>🏷️ 7. Express Routing &amp; HTTP Metotları (CRUD)</h3>
+                <p>İstek türüne göre (GET, POST, PUT, DELETE) sunucunun vereceği yanıtların ve rotaların belirlenmesidir.</p>
+                <div class="code-block">app.use(express.json()); // JSON gövdesini okumak için
+
+// GET: Veri Çekme
+app.get('/api/ogrenciler', (req, res) => { ... });
+
+// POST: Yeni Veri Ekleme
+app.post('/api/ogrenciler', (req, res) => { ... });
+
+// PUT: Güncelleme
+app.put('/api/ogrenciler/:id', (req, res) => { ... });
+
+// DELETE: Silme
+app.delete('/api/ogrenciler/:id', (req, res) => { ... });</div>
+                <div class="preview-box">
+                    <div class="preview-title">📺 Ekran Çıktısı</div>
+                    <p style="margin:0; font-family:monospace; color:#8e44ad;">GET /api/ogrenciler ➔ 200 OK | POST /api/ogrenciler ➔ 201 Created</p>
+                </div>
+            </article>
+
+            <article class="tag-card" id="tag-middleware">
+                <h3>🏷️ 8. Middleware (Ara Yazılım) Mantığı</h3>
+                <p>İstek (Request) ile Yanıt (Response) döngüsü arasında çalışan, kimlik doğrulama, loglama veya veri doğrulama yapan fonksiyonlardır. <code>next()</code> ile bir sonraki adıma geçilir.</p>
+                <div class="code-block">// Özel Loglama Middleware'i
+const logger = (req, res, next) => {
+    console.log(`[${new Date().toISOString()}] ${req.method} ${req.url}`);
+    next(); // Bir sonraki middleware veya rotaya geçiş yap
+};
+
+app.use(logger); // Tüm uygulamada aktif et</div>
+                <div class="preview-box">
+                    <div class="preview-title">📺 Ekran Çıktısı</div>
+                    <p style="margin:0; font-family:monospace; color:#e67e22;">[2026-07-30T21:48:00.000Z] GET /api/dersler</p>
+                </div>
+            </article>
+
+            <article class="tag-card" id="tag-rest">
+                <h3>🏷️ 9. Standart REST API Mimarisi &amp; Durum Kodları</h3>
+                <p>İstemciye (React, Mobil vb.) standart JSON formatında yanıt dönülmesi ve uygun HTTP durum kodlarının (Status Code) kullanılması ilkesidir.</p>
+                <div class="code-block">app.get('/api/ders/:id', (req, res) => {
+    const dersId = req.params.id;
+    
+    if (dersId === "101") {
+        return res.status(200).json({ success: true, ders: "Node.js 101" });
+    }
+    
+    return res.status(404).json({ success: false, mesaj: "Ders bulunamadı!" });
+});</div>
+                <div class="preview-box">
+                    <div class="preview-title">📺 Ekran Çıktısı (JSON Yanıtı)</div>
+                    <pre style="margin:0; font-family:monospace; font-size:0.85rem; color:#2c3e50;">{
+  "success": true,
+  "ders": "Node.js 101"
+}</pre>
+                </div>
+            </article>
+
+            <article class="tag-card" id="tag-sqlite">
+                <h3>🏷️ 10. SQLite Veritabanı İşlemleri (sqlite3)</h3>
+                <p>SQLite, ayrı bir veritabanı sunucusu kurulumu gerektirmeyen, tüm verileri tek bir dosya (`veritabani.db`) içinde saklayan ilişkisel (SQL) bir veritabanıdır.</p>
+                <div class="code-block">const sqlite3 = require('sqlite3').verbose();
+
+// 1. Veritabanı Dosyasına Bağlanma / Oluşturma
+const db = new sqlite3.Database('./veritabani.db', (err) => {
+    if (err) console.error("Bağlantı hatası:", err.message);
+    else console.log("SQLite Veritabanına Başarıyla Bağlanıldı!");
+});
+
+// 2. Tablo Oluşturma ve Veri Ekleme
+db.serialize(() => {
+    db.run(`CREATE TABLE IF NOT EXISTS ogrenciler (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        ad TEXT NOT NULL,
+        numara INTEGER
+    )`);
+
+    // Veri Ekleme (INSERT)
+    const stmt = db.prepare("INSERT INTO ogrenciler (ad, numara) VALUES (?, ?)");
+    stmt.run("Ahmet Yılmaz", 101);
+    stmt.finalize();
+
+    // Veri Okuma (SELECT)
+    db.all("SELECT * FROM ogrenciler", [], (err, rows) => {
+        if (err) throw err;
+        console.log("Öğrenci Listesi:", rows);
+    });
+});</div>
+                <div class="preview-box">
+                    <div class="preview-title">📺 Ekran Çıktısı</div>
+                    <p style="margin:0; font-weight:bold; color:#27ae60;">SQLite Veritabanına Başarıyla Bağlanıldı! veritabani.db dosyası oluşturuldu.</p>
+                </div>
+            </article>
+
+            <article class="tag-card" id="tag-env">
+                <h3>🏷️ 11. Çevre Değişkenleri (.env &amp; dotenv)</h3>
+                <p>Veritabanı şifreleri, API anahtarları ve Port bilgilerini kodun içine yazmak yerine <code>.env</code> dosyasında güvenli bir şekilde saklarız.</p>
+                <div class="code-block">// .env Dosyası İçeriği
+PORT=5000
+DB_FILE=./veritabani.db
+JWT_SECRET=super_gizli_anahtar_123
+
+// server.js İçinde Kullanımı
+require('dotenv').config();
+const PORT = process.env.PORT || 3000;</div>
+                <div class="preview-box">
+                    <div class="preview-title">📺 Ekran Çıktısı</div>
+                    <p style="margin:0; font-weight:bold; color:#2c3e50;">process.env.PORT Değeri: 5000 (.env dosyasından okundu)</p>
+                </div>
+            </article>
+
+            <article class="tag-card" id="tag-jwt">
+                <h3>🏷️ 12. JWT (JSON Web Token) ile Kimlik Doğrulama</h3>
+                <p>Kullanıcı giriş yaptığında (login) sunucu tarafından imzalı bir Token üretilir. İstemci sonraki korumalı isteklere bu token'ı ekler.</p>
+                <div class="code-block">const jwt = require('jsonwebtoken');
+
+// Token Üretme (Login anında)
+const token = jwt.sign(
+    { kullaniciId: "123", rol: "ogrenci" },
+    process.env.JWT_SECRET,
+    { expiresIn: '1h' } // 1 saat geçerli
+);
+
+// Token Doğrulama Middleware'i
+const auth = (req, res, next) => {
+    const token = req.headers['authorization'];
+    if (!token) return res.status(401).send("Erişim Engellendi!");
+    
+    try {
+        const dogrulanmis = jwt.verify(token, process.env.JWT_SECRET);
+        req.user = dogrulanmis;
+        next();
+    } catch (err) {
+        res.status(400).send("Geçersiz Token!");
+    }
+};</div>
+                <div class="preview-box">
+                    <div class="preview-title">📺 Ekran Çıktısı</div>
+                    <p style="margin:0; font-family:monospace; color:#27ae60;">Authorization: Bearer eyJhbGciOiJIUzI1Ni... ➔ 200 Authorized</p>
+                </div>
+            </article>
+
+        </div>
+    </main>
+
+    <button id="scrollTopBtn" class="back-to-top" onclick="scrollToTop()">
+        ⬆️ Yukarı Çık
+    </button>
+
+    <footer style="background:#1a252f; color:#bdc3c7; text-align:center; padding:1.5rem; margin-top:2rem;">
+        <p>&copy; 2026 KodlaHoca Ders Portalı. Tüm Hakları Saklıdır.</p>
+    </footer>
+
+    <script>
+        // Sayfa Kaydırılınca Yukarı Çık Buton Kontrolü
+        const scrollTopBtn = document.getElementById("scrollTopBtn");
+
+        window.onscroll = function() {
+            if (document.body.scrollTop > 300 || document.documentElement.scrollTop > 300) {
+                scrollTopBtn.style.display = "flex";
+            } else {
+                scrollTopBtn.style.display = "none";
+            }
+        };
+
+        function scrollToTop() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        }
+
+        // Mobil Menü Kontrolü
+        const mobileMenu = document.getElementById('mobile-menu');
+        const navLinks = document.getElementById('nav-links');
+
+        if (mobileMenu && navLinks) {
+            mobileMenu.addEventListener('click', () => {
+                navLinks.classList.toggle('active');
+            });
+        }
+    </script>
+    <script src="../assets/js/main.js"></script>
+</body>
+</html>
