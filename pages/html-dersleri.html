@@ -144,13 +144,40 @@
             margin-bottom: 0.8rem;
         }
 
+        /* YUKARI ÇIK (SAYFA BAŞINA DÖN) BUTONU */
+        .back-to-top {
+            position: fixed;
+            bottom: 25px;
+            right: 25px;
+            background-color: #3498db;
+            color: white;
+            border: none;
+            border-radius: 50px;
+            padding: 12px 20px;
+            font-size: 0.9rem;
+            font-weight: bold;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.25);
+            display: none;
+            align-items: center;
+            gap: 8px;
+            z-index: 10000;
+            transition: all 0.3s ease;
+        }
+
+        .back-to-top:hover {
+            background-color: #2980b9;
+            transform: translateY(-3px);
+        }
+
         /* MOBİL UYUM */
         @media (max-width: 768px) {
             .docs-layout { grid-template-columns: 1fr; }
             .sidebar { position: static; max-height: 250px; }
+            .back-to-top { bottom: 15px; right: 15px; padding: 10px 15px; font-size: 0.85rem; }
         }
 
-        /* --- MOBİL TAŞMA VE YATAY KAYDIRMA ENGELLEYİCİ STİLLER --- */
+        /* MOBİL TAŞMA VE YATAY KAYDIRMA ENGELLEYİCİ STİLLER */
         html, body {
             max-width: 100%;
             overflow-x: hidden;
@@ -407,11 +434,34 @@
         </div>
     </main>
 
+    <button id="scrollTopBtn" class="back-to-top" onclick="scrollToTop()">
+        ⬆️ Yukarı Çık
+    </button>
+
     <footer style="background:#1a252f; color:#bdc3c7; text-align:center; padding:1.5rem; margin-top:2rem;">
         <p>&copy; 2026 KodlaHoca Ders Portalı. Tüm Hakları Saklıdır.</p>
     </footer>
 
     <script>
+        // Sayfa Kaydırılınca Yukarı Çık Butonunu Göster/Gizle
+        const scrollTopBtn = document.getElementById("scrollTopBtn");
+
+        window.onscroll = function() {
+            if (document.body.scrollTop > 300 || document.documentElement.scrollTop > 300) {
+                scrollTopBtn.style.display = "flex";
+            } else {
+                scrollTopBtn.style.display = "none";
+            }
+        };
+
+        function scrollToTop() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        }
+
+        // Mobil Menü Aç/Kapat
         const mobileMenu = document.getElementById('mobile-menu');
         const navLinks = document.getElementById('nav-links');
 
