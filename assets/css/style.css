@@ -15,7 +15,7 @@
 }
 
 body {
-   background-color:#B5B9F0;
+    background-color:#B5B9F0;
     color: var(--text-color);
     line-height: 1.6;
 }
@@ -133,6 +133,32 @@ header {
 .tag.css { background-color: #264de4; }
 .tag.bs { background-color: #7952b3; } /* Bootstrap Mor Rengi */
 .tag.js { background-color: #f7df1e; color: #333; }
+
+/* React ve Node.js Rozet Stilleri */
+.tag.react { background-color: #20232a; color: #61dafb; border: 1px solid #61dafb; }
+.tag.node { background-color: #339933; color: white; }
+
+/* React ve Node.js Kart Başlıkları İçin Özel Arka Plan Stilleri */
+.card-title-react {
+    background-color: #20232a;
+    color: #61dafb;
+    padding: 8px 12px;
+    border-radius: 6px;
+    display: inline-block;
+    margin-bottom: 10px;
+}
+
+.card-title-node {
+    background-color: #2e6b38;
+    color: #ffffff;
+    padding: 8px 12px;
+    border-radius: 6px;
+    display: inline-block;
+    margin-bottom: 10px;
+}
+
+
+
 
 .btn {
     display: inline-block;
