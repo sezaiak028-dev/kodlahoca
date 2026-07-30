@@ -131,6 +131,7 @@ header {
 
 .tag.html { background-color: #e44d26; }
 .tag.css { background-color: #264de4; }
+.tag.bs { background-color: #7952b3; } /* Bootstrap Mor Rengi */
 .tag.js { background-color: #f7df1e; color: #333; }
 
 .btn {
@@ -142,6 +143,11 @@ header {
     text-decoration: none;
     border-radius: 5px;
     margin-top: 1rem;
+    transition: background-color 0.3s;
+}
+
+.btn:hover {
+    background-color: #2980b9;
 }
 
 footer {
