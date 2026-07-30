@@ -1,0 +1,604 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>React.js Detaylı Ders Notları & Rehberi - KodlaHoca</title>
+
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-title" content="HocaKodla">
+    <meta name="theme-color" content="#20232a">
+
+    <link rel="icon" type="image/svg+xml;v=2" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Crect width='512' height='512' rx='120' fill='%2320232a'/%3E%3Cg fill='none' stroke='%2361dafb' stroke-width='24'%3E%3Cellipse cx='256' cy='256' rx='160' ry='60'/%3E%3Cellipse cx='256' cy='256' rx='160' ry='60' transform='rotate(60 256 256)'/%3E%3Cellipse cx='256' cy='256' rx='160' ry='60' transform='rotate(120 256 256)'/%3E%3C/g%3E%3Ccircle cx='256' cy='256' r='30' fill='%2361dafb'/%3E%3C/svg%3E">
+    <link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Crect width='512' height='512' rx='120' fill='%2320232a'/%3E%3Cg fill='none' stroke='%2361dafb' stroke-width='24'%3E%3Cellipse cx='256' cy='256' rx='160' ry='60'/%3E%3Cellipse cx='256' cy='256' rx='160' ry='60' transform='rotate(60 256 256)'/%3E%3Cellipse cx='256' cy='256' rx='160' ry='60' transform='rotate(120 256 256)'/%3E%3C/g%3E%3Ccircle cx='256' cy='256' r='30' fill='%2361dafb'/%3E%3C/svg%3E">
+
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="stylesheet" href="../assets/css/responsive.css">
+    <style>
+        /* İKİ KOLONLU DOKÜMANTASYON DÜZENİ */
+        .docs-layout {
+            display: grid;
+            grid-template-columns: 260px 1fr;
+            gap: 2rem;
+            margin: 2rem auto;
+            align-items: start;
+        }
+
+        /* SOL YAN MENÜ (SIDEBAR) */
+        .sidebar {
+            background: white;
+            padding: 1.2rem;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+            position: sticky;
+            top: 80px;
+            max-height: calc(100vh - 100px);
+            overflow-y: auto;
+        }
+
+        .sidebar h4 {
+            color: var(--primary-color, #2c3e50);
+            font-size: 1rem;
+            margin: 1rem 0 0.5rem 0;
+            padding-bottom: 0.3rem;
+            border-bottom: 2px solid #61dafb;
+        }
+
+        .sidebar h4:first-child { margin-top: 0; }
+
+        .sidebar ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .sidebar ul li { margin-bottom: 0.3rem; }
+
+        .sidebar ul li a {
+            display: block;
+            padding: 0.4rem 0.6rem;
+            color: #444;
+            text-decoration: none;
+            border-radius: 4px;
+            font-size: 0.9rem;
+            font-family: monospace;
+            transition: all 0.2s;
+        }
+
+        .sidebar ul li a:hover {
+            background-color: #e6f9ff;
+            color: #007791;
+            padding-left: 0.9rem;
+        }
+
+        /* SAĞ ANA İÇERİK */
+        .docs-content {
+            background: white;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+        }
+
+        .tag-card {
+            margin-bottom: 3rem;
+            padding-bottom: 2rem;
+            border-bottom: 2px dashed #e0e0e0;
+            scroll-margin-top: 90px;
+        }
+
+        .tag-card:last-child { border-bottom: none; }
+
+        .tag-card h3 {
+            color: var(--primary-color, #2c3e50);
+            font-size: 1.4rem;
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .tag-card p {
+            color: #555;
+            line-height: 1.6;
+            margin-bottom: 1rem;
+        }
+
+        /* ÖRNEK KOD KUTUSU (YEŞİL ARKA PLANLI) */
+        .code-block {
+            background-color: #7EC151;
+            color: #1a1a1a;
+            border: 1px solid #e0a800;
+            border-left: 5px solid #2c3e50;
+            padding: 1.2rem;
+            border-radius: 8px;
+            font-family: 'Consolas', 'Courier New', monospace;
+            font-size: 0.95rem;
+            line-height: 1.5;
+            margin: 1rem 0;
+            white-space: pre-wrap;
+            word-break: break-word;
+            overflow-x: auto;
+            font-weight: 600;
+        }
+
+        /* CANLI ÇIKTI KUTUSU */
+        .preview-box {
+            background-color: #ffffff;
+            border: 2px solid #3498db;
+            border-radius: 8px;
+            padding: 1.2rem;
+            margin-top: 1rem;
+            max-width: 100%;
+            box-sizing: border-box;
+            overflow-x: auto;
+            word-wrap: break-word;
+        }
+
+        .preview-title {
+            font-size: 0.8rem;
+            font-weight: bold;
+            color: #3498db;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 0.8rem;
+        }
+
+        /* YUKARI ÇIK BUTONU */
+        .back-to-top {
+            position: fixed;
+            bottom: 25px;
+            right: 25px;
+            background-color: #20232a;
+            color: #61dafb;
+            border: 1px solid #61dafb;
+            border-radius: 50px;
+            padding: 12px 20px;
+            font-size: 0.9rem;
+            font-weight: bold;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.25);
+            display: none;
+            align-items: center;
+            gap: 8px;
+            z-index: 10000;
+            transition: all 0.3s ease;
+        }
+
+        .back-to-top:hover {
+            background-color: #000000;
+            color: #ffffff;
+            transform: translateY(-3px);
+        }
+
+        /* MOBİL UYUM */
+        @media (max-width: 768px) {
+            .docs-layout { grid-template-columns: 1fr; }
+            .sidebar { position: static; max-height: 250px; }
+            .back-to-top { bottom: 15px; right: 15px; padding: 10px 15px; font-size: 0.85rem; }
+        }
+
+        /* MOBİL TAŞMA VE YATAY KAYDIRMA ENGELLEYİCİ STİLLER */
+        html, body {
+            max-width: 100%;
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+        }
+
+        .preview-box *, 
+        .preview-box form, 
+        .preview-box table, 
+        .preview-box fieldset {
+            max-width: 100% !important;
+            box-sizing: border-box;
+        }
+
+        .preview-box table {
+            display: block;
+            overflow-x: auto;
+            white-space: nowrap;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <nav class="nav-container">
+            <a href="../index.html" class="logo">&lt;Kodla<span>Hoca</span>/&gt;</a>
+            <div class="menu-toggle" id="mobile-menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <ul class="nav-links" id="nav-links">
+                <li><a href="../index.html">Ana Sayfa</a></li>
+                <li><a href="html-dersleri.html">HTML</a></li>
+                <li><a href="css-dersleri.html">CSS</a></li>
+                <li><a href="bootstrap-dersleri.html">Bootstrap</a></li>
+                <li><a href="js-dersleri.html">JavaScript</a></li>
+                <li><a href="react-dersleri.html" style="color: #61dafb; font-weight: bold;">React.js</a></li>
+                <li><a href="node-dersleri.html">Node</a></li>
+
+            </ul>
+        </nav>
+    </header>
+
+    <section class="hero" style="padding: 2.5rem 1rem; text-align:center; background: #20232a; color:#61dafb; box-shadow: 0 4px 6px rgba(0,0,0,0.05);">
+        <h1 style="font-size: 2.2rem; margin-bottom: 0.5rem; color:#61dafb;">⚛️ Kapsamlı React.js Rehberi</h1>
+        <p style="font-size: 1.1rem; opacity: 0.9; max-width: 750px; margin: 0 auto; color: #abb2bf; font-weight: 500;">Virtual DOM, JSX, Props, State, Custom Hooks, Context API, Router ve Performans Optimizasyonları ile A'dan Z'ye React.</p>
+    </section>
+
+    <main class="container docs-layout">
+
+        <aside class="sidebar">
+            <h4>1. Temel &amp; Mimarî</h4>
+            <ul>
+                <li><a href="#tag-intro">React &amp; Virtual DOM</a></li>
+                <li><a href="#tag-jsx">JSX Kuralları &amp; Döngü</a></li>
+                <li><a href="#tag-components">Bileşen Mimarisi</a></li>
+            </ul>
+
+            <h4>2. Props &amp; State</h4>
+            <ul>
+                <li><a href="#tag-props">Props &amp; Children Prop</a></li>
+                <li><a href="#tag-state">useState &amp; Obje State</a></li>
+                <li><a href="#tag-forms">Formlar &amp; useRef Hook</a></li>
+            </ul>
+
+            <h4>3. Gelişmiş Hooks</h4>
+            <ul>
+                <li><a href="#tag-useeffect">useEffect &amp; Lifecycle</a></li>
+                <li><a href="#tag-customhooks">Özel (Custom) Hooks</a></li>
+                <li><a href="#tag-context">Context API (Global State)</a></li>
+            </ul>
+
+            <h4>4. Yönlendirme &amp; Performans</h4>
+            <ul>
+                <li><a href="#tag-router">React Router DOM v6</a></li>
+                <li><a href="#tag-performance">useMemo &amp; useCallback</a></li>
+            </ul>
+        </aside>
+
+        <div class="docs-content">
+
+            <article class="tag-card" id="tag-intro">
+                <h3>🏷️ 1. React.js Nedir &amp; Virtual DOM Mimarisi</h3>
+                <p>React, arayüz geliştirmeyi modüler kılan bildirime dayalı (declarative) bir JavaScript kütüphanesidir. Gerçek DOM yerine hafızada hafif bir <strong>Virtual DOM</strong> tutar ve sadece değişen düğümleri (Diffing Algorithm) tarayıcıya yansıtır.</p>
+                <div class="code-block">// Vite kullanarak yıldırım hızında proje kurulumu
+npm create vite@latest proje-adiniz -- --template react
+cd proje-adiniz
+npm install
+npm run dev</div>
+                <div class="preview-box">
+                    <div class="preview-title">📺 Ekran Çıktısı</div>
+                    <p style="margin:0; font-weight:bold; color:#2c3e50;">⚡ Vite + React geliştirme ortamı http://localhost:5173 adresinde aktif.</p>
+                </div>
+            </article>
+
+            <article class="tag-card" id="tag-jsx">
+                <h3>🏷️ 2. JSX Derinlemesine &amp; Map İle Liste İşleme</h3>
+                <p>JSX içinde JavaScript ifadeleri <code>{}</code> ile yazılır. Etiketlerin tek bir kapsayıcı ebeveyn (parent) ile sarılması şarttır. Dizileri ekrana basarken her elemana benzersiz bir <code>key</code> verilmelidir.</p>
+                <div class="code-block">function KursListesi() {
+    const kurslar = [
+        { id: 1, ad: "HTML5 & CSS3", tamamlandi: true },
+        { id: 2, ad: "JavaScript ES6+", tamamlandi: true },
+        { id: 3, ad: "React.js İleri Düzey", tamamlandi: false }
+    ];
+
+    return (
+        &lt;&gt;
+            &lt;h2&gt;Kurs Listem&lt;/h2&gt;
+            &lt;ul&gt;
+                {kurslar.map((kurs) =&gt; (
+                    &lt;li key={kurs.id}&gt;
+                        {kurs.ad} {kurs.tamamlandi ? "✅" : "⏳"}
+                    &lt;/li&gt;
+                ))}
+            &lt;/ul&gt;
+        &lt;/&gt;
+    );
+}</div>
+                <div class="preview-box">
+                    <div class="preview-title">📺 Ekran Çıktısı</div>
+                    <ul style="margin:0; padding-left:20px; color:#2c3e50; font-weight:bold;">
+                        <li>HTML5 &amp; CSS3 ✅</li>
+                        <li>JavaScript ES6+ ✅</li>
+                        <li>React.js İleri Düzey ⏳</li>
+                    </ul>
+                </div>
+            </article>
+
+            <article class="tag-card" id="tag-components">
+                <h3>🏷️ 3. Modüler Bileşen Yapısı (Export / Import)</h3>
+                <p>Projedeki her UI elemanı ayrı bir <code>.jsx</code> dosyası olarak tasarlanır. Naming convention gereği bileşen isimleri büyük harfle başlamalıdır.</p>
+                <div class="code-block">// components/Button.jsx
+export function PrimaryButton({ metin }) {
+    return &lt;button className="btn-primary"&gt;{metin}&lt;/button&gt;;
+}
+
+// App.jsx
+import { PrimaryButton } from './components/Button';
+
+function App() {
+    return &lt;PrimaryButton metin="Kaydet ve İlerle" /&gt;;
+}</div>
+                <div class="preview-box">
+                    <div class="preview-title">📺 Ekran Çıktısı</div>
+                    <button style="background:#20232a; color:#61dafb; border:1px solid #61dafb; padding:8px 16px; border-radius:4px; font-weight:bold; cursor:pointer;">Kaydet ve İlerle</button>
+                </div>
+            </article>
+
+            <article class="tag-card" id="tag-props">
+                <h3>🏷️ 4. Props &amp; Special Prop: children</h3>
+                <p>Props, ebeveyn bileşenden alt bileşene aktarılan salt okunur verilerdir. <code>props.children</code> ise bileşen etiketlerinin arasına yazılan JSX yapılarını yakalamayı sağlar.</p>
+                <div class="code-block">// Kart Kapsayıcı Bileşeni
+function ModalKutusu({ baslik, children }) {
+    return (
+        &lt;div className="modal-border"&gt;
+            &lt;h3&gt;{baslik}&lt;/h3&gt;
+            &lt;div className="modal-body"&gt;{children}&lt;/div&gt;
+        &lt;/div&gt;
+    );
+}
+
+// Kullanımı
+&lt;ModalKutusu baslik="Sistem Uyarısı"&gt;
+    &lt;p&gt;Oturum süreniz dolmak üzere, lütfen kaydedin.&lt;/p&gt;
+&lt;/ModalKutusu&gt;</div>
+                <div class="preview-box">
+                    <div class="preview-title">📺 Ekran Çıktısı</div>
+                    <div style="border:2px solid #e74c3c; border-radius:6px; padding:12px; background:#fff5f5;">
+                        <h3 style="margin:0 0 6px 0; color:#c0392b;">Sistem Uyarısı</h3>
+                        <p style="margin:0; color:#555; font-size:0.9rem;">Oturum süreniz dolmak üzere, lütfen kaydedin.</p>
+                    </div>
+                </div>
+            </article>
+
+            <article class="tag-card" id="tag-state">
+                <h3>🏷️ 5. useState Hook &amp; Kompleks Obje Güncelleme</h3>
+                <p>State doğrudan mutasyona uğratılamaz (örn: <code>kullanici.yas = 25</code> yapılmaz). Bunun yerine spread operator (<code>...</code>) ile kopyası oluşturularak güncellenir.</p>
+                <div class="code-block">import { useState } from 'react';
+
+function ProfilKart() {
+    const [kullanici, setKullanici] = useState({
+        ad: "Zeynep",
+        rol: "Frontend Developer",
+        takipci: 120
+    });
+
+    const takipEt = () =&gt; {
+        setKullanici(prev =&gt; ({
+            ...prev,
+            takipci: prev.takipci + 1
+        }));
+    };
+
+    return (
+        &lt;div&gt;
+            &lt;h4&gt;{kullanici.ad} ({kullanici.rol})&lt;/h4&gt;
+            &lt;p&gt;Takipçi: {kullanici.takipci}&lt;/p&gt;
+            &lt;button onClick={takipEt}&gt;Takip Et 🎉&lt;/button&gt;
+        &lt;/div&gt;
+    );
+}</div>
+                <div class="preview-box">
+                    <div class="preview-title">📺 Ekran Çıktısı (Canlı Test)</div>
+                    <div>
+                        <h4 style="margin:0 0 4px 0; color:#2c3e50;">Zeynep (Frontend Developer)</h4>
+                        <p id="takipci-sayi" style="margin:0 0 8px 0; font-size:0.95rem;">Takipçi Sayısı: <strong>120</strong></p>
+                        <button onclick="artirTakipci()" style="background:#27ae60; color:white; border:none; padding:6px 14px; border-radius:4px; font-weight:bold; cursor:pointer;">Takip Et 🎉</button>
+                    </div>
+                </div>
+            </article>
+
+            <article class="tag-card" id="tag-forms">
+                <h3>🏷️ 6. Form Yönetimi &amp; useRef Hook</h3>
+                <p>Kontrollü bileşenler state ile yönetilirken, re-render tetiklemeden direkt DOM elemanına erişmek için <code>useRef</code> kullanılır.</p>
+                <div class="code-block">import { useRef } from 'react';
+
+function HızlıGiris() {
+    const inputRef = useRef(null);
+
+    const odaklan = () =&gt; {
+        inputRef.current.focus(); // Input alanına imleci koyar
+        inputRef.current.style.borderColor = "#3498db";
+    };
+
+    return (
+        &lt;div&gt;
+            &lt;input ref={inputRef} type="text" placeholder="Adınız..." /&gt;
+            &lt;button onClick={odaklan}&gt;Girdiye Odaklan&lt;/button&gt;
+        &lt;/div&gt;
+    );
+}</div>
+                <div class="preview-box">
+                    <div class="preview-title">📺 Ekran Çıktısı (Canlı Test)</div>
+                    <div style="display:flex; gap:8px;">
+                        <input id="test-input" type="text" placeholder="Adınız..." style="padding:6px 10px; border:1px solid #ccc; border-radius:4px; outline:none;">
+                        <button onclick="odaklanInput()" style="background:#3498db; color:white; border:none; padding:6px 12px; border-radius:4px; cursor:pointer; font-weight:bold;">Girdiye Odaklan</button>
+                    </div>
+                </div>
+            </article>
+
+            <article class="tag-card" id="tag-useeffect">
+                <h3>🏷️ 7. useEffect Hook &amp; Cleanup Fonksiyonu</h3>
+                <p>ComponentDidMount, ComponentDidUpdate ve ComponentWillUnmount yaşam döngülerini tek bir hook içinde birleştirir. Clean-up mantığı bellek sızıntısını engeller.</p>
+                <div class="code-block">import { useState, useEffect } from 'react';
+
+function Saaat() {
+    const [zaman, setZaman] = useState(new Date().toLocaleTimeString());
+
+    useEffect(() =&gt; {
+        const interval = setInterval(() =&gt; {
+            setZaman(new Date().toLocaleTimeString());
+        }, 1000);
+
+        // Cleanup Fonksiyonu (Unmount olduğunda saati durdurur)
+        return () =&gt; clearInterval(interval);
+    }, []); // Bağımlılık dizisi boş: Sadece mount anında başlar
+
+    return &lt;h2&gt;Canlı Saat: {zaman}&lt;/h2&gt;;
+}</div>
+                <div class="preview-box">
+                    <div class="preview-title">📺 Ekran Çıktısı</div>
+                    <h2 id="canli-saat" style="margin:0; color:#2c3e50; font-family:monospace;">Canlı Saat: Yükleniyor...</h2>
+                </div>
+            </article>
+
+            <article class="tag-card" id="tag-customhooks">
+                <h3>🏷️ 8. Özel (Custom) Hooks Üretme</h3>
+                <p>Tekrar eden mantıkları (örn: API çağırma, localStorage senkronizasyonu) kendi yazacağımız `use...` isimli fonksiyonlar haline getirebiliriz.</p>
+                <div class="code-block">// hooks/useWindowSize.js
+import { useState, useEffect } from 'react';
+
+export function useWindowSize() {
+    const [size, setSize] = useState(window.innerWidth);
+
+    useEffect(() =&gt; {
+        const handleResize = () =&gt; setSize(window.innerWidth);
+        window.addEventListener('resize', handleResize);
+        return () =&gt; window.removeEventListener('resize', handleResize);
+    }, []);
+
+    return size;
+}</div>
+                <div class="preview-box">
+                    <div class="preview-title">📺 Ekran Çıktısı</div>
+                    <p style="margin:0; font-weight:bold; color:#2980b9;">Pencere Genişliği: Dynamically Tracked via Custom Hook</p>
+                </div>
+            </article>
+
+            <article class="tag-card" id="tag-context">
+                <h3>🏷️ 9. Context API (Global State &amp; Prop Drilling Çözümü)</h3>
+                <p>Verileri 10 kat alt bileşene elle aktarmak (Prop Drilling) yerine global bir durum alanında saklayıp her yerden erişmemizi sağlar.</p>
+                <div class="code-block">import { createContext, useContext, useState } from 'react';
+
+const TemaContext = createContext();
+
+export function TemaProvider({ children }) {
+    const [tema, setTema] = useState('dark');
+    return (
+        &lt;TemaContext.Provider value={{ tema, setTema }}&gt;
+            {children}
+        &lt;/TemaContext.Provider&gt;
+    );
+}
+
+// Alt Bileşende Kullanımı
+function Header() {
+    const { tema, setTema } = useContext(TemaContext);
+    return &lt;button onClick={() =&gt; setTema('light')}&gt;Aktif: {tema}&lt;/button&gt;;
+}</div>
+                <div class="preview-box">
+                    <div class="preview-title">📺 Ekran Çıktısı</div>
+                    <p style="margin:0; font-weight:bold; color:#2c3e50;">Global Tema Durumu: "dark" (Context API Üzerinden Okundu)</p>
+                </div>
+            </article>
+
+            <article class="tag-card" id="tag-router">
+                <h3>🏷️ 10. React Router DOM v6 &amp; Dinamik Parametreler</h3>
+                <p>Tek Sayfa Uygulamalarında (SPA) URL parametrelerini okumak için <code>useParams</code> hook'u kullanılır.</p>
+                <div class="code-block">import { useParams, useNavigate } from 'react-router-dom';
+
+function DersDetay() {
+    const { dersId } = useParams(); // URL'deki ID'yi yakalar
+    const navigate = useNavigate();
+
+    return (
+        &lt;div&gt;
+            &lt;h3&gt;Seçilen Ders ID: {dersId}&lt;/h3&gt;
+            &lt;button onClick={() =&gt; navigate('/')}&gt;Ana Sayfaya Dön&lt;/button&gt;
+        &lt;/div&gt;
+    );
+}</div>
+                <div class="preview-box">
+                    <div class="preview-title">📺 Ekran Çıktısı</div>
+                    <p style="margin:0; font-weight:bold; color:#8e44ad;">URL: /ders/react-101 ➔ Detay Sayfası Yüklendi.</p>
+                </div>
+            </article>
+
+            <article class="tag-card" id="tag-performance">
+                <h3>🏷️ 11. Performans Optimizasyonu (useMemo &amp; useCallback)</h3>
+                <p>Gereksiz yeniden hesaplamaları engellemek için <code>useMemo</code>, fonksiyon referanslarını hafızada tutmak için ise <code>useCallback</code> tercih edilir.</p>
+                <div class="code-block">import { useMemo } from 'react';
+
+function AğırHesaplama({ sayilar }) {
+    // Sadece sayilar dizisi değiştiğinde tekrar çalışır
+    const toplam = useMemo(() =&gt; {
+        console.log("Ağır hesaplama yapılıyor...");
+        return sayilar.reduce((acc, curr) =&gt; acc + curr, 0);
+    }, [sayilar]);
+
+    return &lt;div&gt;Toplam Sonuç: {toplam}&lt;/div&gt;;
+}</div>
+                <div class="preview-box">
+                    <div class="preview-title">📺 Ekran Çıktısı</div>
+                    <p style="margin:0; color:#27ae60; font-weight:bold;">Gereksiz re-render engellendi. Önbellekten okundu.</p>
+                </div>
+            </article>
+
+        </div>
+    </main>
+
+    <button id="scrollTopBtn" class="back-to-top" onclick="scrollToTop()">
+        ⬆️ Yukarı Çık
+    </button>
+
+    <footer style="background:#1a252f; color:#bdc3c7; text-align:center; padding:1.5rem; margin-top:2rem;">
+        <p>&copy; 2026 KodlaHoca Ders Portalı. Tüm Hakları Saklıdır.</p>
+    </footer>
+
+    <script>
+        // Canlı Takipçi Sayısı Testi
+        let takipci = 120;
+        function artirTakipci() {
+            takipci++;
+            document.getElementById("takipci-sayi").innerHTML = "Takipçi Sayısı: <strong>" + takipci + "</strong>";
+        }
+
+        // Input Odaklanma Testi
+        function odaklanInput() {
+            const input = document.getElementById("test-input");
+            input.focus();
+            input.style.border = "2px solid #3498db";
+        }
+
+        // Canlı Saat Simülasyonu
+        setInterval(() => {
+            const saatEl = document.getElementById("canli-saat");
+            if(saatEl) {
+                saatEl.innerText = "Canlı Saat: " + new Date().toLocaleTimeString();
+            }
+        }, 1000);
+
+        // Sayfa Kaydırılınca Yukarı Çık Buton Kontrolü
+        const scrollTopBtn = document.getElementById("scrollTopBtn");
+
+        window.onscroll = function() {
+            if (document.body.scrollTop > 300 || document.documentElement.scrollTop > 300) {
+                scrollTopBtn.style.display = "flex";
+            } else {
+                scrollTopBtn.style.display = "none";
+            }
+        };
+
+        function scrollToTop() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        }
+
+        // Mobil Menü Kontrolü
+        const mobileMenu = document.getElementById('mobile-menu');
+        const navLinks = document.getElementById('nav-links');
+
+        if (mobileMenu && navLinks) {
+            mobileMenu.addEventListener('click', () => {
+                navLinks.classList.toggle('active');
+            });
+        }
+    </script>
+    <script src="../assets/js/main.js"></script>
+</body>
+</html>
