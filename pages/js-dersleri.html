@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JavaScript Ders Notları & Rehberi - KodlaHoca</title>
+
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-title" content="HocaKodla">
+    <meta name="theme-color" content="#f7df1e">
+
+    <link rel="icon" type="image/svg+xml;v=2" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Crect width='512' height='512' rx='120' fill='%23f7df1e'/%3E%3Cpath d='M160 170 L70 256 L160 342 M352 170 L442 256 L352 342 M290 140 L222 372' stroke='%23000000' stroke-width='38' stroke-linecap='round' stroke-linejoin='round' fill='none'/%3E%3C/svg%3E">
+    <link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Crect width='512' height='512' rx='120' fill='%23f7df1e'/%3E%3Cpath d='M160 170 L70 256 L160 342 M352 170 L442 256 L352 342 M290 140 L222 372' stroke='%23000000' stroke-width='38' stroke-linecap='round' stroke-linejoin='round' fill='none'/%3E%3C/svg%3E">
+
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="stylesheet" href="../assets/css/responsive.css">
+    <style>
+        /* İKİ KOLONLU DOKÜMANTASYON DÜZENİ */
+        .docs-layout {
+            display: grid;
+            grid-template-columns: 260px 1fr;
+            gap: 2rem;
+            margin: 2rem auto;
+            align-items: start;
+        }
+
+        /* SOL YAN MENÜ (SIDEBAR) */
+        .sidebar {
+            background: white;
+            padding: 1.2rem;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+            position: sticky;
+            top: 80px;
+            max-height: calc(100vh - 100px);
+            overflow-y: auto;
+        }
+
+        .sidebar h4 {
+            color: var(--primary-color, #2c3e50);
+            font-size: 1rem;
+            margin: 1rem 0 0.5rem 0;
+            padding-bottom: 0.3rem;
+            border-bottom: 2px solid #f7df1e;
+        }
+
+        .sidebar h4:first-child { margin-top: 0; }
+
+        .sidebar ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .sidebar ul li { margin-bottom: 0.3rem; }
+
+        .sidebar ul li a {
+            display: block;
+            padding: 0.4rem 0.6rem;
+            color: #444;
+            text-decoration: none;
+            border-radius: 4px;
+            font-size: 0.9rem;
+            font-family: monospace;
+            transition: all 0.2s;
+        }
+
+        .sidebar ul li a:hover {
+            background-color: #fffde6;
+            color: #d4ac0d;
+            padding-left: 0.9rem;
+        }
+
+        /* SAĞ ANA İÇERİK */
+        .docs-content {
+            background: white;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+        }
+
+        .tag-card {
+            margin-bottom: 3rem;
+            padding-bottom: 2rem;
+            border-bottom: 2px dashed #e0e0e0;
+            scroll-margin-top: 90px;
+        }
+
+        .tag-card:last-child { border-bottom: none; }
+
+        .tag-card h3 {
+            color: var(--primary-color, #2c3e50);
+            font-size: 1.4rem;
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .tag-card p {
+            color: #555;
+            line-height: 1.6;
+            margin-bottom: 1rem;
+        }
+
+        /* ÖRNEK KOD KUTUSU (YEŞİL ARKA PLANLI) */
+        .code-block {
+            background-color: #7EC151;
+            color: #1a1a1a;
+            border: 1px solid #e0a800;
+            border-left: 5px solid #2c3e50;
+            padding: 1.2rem;
+            border-radius: 8px;
+            font-family: 'Consolas', 'Courier New', monospace;
+            font-size: 0.95rem;
+            line-height: 1.5;
+            margin: 1rem 0;
+            white-space: pre-wrap;
+            word-break: break-word;
+            overflow-x: auto;
+            font-weight: 600;
+        }
+
+        /* CANLI ÇIKTI KUTUSU */
+        .preview-box {
+            background-color: #ffffff;
+            border: 2px solid #3498db;
+            border-radius: 8px;
+            padding: 1.2rem;
+            margin-top: 1rem;
+            max-width: 100%;
+            box-sizing: border-box;
+            overflow-x: auto;
+            word-wrap: break-word;
+        }
+
+        .preview-title {
+            font-size: 0.8rem;
+            font-weight: bold;
+            color: #3498db;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 0.8rem;
+        }
+
+        /* YUKARI ÇIK BUTONU */
+        .back-to-top {
+            position: fixed;
+            bottom: 25px;
+            right: 25px;
+            background-color: #f7df1e;
+            color: #000;
+            border: none;
+            border-radius: 50px;
+            padding: 12px 20px;
+            font-size: 0.9rem;
+            font-weight: bold;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.25);
+            display: none;
+            align-items: center;
+            gap: 8px;
+            z-index: 10000;
+            transition: all 0.3s ease;
+        }
+
+        .back-to-top:hover {
+            background-color: #e6ce1b;
+            transform: translateY(-3px);
+        }
+
+        /* MOBİL UYUM */
+        @media (max-width: 768px) {
+            .docs-layout { grid-template-columns: 1fr; }
+            .sidebar { position: static; max-height: 250px; }
+            .back-to-top { bottom: 15px; right: 15px; padding: 10px 15px; font-size: 0.85rem; }
+        }
+
+        /* MOBİL TAŞMA VE YATAY KAYDIRMA ENGELLEYİCİ STİLLER */
+        html, body {
+            max-width: 100%;
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+        }
+
+        .preview-box *, 
+        .preview-box form, 
+        .preview-box table, 
+        .preview-box fieldset {
+            max-width: 100% !important;
+            box-sizing: border-box;
+        }
+
+        .preview-box table {
+            display: block;
+            overflow-x: auto;
+            white-space: nowrap;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <nav class="nav-container">
+            <a href="../index.html" class="logo">&lt;Kodla<span>Hoca</span>/&gt;</a>
+            <div class="menu-toggle" id="mobile-menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <ul class="nav-links" id="nav-links">
+                <li><a href="../index.html">Ana Sayfa</a></li>
+                <li><a href="html-dersleri.html">HTML</a></li>
+                <li><a href="css-dersleri.html">CSS</a></li>
+                <li><a href="bootstrap-dersleri.html">Bootstrap</a></li>
+                <li><a href="js-dersleri.html" style="color: #f7df1e; font-weight: bold;">JavaScript</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section class="hero" style="padding: 2.5rem 1rem; text-align:center; background: #f7df1e; color:#1a1a1a; box-shadow: 0 4px 6px rgba(0,0,0,0.05);">
+        <h1 style="font-size: 2.2rem; margin-bottom: 0.5rem;">⚡ JavaScript Ders Notları &amp; Rehberi</h1>
+        <p style="font-size: 1.1rem; opacity: 0.9; max-width: 700px; margin: 0 auto; color: #2c3e50; font-weight: 600;">Web sayfalarınıza dinamizm, kullanıcı etkileşimleri ve mantıksal zeka katmak için JavaScript öğrenin.</p>
+    </section>
+
+    <main class="container docs-layout">
+
+        <aside class="sidebar">
+            <h4>Temel Kavramlar</h4>
+            <ul>
+                <li><a href="#tag-intro">JS Giriş &amp; Çıktı</a></li>
+                <li><a href="#tag-variables">Değişkenler (let, const)</a></li>
+                <li><a href="#tag-datatypes">Veri Tipleri</a></li>
+                <li><a href="#tag-operators">Operatörler</a></li>
+            </ul>
+
+            <h4>Akış Kontrolü</h4>
+            <ul>
+                <li><a href="#tag-conditions">Koşullar (If / Else)</a></li>
+                <li><a href="#tag-loops">Döngüler (For, While)</a></li>
+                <li><a href="#tag-functions">Fonksiyonlar &amp; Arrow</a></li>
+            </ul>
+
+            <h4>DOM &amp; Etkileşim</h4>
+            <ul>
+                <li><a href="#tag-dom">DOM Manipülasyonu</a></li>
+                <li><a href="#tag-events">Olay Dinleyicileri</a></li>
+            </ul>
+
+            <h4>Modern JS (ES6+)</h4>
+            <ul>
+                <li><a href="#tag-es6">Dizi Metotları (map/filter)</a></li>
+                <li><a href="#tag-async">Async / Await &amp; Fetch</a></li>
+            </ul>
+        </aside>
+
+        <div class="docs-content">
+
+            <article class="tag-card" id="tag-intro">
+                <h3>🏷️ JavaScript Giriş ve Çıktı Yöntemleri</h3>
+                <p>JavaScript ekrana mesaj bastırmak veya geliştirici konsoluna bilgi yazdırmak için <code>console.log()</code>, <code>alert()</code> ve <code>document.getElementById().innerText</code> komutlarını kullanır.</p>
+                <div class="code-block">// Konsola mesaj yazma (F12 > Console)
+console.log("Merhaba KodlaHoca!");
+
+// Ekrana uyarı penceresi açma
+alert("Sayfamıza Hoş Geldiniz!");
+
+// HTML elemanının içeriğini değiştirme
+document.getElementById("mesaj").innerText = "Dinamik İçerik!";</div>
+                <div class="preview-box">
+                    <div class="preview-title">📺 Ekran Çıktısı</div>
+                    <p style="margin:0; font-weight:bold; color:#2c3e50;">Console Çıktısı: "Merhaba KodlaHoca!"</p>
+                </div>
+            </article>
+
+            <article class="tag-card" id="tag-variables">
+                <h3>🏷️ Değişkenler (let, const, var)</h3>
+                <p>Verileri hafızada saklamak için kullanılır. Modern JavaScript'te <code>let</code> (değeri değişebilen) ve <code>const</code> (sabit/değişmeyen) tercih edilir.</p>
+                <div class="code-block">// Değiştirilebilir değişken (let)
+let ogrenciSayisi = 30;
+ogrenciSayisi = 35; // Değer güncellenebilir
+
+// Sabit değişken (const)
+const okulAdi = "KodlaHoca Akademi";
+// okulAdi = "Başka Okul"; // HATA! Const değiştirilemez.</div>
+                <div class="preview-box">
+                    <div class="preview-title">📺 Ekran Çıktısı</div>
+                    <p style="margin:0;">Öğrenci Sayısı: <strong>35</strong> | Okul: <strong>KodlaHoca Akademi</strong></p>
+                </div>
+            </article>
+
+            <article class="tag-card" id="tag-datatypes">
+                <h3>🏷️ Temel Veri Tipleri (Data Types)</h3>
+                <p>JavaScript'te metinler (String), sayılar (Number), mantıksal değerler (Boolean) ve diziler (Array) yaygın kullanılır.</p>
+                <div class="code-block">let dersAdi = "JavaScript"; // String
+let dersSaati = 40;            // Number
+let aktifMi = true;            // Boolean
+let konular = ["HTML", "CSS", "JS"]; // Array (Dizi)</div>
+                <div class="preview-box">
+                    <div class="preview-title">📺 Ekran Çıktısı</div>
+                    <p style="margin:0; font-family:monospace;">
+                        typeof "JavaScript" ➔ <strong>string</strong><br>
+                        typeof 40 ➔ <strong>number</strong><br>
+                        typeof true ➔ <strong>boolean</strong>
+                    </p>
+                </div>
+            </article>
+
+            <article class="tag-card" id="tag-operators">
+                <h3>🏷️ Operatörler &amp; Mantıksal Karşılaştırmalar</h3>
+                <p>Aritmetik işlemler ve mantıksal sorgulamalar yapmamızı sağlar (<code>&&</code> VE, <code>||</code> VEYA, <code>===</code> Tam Eşitlik).</p>
+                <div class="code-block">let yas = 20;
+let ehliyetVarMi = true;
+
+// Mantıksal VE (&&) Operatörü
+if (yas >= 18 && ehliyetVarMi === true) {
+    console.log("Araba kullanabilir.");
+}</div>
+                <div class="preview-box">
+                    <div class="preview-title">📺 Ekran Çıktısı</div>
+                    <p style="margin:0; color:#27ae60; font-weight:bold;">✅ Şartlar Sağlandı: Araba kullanabilir.</p>
+                </div>
+            </article>
+
+            <article class="tag-card" id="tag-conditions">
+                <h3>🏷️ Koşul Yapıları (If / Else &amp; Ternary)</h3>
+                <p>Belirli şartlara göre farklı kod bloklarının çalışmasını sağlar.</p>
+                <div class="code-block">let not = 75;
+
+if (not >= 50) {
+    console.log("Geçtiniz! 🎉");
+} else {
+    console.log("Kaldınız. 😞");
+}
+
+// Kısa İf Kullanımı (Ternary Operator)
+let durum = (not >= 50) ? "Başarılı" : "Başarısız";</div>
+                <div class="preview-box">
+                    <div class="preview-title">📺 Ekran Çıktısı</div>
+                    <p style="margin:0; font-weight:bold; color:#27ae60;">Öğrenci Notu: 75 ➔ Durum: Geçtiniz! 🎉</p>
+                </div>
+            </article>
+
+            <article class="tag-card" id="tag-loops">
+                <h3>🏷️ Döngüler (For &amp; forEach)</h3>
+                <p>Tekrarlayan işlemleri ve dizi elemanlarını sırayla dönmek için kullanılır.</p>
+                <div class="code-block">let diller = ["HTML", "CSS", "JS", "Bootstrap"];
+
+// Standart For Döngüsü
+for (let i = 0; i < diller.length; i++) {
+    console.log(diller[i]);
+}
+
+// Modern forEach Kullanımı
+diller.forEach(dil => console.log("Ders: " + dil));</div>
+                <div class="preview-box">
+                    <div class="preview-title">📺 Ekran Çıktısı</div>
+                    <p style="margin:0;">1. HTML | 2. CSS | 3. JS | 4. Bootstrap</p>
+                </div>
+            </article>
+
+            <article class="tag-card" id="tag-functions">
+                <h3>🏷️ Fonksiyonlar &amp; ES6 Arrow Functions</h3>
+                <p>Tekrar eden kod bloklarını tek bir isim altında toplar. Arrow Function (<code>() => {}</code>) daha pratik kullanım sunar.</p>
+                <div class="code-block">// Geleneksel Fonksiyon
+function topla(a, b) {
+    return a + b;
+}
+
+// Modern Arrow Function (Ok Fonksiyonu)
+const carp = (a, b) => a * b;
+
+console.log(carp(4, 5)); // 20</div>
+                <div class="preview-box">
+                    <div class="preview-title">📺 Ekran Çıktısı</div>
+                    <p style="margin:0;">carp(4, 5) Sonucu: <strong>20</strong></p>
+                </div>
+            </article>
+
+            <article class="tag-card" id="tag-dom">
+                <h3>🏷️ DOM Manipülasyonu (Sayfayı Dinamikleştirme)</h3>
+                <p><code>document.querySelector()</code> veya <code>getElementById()</code> ile HTML elemanları yakalanıp metin veya stilleri değiştirilebilir.</p>
+                <div class="code-block">const baslik = document.getElementById("demo-baslik");
+baslik.style.color = "#e74c3c";
+baslik.innerText = "Yazı JS ile Değiştirildi!";</div>
+                <div class="preview-box">
+                    <div class="preview-title">📺 Ekran Çıktısı (Canlı Test)</div>
+                    <h4 id="demo-dom-text" style="color: #2c3e50; margin-bottom: 10px;">Bu Orijinal Başlık Metnidir</h4>
+                    <button onclick="degistirDOM()" style="background: #3498db; color: white; border: none; padding: 6px 14px; border-radius: 4px; font-weight: bold; cursor: pointer;">
+                        ✨ Metni ve Rengi Değiştir
+                    </button>
+                </div>
+            </article>
+
+            <article class="tag-card" id="tag-events">
+                <h3>🏷️ Olay Dinleyicileri (addEventListener)</h3>
+                <p>Kullanıcının tıklama (click), tuşa basma veya form gönderme gibi hareketlerini dinler.</p>
+                <div class="code-block">const buton = document.getElementById("btnTıkla");
+
+buton.addEventListener("click", function() {
+    alert("Butona tıklandı!");
+});</div>
+                <div class="preview-box">
+                    <div class="preview-title">📺 Ekran Çıktısı (Canlı Test)</div>
+                    <button onclick="alert('🎉 Tebrikler! Tıklama Olayı (Click Event) Başarıyla Çalıştı!')" style="background: #27ae60; color: white; border: none; padding: 10px 18px; border-radius: 6px; font-weight: bold; cursor: pointer;">
+                        🖱️ Tıkla Ve Test Et!
+                    </button>
+                </div>
+            </article>
+
+            <article class="tag-card" id="tag-es6">
+                <h3>🏷️ Modern ES6+ Dizi Metotları (map &amp; filter)</h3>
+                <p><code>filter()</code> koşula uyanları süzmek, <code>map()</code> ise her elemanı dönüştürmek için kullanılır.</p>
+                <div class="code-block">const notlar = [45, 70, 85, 90, 30];
+
+// 50'den büyük notları filtrele
+const gecenler = notlar.filter(not => not >= 50);
+
+// Her nota +5 bonus puan ekle
+const bonuslu = gecenler.map(not => not + 5);
+
+console.log(bonuslu); // [75, 90, 95]</div>
+                <div class="preview-box">
+                    <div class="preview-title">📺 Ekran Çıktısı</div>
+                    <p style="margin:0;">Orijinal: [45, 70, 85, 90, 30] ➔ Filtrelenmiş &amp; Bonuslu: <strong>[75, 90, 95]</strong></p>
+                </div>
+            </article>
+
+            <article class="tag-card" id="tag-async">
+                <h3>🏷️ Asenkron JS &amp; Fetch API (Veri Çekme)</h3>
+                <p>Sunuculardan canlı veri çekmek ve sayfa yenilenmeden içeriği güncellemek için kullanılır.</p>
+                <div class="code-block">async function veriGetir() {
+    try {
+        let yanıt = await fetch('https://api.example.com/data');
+        let veri = await yanıt.json();
+        console.log(veri);
+    } catch (hata) {
+        console.error("Hata oluştu:", hata);
+    }
+}</div>
+                <div class="preview-box">
+                    <div class="preview-title">📺 Ekran Çıktısı</div>
+                    <p style="margin:0; color:#7f8c8d;">(Asenkron olarak API'den gelen JSON verisi işlenir.)</p>
+                </div>
+            </article>
+
+        </div>
+    </main>
+
+    <button id="scrollTopBtn" class="back-to-top" onclick="scrollToTop()">
+        ⬆️ Yukarı Çık
+    </button>
+
+    <footer style="background:#1a252f; color:#bdc3c7; text-align:center; padding:1.5rem; margin-top:2rem;">
+        <p>&copy; 2026 KodlaHoca Ders Portalı. Tüm Hakları Saklıdır.</p>
+    </footer>
+
+    <script>
+        // DOM Değiştirme Canlı Test Fonksiyonu
+        function degistirDOM() {
+            const el = document.getElementById("demo-dom-text");
+            if (el.style.color === "rgb(231, 76, 60)") {
+                el.style.color = "#2c3e50";
+                el.innerText = "Bu Orijinal Başlık Metnidir";
+            } else {
+                el.style.color = "#e74c3c";
+                el.innerText = "✨ Yazı ve Renk JS ile Başarıyla Değiştirildi!";
+            }
+        }
+
+        // Sayfa Kaydırılınca Yukarı Çık Buton Kontrolü
+        const scrollTopBtn = document.getElementById("scrollTopBtn");
+
+        window.onscroll = function() {
+            if (document.body.scrollTop > 300 || document.documentElement.scrollTop > 300) {
+                scrollTopBtn.style.display = "flex";
+            } else {
+                scrollTopBtn.style.display = "none";
+            }
+        };
+
+        function scrollToTop() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        }
+
+        // Mobil Menü Kontrolü
+        const mobileMenu = document.getElementById('mobile-menu');
+        const navLinks = document.getElementById('nav-links');
+
+        if (mobileMenu && navLinks) {
+            mobileMenu.addEventListener('click', () => {
+                navLinks.classList.toggle('active');
+            });
+        }
+    </script>
+    <script src="../assets/js/main.js"></script>
+</body>
+</html>
