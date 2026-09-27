@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Şablon 1: Adım Adım CSS Özellikleri - KodlaHoca</title>
+
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-title" content="HocaKodla">
+    <meta name="theme-color" content="#1a252f">
+
+    <link rel="icon" type="image/svg+xml;v=2" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Crect width='512' height='512' rx='120' fill='%231a252f'/%3E%3Cpath d='M160 170 L70 256 L160 342 M352 170 L442 256 L352 342 M290 140 L222 372' stroke='%2316a085' stroke-width='38' stroke-linecap='round' stroke-linejoin='round' fill='none'/%3E%3C/svg%3E">
+
+    <link rel="stylesheet" href="../../assets/css/style.css">
+    <link rel="stylesheet" href="../../assets/css/responsive.css">
+    <style>
+        body {  background-color:#B5B9F0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+        .sablon-container { max-width: 1200px; margin: 2rem auto; background: white; padding: 2rem; border-radius: 10px; box-shadow: 0 4px 10px rgba(0,0,0,0.05); }
+        .code-preview-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-top: 1rem; }
+        
+        /* YEŞİL KOD KUTUSU (#7EC151) */
+        .code-box-green { 
+            background-color: #7EC151; 
+            color: #1a1a1a; 
+            padding: 1.2rem; 
+            border-radius: 8px; 
+            font-family: 'Consolas', 'Courier New', monospace; 
+            font-size: 0.9rem; 
+            white-space: pre-wrap; 
+            word-break: break-all; 
+            font-weight: 600; 
+            border-left: 5px solid #2c3e50;
+        }
+
+        /* MAVİ CANLI ÇIKTI KUTUSU */
+        .render-box-blue { 
+            border: 2px solid #3498db; 
+            padding: 1.2rem; 
+            border-radius: 8px; 
+            background: #ffffff; 
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            justify-content: center;
+        }
+
+        .step-title {
+            color: #2c3e50;
+            font-size: 1.3rem;
+            margin-bottom: 0.3rem;
+            padding-bottom: 0.4rem;
+            border-bottom: 2px solid #3498db;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .step-desc {
+            color: #666;
+            font-size: 0.95rem;
+            margin-bottom: 0.8rem;
+        }
+
+        .section-box { margin-bottom: 2.5rem; padding-bottom: 2rem; border-bottom: 2px dashed #cbd5e1; }
+        .section-box:last-child { border-bottom: none; margin-bottom: 0; }
+
+        /* Flexbox görselleştirme kutuları */
+        .flex-demo-container {
+            background-color: #e2e8f0;
+            padding: 10px;
+            border-radius: 6px;
+            display: flex;
+            margin-bottom: 8px;
+        }
+
+        .flex-demo-item {
+            background-color: #3498db;
+            color: white;
+            padding: 8px 15px;
+            border-radius: 4px;
+            font-weight: bold;
+            font-size: 0.85rem;
+        }
+
+        @media (max-width: 768px) { .code-preview-grid { grid-template-columns: 1fr; } }
+    </style>
+</head>
+<body>
+
+    <header>
+        <nav class="nav-container">
+            <a href="../../index.html" class="logo">&lt;Kodla<span>Hoca</span>/&gt;</a>
+            <ul class="nav-links">
+                <li><a href="css-dersleri.html" style="color: var(--accent-color);">← CSS Derslerine Dön</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="sablon-container">
+        <h1 style="color:#2c3e50; font-size: 2rem; margin-bottom: 0.5rem;">🎨 Adım Adım CSS Özellikleri Rehberi</h1>
+        <p style="color:#555; margin-bottom: 2rem;">Temel yazı renginden başlayıp adım adım birleşerek karmaşık yapılara dönüşen zincirleme CSS örnekleri.</p>
+
+        <div class="section-box">
+            <h3 class="step-title">📍 Adım 1: Yazı Rengi Değiştirme (color)</h3>
+            <p class="step-desc"><code>color</code> özelliği metnin rengini belirler. İlk aşamada doğrudan renk isimleri kullanıyoruz.</p>
+            
+            <div class="code-preview-grid">
+                <div>
+                    <h4 style="color:#2c3e50; margin-bottom:0.5rem;">🟢 CSS Kodları</h4>
+                    <div class="code-box-green">/* Kırmızı Yazı */
+.yazi-kirmizi {
+    color: red;
+}
+
+/* Mavi Yazı */
+.yazi-mavi {
+    color: blue;
+}</div>
+                </div>
+                <div>
+                    <h4 style="color:#3498db; margin-bottom:0.5rem;">📺 Canlı Görünüm</h4>
+                    <div class="render-box-blue">
+                        <p style="color: red; font-size: 1.1rem; margin:0;">Bu metin "red" (kırmızı) renktedir.</p>
+                        <p style="color: blue; font-size: 1.1rem; margin:0;">Bu metin "blue" (mavi) renktedir.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="section-box">
+            <h3 class="step-title">📍 Adım 2: Arka Plan Rengi Verme (background-color)</h3>
+            <p class="step-desc"><code>background-color</code> metnin veya kutunun arkasına zemin rengi ekler.</p>
+            
+            <div class="code-preview-grid">
+                <div>
+                    <h4 style="color:#2c3e50; margin-bottom:0.5rem;">🟢 CSS Kodları</h4>
+                    <div class="code-box-green">/* Sarı Arka Planlı Yazı */
+.zemin-sari {
+    background-color: yellow;
+    color: black;
+}
+
+/* Mor Arka Planlı Yazı */
+.zemin-mor {
+    background-color: purple;
+    color: white;
+}</div>
+                </div>
+                <div>
+                    <h4 style="color:#3498db; margin-bottom:0.5rem;">📺 Canlı Görünüm</h4>
+                    <div class="render-box-blue">
+                        <p style="background-color: yellow; color: black; padding: 5px; margin:0;">Bu yazının arka planı "yellow" (sarı) rengindedir.</p>
+                        <p style="background-color: purple; color: white; padding: 5px; margin:0;">Bu yazının arka planı "purple" (mor) rengindedir.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="section-box">
+            <h3 class="step-title">📍 Adım 3: Yazı Boyutu ve Kalınlığı (font-size &amp; font-weight)</h3>
+            <p class="step-desc">Yazıların büyüklüğünü (px/rem) ve kalınlık derecesini ayarlamamızı sağlar.</p>
+            
+            <div class="code-preview-grid">
+                <div>
+                    <h4 style="color:#2c3e50; margin-bottom:0.5rem;">🟢 CSS Kodları</h4>
+                    <div class="code-box-green">/* Küçük ve İnce Metin */
+.yazi-kucuk {
+    font-size: 13px;
+    font-weight: normal;
+}
+
+/* Büyük ve Kalın Metin */
+.yazi-buyuk {
+    font-size: 22px;
+    font-weight: bold;
+    color: darkgreen;
+}</div>
+                </div>
+                <div>
+                    <h4 style="color:#3498db; margin-bottom:0.5rem;">📺 Canlı Görünüm</h4>
+                    <div class="render-box-blue">
+                        <p style="font-size: 13px; font-weight: normal; margin:0;">13px boyutunda normal kalınlıkta yazı.</p>
+                        <p style="font-size: 22px; font-weight: bold; color: darkgreen; margin:0;">22px boyutunda koyu yeşil ve bold (kalın) yazı.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="section-box">
+            <h3 class="step-title">📍 Adım 4: Kutu Boyutları &amp; Boşluklar (padding &amp; margin)</h3>
+            <p class="step-desc"><code>padding</code> kutunun içindeki elemana olan mesafesi, <code>margin</code> ise kutunun dışındaki elemanlarla olan mesafesidir.</p>
+            
+            <div class="code-preview-grid">
+                <div>
+                    <h4 style="color:#2c3e50; margin-bottom:0.5rem;">🟢 CSS Kodları</h4>
+                    <div class="code-box-green">/* İç Boşluklu (Padding) Kutu */
+.kutu-padding {
+    width: 250px;
+    height: 60px;
+    padding: 20px;
+    background-color: lightgray;
+}
+
+/* Dış Boşluklu (Margin) Kutu */
+.kutu-margin {
+    width: 250px;
+    margin-top: 15px;
+    padding: 10px;
+    background-color: lightblue;
+}</div>
+                </div>
+                <div>
+                    <h4 style="color:#3498db; margin-bottom:0.5rem;">📺 Canlı Görünüm</h4>
+                    <div class="render-box-blue">
+                        <div style="width: auto; height: 50px; padding: 20px; background-color: lightgray; color: black; font-weight: bold;">
+                            Padding (20px İç Boşluk): Yazı kenarlardan uzaktadır.
+                        </div>
+                        <div style="width: auto; margin-top: 15px; padding: 10px; background-color: lightblue; color: black; font-weight: bold;">
+                            Margin-Top (15px Dış Boşluk): Üst kutu ile arasına mesafe koydu.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="section-box">
+            <h3 class="step-title">📍 Adım 5: Kenarlıklar &amp; Yuvarlatılmış Köşeler (border &amp; border-radius)</h3>
+            <p class="step-desc"><code>border</code> kenarlık çizer, <code>border-radius</code> ise keskin köşeleri yuvarlar.</p>
+            
+            <div class="code-preview-grid">
+                <div>
+                    <h4 style="color:#2c3e50; margin-bottom:0.5rem;">🟢 CSS Kodları</h4>
+                    <div class="code-box-green">/* Düz Kırmızı Kenarlık */
+.kutu-border {
+    border: 3px solid red;
+    padding: 10px;
+}
+
+/* Yuvarlatılmış Mavi Kenarlık */
+.kutu-yuvarlak {
+    border: 3px solid blue;
+    border-radius: 15px;
+    padding: 10px;
+}
+
+/* Tam Daire Kutu */
+.kutu-daire {
+    width: 70px;
+    height: 70px;
+    background-color: orange;
+    border-radius: 50%;
+}</div>
+                </div>
+                <div>
+                    <h4 style="color:#3498db; margin-bottom:0.5rem;">📺 Canlı Görünüm</h4>
+                    <div class="render-box-blue">
+                        <div style="border: 3px solid red; padding: 8px; font-weight: bold;">Keskin 3px Kırmızı Kenarlık</div>
+                        <div style="border: 3px solid blue; border-radius: 15px; padding: 8px; font-weight: bold;">Köşeleri 15px Yuvarlatılmış Mavi Kenarlık</div>
+                        <div style="width: 60px; height: 60px; background-color: orange; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-weight: bold; font-size: 0.8rem;">Daire</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="section-box">
+            <h3 class="step-title">📍 Adım 6: Gölgeleme Efektleri (box-shadow)</h3>
+            <p class="step-desc">Kutulara derinlik kazandırmak için yumuşak, keskin veya iç gölge (inset) ekleme örnekleri.</p>
+            
+            <div class="code-preview-grid">
+                <div>
+                    <h4 style="color:#2c3e50; margin-bottom:0.5rem;">🟢 CSS Kodları</h4>
+                    <div class="code-box-green">/* 1. Yumuşak Dış Gölge */
+.golge-yumusak {
+    box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.2);
+    padding: 10px;
+    background: white;
+}
+
+/* 2. Keskin Retro Gölge */
+.golge-keskin {
+    box-shadow: 6px 6px 0px black;
+    border: 2px solid black;
+    padding: 10px;
+    background: #f1c40f;
+}
+
+/* 3. İç Gölge (Inset) */
+.golge-ic {
+    box-shadow: inset 0px 0px 10px rgba(0, 0, 0, 0.5);
+    padding: 10px;
+    background: #ecf0f1;
+}</div>
+                </div>
+                <div>
+                    <h4 style="color:#3498db; margin-bottom:0.5rem;">📺 Canlı Görünüm</h4>
+                    <div class="render-box-blue">
+                        <div style="box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.2); padding: 10px; background: white; font-weight: bold; color: #333;">Yumuşak Dış Gölge (Soft Shadow)</div>
+                        <div style="box-shadow: 6px 6px 0px black; border: 2px solid black; padding: 10px; background: #f1c40f; font-weight: bold; color: black;">Keskin Retro Gölge (Hard Shadow)</div>
+                        <div style="box-shadow: inset 0px 0px 10px rgba(0, 0, 0, 0.5); padding: 10px; background: #ecf0f1; font-weight: bold; color: #2c3e50;">İç Gölge (Inset Shadow)</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="section-box">
+            <h3 class="step-title">📍 Adım 7: Flexbox Hizalama Çeşitleri (space-between, space-around, space-evenly)</h3>
+            <p class="step-desc"><code>display: flex</code> kullanıldığında elemanların yan yana nasıl dağılacağını belirleyen <code>justify-content</code> farkları:</p>
+            
+            <div class="code-preview-grid">
+                <div>
+                    <h4 style="color:#2c3e50; margin-bottom:0.5rem;">🟢 CSS Kodları</h4>
+                    <div class="code-box-green">/* 1. space-between (Kenarlara yapışık, aralara eşit boşluk) */
+.flex-between {
+    display: flex;
+    justify-content: space-between;
+}
+
+/* 2. space-around (Etrafında eşit boşluk) */
+.flex-around {
+    display: flex;
+    justify-content: space-around;
+}
+
+/* 3. space-evenly (Tamamen eşit boşluklar) */
+.flex-evenly {
+    display: flex;
+    justify-content: space-evenly;
+}
+
+/* 4. center (Ortalanmış) */
+.flex-center {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+}</div>
+                </div>
+                <div>
+                    <h4 style="color:#3498db; margin-bottom:0.5rem;">📺 Canlı Görünüm</h4>
+                    <div class="render-box-blue">
+                        <div>
+                            <small style="font-weight:bold; color:#e67e22;">1. justify-content: space-between</small>
+                            <div class="flex-demo-container" style="justify-content: space-between;">
+                                <div class="flex-demo-item">Kutu 1</div>
+                                <div class="flex-demo-item">Kutu 2</div>
+                                <div class="flex-demo-item">Kutu 3</div>
+                            </div>
+                        </div>
+
+                        <div>
+                            <small style="font-weight:bold; color:#27ae60;">2. justify-content: space-around</small>
+                            <div class="flex-demo-container" style="justify-content: space-around;">
+                                <div class="flex-demo-item">Kutu 1</div>
+                                <div class="flex-demo-item">Kutu 2</div>
+                                <div class="flex-demo-item">Kutu 3</div>
+                            </div>
+                        </div>
+
+                        <div>
+                            <small style="font-weight:bold; color:#8e44ad;">3. justify-content: space-evenly</small>
+                            <div class="flex-demo-container" style="justify-content: space-evenly;">
+                                <div class="flex-demo-item">Kutu 1</div>
+                                <div class="flex-demo-item">Kutu 2</div>
+                                <div class="flex-demo-item">Kutu 3</div>
+                            </div>
+                        </div>
+
+                        <div>
+                            <small style="font-weight:bold; color:#2980b9;">4. justify-content: center</small>
+                            <div class="flex-demo-container" style="justify-content: center; gap: 10px;">
+                                <div class="flex-demo-item">Kutu 1</div>
+                                <div class="flex-demo-item">Kutu 2</div>
+                                <div class="flex-demo-item">Kutu 3</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="section-box">
+            <h3 class="step-title">📍 Adım 8: Konumlandırma (position: relative &amp; absolute)</h3>
+            <p class="step-desc">Ana kutuya <code>position: relative</code> verilerek sınır oluşturulur. İçindeki 3 kutu ise <code>position: absolute</code> ile <strong>başa (sol üst)</strong>, <strong>ortaya (tam merkez)</strong> ve <strong>sona (sağ alt)</strong> konumlandırılır.</p>
+            
+            <div class="code-preview-grid">
+                <div>
+                    <h4 style="color:#2c3e50; margin-bottom:0.5rem;">🟢 CSS Kodları</h4>
+                    <div class="code-box-green">/* Border'lı Ana Kapsayıcı Kutu */
+.konum-kapsayici {
+    position: relative;
+    width: 100%;
+    height: 180px;
+    border: 3px dashed #34495e;
+    border-radius: 8px;
+    background-color: #f8fafc;
+}
+
+/* 1. Baş Kutusu (Sol Üst) */
+.kutu-baslangic {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    background-color: red;
+    color: white;
+    padding: 6px 12px;
+    border-radius: 4px;
+    font-weight: bold;
+}
+
+/* 2. Orta Kutu (Tam Merkez) */
+.kutu-orta {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: orange;
+    color: black;
+    padding: 6px 12px;
+    border-radius: 4px;
+    font-weight: bold;
+}
+
+/* 3. Bitiş Kutusu (Sağ Alt) */
+.kutu-bitis {
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    background-color: green;
+    color: white;
+    padding: 6px 12px;
+    border-radius: 4px;
+    font-weight: bold;
+}</div>
+                </div>
+                <div>
+                    <h4 style="color:#3498db; margin-bottom:0.5rem;">📺 Canlı Görünüm (Sınırlı Kutu İçi Konumlandırma)</h4>
+                    <div class="render-box-blue">
+                        <div style="position: relative; width: 100%; height: 180px; border: 3px dashed #34495e; border-radius: 8px; background-color: #f8fafc;">
+                            
+                            <div style="position: absolute; top: 10px; left: 10px; background-color: red; color: white; padding: 6px 12px; border-radius: 4px; font-weight: bold; font-size: 0.85rem;">
+                                📍 Baştaki Kutu (Sol Üst)
+                            </div>
+
+                            <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); background-color: orange; color: black; padding: 6px 12px; border-radius: 4px; font-weight: bold; font-size: 0.85rem;">
+                                🎯 Ortadaki Kutu (Merkez)
+                            </div>
+
+                            <div style="position: absolute; bottom: 10px; right: 10px; background-color: green; color: white; padding: 6px 12px; border-radius: 4px; font-weight: bold; font-size: 0.85rem;">
+                                🏁 Bitişteki Kutu (Sağ Alt)
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="section-box">
+            <h3 class="step-title" style="color:#27ae60;">🚀 Adım 9: Kompleks Kart Yapısı (Tüm Kuralların Birleşimi)</h3>
+            <p class="step-desc">Öğrendiğimiz tüm CSS kurallarını (Renk, Arka Plan, Padding, Border-Radius, Gölge, Flexbox ve Position) birleştirerek ürettiğimiz modern kart bileşeni:</p>
+            
+            <div class="code-preview-grid">
+                <div>
+                    <h4 style="color:#2c3e50; margin-bottom:0.5rem;">🟢 Birleşik CSS Kodları</h4>
+                    <div class="code-box-green">.kompleks-kart {
+    position: relative;
+    background-color: white;
+    border-top: 4px solid #27ae60;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0px 10px 25px rgba(0, 0, 0, 0.1);
+}
+
+.kart-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.kart-baslik {
+    color: #2c3e50;
+    font-size: 1.2rem;
+    font-weight: bold;
+}
+
+.kart-etiket {
+    background-color: #eafaf1;
+    color: #27ae60;
+    padding: 4px 10px;
+    border-radius: 15px;
+    font-size: 0.8rem;
+    font-weight: bold;
+}
+
+.kart-buton {
+    background-color: #27ae60;
+    color: white;
+    padding: 8px 16px;
+    border-radius: 5px;
+    text-align: center;
+    font-weight: bold;
+    cursor: pointer;
+}</div>
+                </div>
+                <div>
+                    <h4 style="color:#3498db; margin-bottom:0.5rem;">📺 Canlı Görünüm (Eseriniz!)</h4>
+                    <div class="render-box-blue">
+                        <div style="position: relative; background-color: white; border-top: 4px solid #27ae60; border-radius: 10px; padding: 20px; box-shadow: 0px 10px 25px rgba(0, 0, 0, 0.1); border-left: 1px solid #eee; border-right: 1px solid #eee; border-bottom: 1px solid #eee;">
+                            
+                            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+                                <span style="color: #2c3e50; font-size: 1.2rem; font-weight: bold;">Modern Yazılım Kursu</span>
+                                <span style="background-color: #eafaf1; color: #27ae60; padding: 4px 10px; border-radius: 15px; font-size: 0.8rem; font-weight: bold;">YENİ BÖLÜM</span>
+                            </div>
+
+                            <p style="color: #666; font-size: 0.95rem; margin-bottom: 15px; line-height: 1.5;">
+                                Adım adım öğrendiğimiz renk, kutu boşlukları, gölge ve flexbox özellikleriyle tasarlanan harika bir kart!
+                            </p>
+
+                            <div style="display: flex; justify-content: space-between; align-items: center;">
+                                <span style="font-weight: bold; color: #e74c3c; font-size: 1.1rem;">Ücretsiz</span>
+                                <div style="background-color: #27ae60; color: white; padding: 8px 16px; border-radius: 5px; font-weight: bold; cursor: pointer;">
+                                    Kursa Katıl 🚀
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</body>
+</html>

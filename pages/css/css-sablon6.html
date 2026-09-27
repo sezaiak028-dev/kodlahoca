@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Şablon 6: Flexbox Dikey Navbar Menü (Sol & Sağ) - KodlaHoca</title>
+
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-title" content="HocaKodla">
+    <meta name="theme-color" content="#1a252f">
+
+    <link rel="icon" type="image/svg+xml;v=2" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Crect width='512' height='512' rx='120' fill='%231a252f'/%3E%3Cpath d='M160 170 L70 256 L160 342 M352 170 L442 256 L352 342 M290 140 L222 372' stroke='%2316a085' stroke-width='38' stroke-linecap='round' stroke-linejoin='round' fill='none'/%3E%3C/svg%3E">
+
+    <link rel="stylesheet" href="../../assets/css/style.css">
+    <link rel="stylesheet" href="../../assets/css/responsive.css">
+    <style>
+        /* İSTEDİĞİN MANUEL ZEMİN RENGİ KORUNDU */
+        body { background-color: #B5B9F0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+        
+        .sablon-container { max-width: 1200px; margin: 2rem auto; background: white; padding: 2rem; border-radius: 10px; box-shadow: 0 4px 10px rgba(0,0,0,0.05); }
+        .code-preview-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-top: 1rem; }
+        
+        /* YEŞİL KOD KUTUSU (#7EC151) */
+        .code-box-green { 
+            background-color: #7EC151; 
+            color: #1a1a1a; 
+            padding: 1.2rem; 
+            border-radius: 8px; 
+            font-family: 'Consolas', 'Courier New', monospace; 
+            font-size: 0.88rem; 
+            white-space: pre-wrap; 
+            word-break: break-all; 
+            font-weight: 600; 
+            border-left: 5px solid #2c3e50;
+        }
+
+        /* MAVİ CANLI ÇIKTI KUTUSU */
+        .render-box-blue { 
+            border: 2px solid #3498db; 
+            padding: 1.2rem; 
+            border-radius: 8px; 
+            background: #ffffff; 
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            justify-content: center;
+        }
+
+        .step-title {
+            color: #2c3e50;
+            font-size: 1.3rem;
+            margin-bottom: 0.3rem;
+            padding-bottom: 0.4rem;
+            border-bottom: 2px solid #3498db;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .step-desc {
+            color: #666;
+            font-size: 0.95rem;
+            margin-bottom: 0.8rem;
+        }
+
+        .section-box { margin-bottom: 2.5rem; padding-bottom: 2rem; border-bottom: 2px dashed #cbd5e1; }
+        .section-box:last-child { border-bottom: none; margin-bottom: 0; }
+
+        /* CANLI DEMO DİKEY NAVBAR STİLLERİ */
+        
+        /* Simüle Alan Kapsayıcısı */
+        .screen-simulation {
+            position: relative;
+            width: 100%;
+            height: 260px;
+            background-color: #f1f5f9;
+            border: 2px dashed #94a3b8;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        /* Sol Dikey Menü Demo */
+        .demo-vnav-left {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 160px;
+            height: 100%;
+            background-color: #1e293b;
+            padding: 15px 10px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        /* Sağ Dikey Menü Demo */
+        .demo-vnav-right {
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 160px;
+            height: 100%;
+            background-color: #0f172a;
+            padding: 15px 10px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .vnav-title {
+            color: #38bdf8;
+            font-size: 0.85rem;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 5px;
+            text-align: center;
+        }
+
+        .vnav-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .vnav-list li a {
+            display: block;
+            color: #cbd5e1;
+            text-decoration: none;
+            padding: 8px 12px;
+            font-size: 0.82rem;
+            font-weight: 600;
+            border-radius: 6px;
+            transition: all 0.3s ease;
+        }
+
+        /* Sol Menü Hover Effect (Sağa Kayma) */
+        .demo-vnav-left .vnav-list li a:hover {
+            background-color: #38bdf8;
+            color: #0f172a;
+            transform: translateX(5px);
+        }
+
+        /* Sağ Menü Hover Effect (Sola Kayma) */
+        .demo-vnav-right .vnav-list li a:hover {
+            background-color: #e11d48;
+            color: #ffffff;
+            transform: translateX(-5px);
+        }
+
+        .demo-content-text {
+            margin-left: 175px;
+            padding: 15px;
+            color: #475569;
+            font-size: 0.85rem;
+        }
+
+        .demo-content-text-right {
+            margin-right: 175px;
+            padding: 15px;
+            color: #475569;
+            font-size: 0.85rem;
+        }
+
+        @media (max-width: 768px) { 
+            .code-preview-grid { grid-template-columns: 1fr; } 
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ORİJİNAL HEADER YAPIN (BİREBİR KORUNDU) -->
+    <header>
+        <nav class="nav-container">
+            <a href="../../index.html" class="logo">&lt;Kodla<span>Hoca</span>/&gt;</a>
+            <ul class="nav-links">
+                <li><a href="css-dersleri.html" style="color: var(--accent-color);">← CSS Derslerine Dön</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="sablon-container">
+        <h1 style="color:#2c3e50; font-size: 2rem; margin-bottom: 0.5rem;">📱 Şablon 6: Dikey (Vertical) Navbar Menü Tasarımı</h1>
+        <p style="color:#555; margin-bottom: 2rem;">Flexbox <code>flex-direction: column</code> mantığı ve konumlandırma özellikleri kullanılarak ekranın sol veya sağ tarafına sabitlenen dikey navigasyon menüleri.</p>
+
+        <!-- 1. ADIM: SOLA HİZALI DİKEY NAVBAR (LEFT SIDEBAR) -->
+        <div class="section-box">
+            <h3 class="step-title">📍 1. Sol Taraf Dikey Menü Tasarımı (Left Vertical Nav)</h3>
+            <p class="step-desc">Dikey menü oluşturmak için kapsayıcıya <code>display: flex</code> ve <code>flex-direction: column</code> verilir. Sol tarafa yaslamak için <code>left: 0</code> kullanılır.</p>
+            
+            <div class="code-preview-grid">
+                <div>
+                    <h4 style="color:#2c3e50; margin-bottom:0.5rem;">🟢 HTML &amp; CSS Kodları</h4>
+                    <div class="code-box-green"><!-- 1. HTML İSKELETİ -->
+&lt;nav class="dikey-menü-sol"&gt;
+  &lt;div class="menu-baslik"&gt;MENÜ&lt;/div&gt;
+  &lt;ul&gt;
+    &lt;li&gt;&lt;a href="#"&gt;Ana Sayfa&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href="#"&gt;Hakkımızda&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href="#"&gt;Galeri&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href="#"&gt;İletişim&lt;/a&gt;&lt;/li&gt;
+  &lt;/ul&gt;
+&lt;/nav&gt;
+
+/* 2. CSS STİLLERİ */
+.dikey-menü-sol {
+    position: absolute;
+    top: 0; left: 0;
+    width: 160px; height: 100%;
+    background-color: #1e293b;
+    display: flex;
+    flex-direction: column; /* Dikey Sırala */
+}
+
+.dikey-menü-sol ul li a {
+    transition: transform 0.3s ease;
+}
+
+/* Hover'da Sağa Doğru Kayma Efekti */
+.dikey-menü-sol ul li a:hover {
+    background-color: #38bdf8;
+    color: #0f172a;
+    transform: translateX(5px);
+}</div>
+                </div>
+                <div>
+                    <h4 style="color:#3498db; margin-bottom:0.5rem;">📺 Canlı Uygulama (Sol Taraf)</h4>
+                    <div class="render-box-blue">
+                        <div class="screen-simulation">
+                            <nav class="demo-vnav-left">
+                                <div class="vnav-title">PANEL</div>
+                                <ul class="vnav-list">
+                                    <li><a href="#">Ana Sayfa</a></li>
+                                    <li><a href="#">Hakkımızda</a></li>
+                                    <li><a href="#">Galeri</a></li>
+                                    <li><a href="#">İletişim</a></li>
+                                </ul>
+                            </nav>
+                            <div class="demo-content-text">
+                                <b>Sayfa İçeriği</b><br>
+                                Sol taraftaki menü <code>left: 0</code> ile sabitlendi. Fareyle butonların üzerine geldiğinizde sağa doğru hafifçe kayar!
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 2. ADIM: SAĞA HİZALI DİKEY NAVBAR (RIGHT SIDEBAR) -->
+        <div class="section-box">
+            <h3 class="step-title">📍 2. Sağ Taraf Dikey Menü Tasarımı (Right Vertical Nav)</h3>
+            <p class="step-desc">Menüyü ekranın sağ tarafında konumlandırmak için <code>right: 0</code> kullanılır. Hover durumunda ise butonlar içeri doğru (sola) kaydırılabilir.</p>
+            
+            <div class="code-preview-grid">
+                <div>
+                    <h4 style="color:#2c3e50; margin-bottom:0.5rem;">🟢 HTML &amp; CSS Kodları</h4>
+                    <div class="code-box-green"><!-- 1. HTML İSKELETİ -->
+&lt;nav class="dikey-menü-sag"&gt;
+  &lt;div class="menu-baslik"&gt;NAVİGASYON&lt;/div&gt;
+  &lt;ul&gt;
+    &lt;li&gt;&lt;a href="#"&gt;Ana Sayfa&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href="#"&gt;Hakkımızda&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href="#"&gt;Galeri&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href="#"&gt;İletişim&lt;/a&gt;&lt;/li&gt;
+  &lt;/ul&gt;
+&lt;/nav&gt;
+
+/* 2. CSS STİLLERİ */
+.dikey-menü-sag {
+    position: absolute;
+    top: 0; right: 0; /* Sağa Yasla */
+    width: 160px; height: 100%;
+    background-color: #0f172a;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Hover'da Sola Doğru Kayma Efekti */
+.dikey-menü-sag ul li a:hover {
+    background-color: #e11d48;
+    color: #ffffff;
+    transform: translateX(-5px);
+}</div>
+                </div>
+                <div>
+                    <h4 style="color:#3498db; margin-bottom:0.5rem;">📺 Canlı Uygulama (Sağ Taraf)</h4>
+                    <div class="render-box-blue">
+                        <div class="screen-simulation">
+                            <div class="demo-content-text-right">
+                                <b>Sayfa İçeriği</b><br>
+                                Sağ taraftaki menü <code>right: 0</code> ile sabitlendi. Butonların üzerine geldiğinizde bu kez sola doğru kayar!
+                            </div>
+                            <nav class="demo-vnav-right">
+                                <div class="vnav-title" style="color: #fb7185;">MENÜ</div>
+                                <ul class="vnav-list">
+                                    <li><a href="#">Ana Sayfa</a></li>
+                                    <li><a href="#">Hakkımızda</a></li>
+                                    <li><a href="#">Galeri</a></li>
+                                    <li><a href="#">İletişim</a></li>
+                                </ul>
+                            </nav>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</body>
+</html>
