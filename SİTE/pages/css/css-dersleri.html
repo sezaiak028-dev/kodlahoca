@@ -1,0 +1,1067 @@
+<!DOCTYPE html>
+<html lang="tr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Yazılım Ders Notları - Web Teacher</title>
+
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-title" content="HocaKodla">
+    <meta name="theme-color" content="#1a252f">
+
+    <link rel="icon" type="image/svg+xml;v=2"
+        href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Crect width='512' height='512' rx='120' fill='%231a252f'/%3E%3Cpath d='M160 170 L70 256 L160 342 M352 170 L442 256 L352 342 M290 140 L222 372' stroke='%2316a085' stroke-width='38' stroke-linecap='round' stroke-linejoin='round' fill='none'/%3E%3C/svg%3E">
+    <link rel="apple-touch-icon"
+        href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Crect width='512' height='512' rx='120' fill='%231a252f'/%3E%3Cpath d='M160 170 L70 256 L160 342 M352 170 L442 256 L352 342 M290 140 L222 372' stroke='%2316a085' stroke-width='38' stroke-linecap='round' stroke-linejoin='round' fill='none'/%3E%3C/svg%3E">
+
+    <link rel="stylesheet" href="../../assets/css/style.css">
+    <link rel="stylesheet" href="../../assets/css/responsive.css">
+
+    <style>
+        /* =========================================
+   İKİ KOLONLU DOKÜMANTASYON DÜZENİ
+   ========================================= */
+
+        .docs-layout {
+            display: grid;
+            grid-template-columns: 260px 1fr;
+            gap: 2rem;
+            margin: 2rem auto;
+            align-items: start;
+        }
+
+
+        /* =========================================
+   SOL YAN MENÜ (SIDEBAR)
+   ========================================= */
+
+        .sidebar {
+            background: white;
+            padding: 1.2rem;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+            position: sticky;
+            top: 80px;
+            max-height: calc(100vh - 100px);
+            overflow-y: auto;
+        }
+
+        .sidebar h4 {
+            color: var(--primary-color, #2c3e50);
+            font-size: 1rem;
+            margin: 1rem 0 0.5rem 0;
+            padding-bottom: 0.3rem;
+            border-bottom: 2px solid #3498db;
+        }
+
+        .sidebar h4:first-child {
+            margin-top: 0;
+        }
+
+        .sidebar ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .sidebar ul li {
+            margin-bottom: 0.3rem;
+        }
+
+        .sidebar ul li a {
+            display: block;
+            padding: 0.4rem 0.6rem;
+            color: #444;
+            text-decoration: none;
+            border-radius: 4px;
+            font-size: 0.9rem;
+            font-family: monospace;
+            transition: all 0.2s;
+        }
+
+        .sidebar ul li a:hover {
+            background-color: #e8f4fc;
+            color: #3498db;
+            padding-left: 0.9rem;
+        }
+
+
+        /* =========================================
+   SAĞ ANA İÇERİK
+   ========================================= */
+
+        .docs-content {
+            background: white;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+
+            /* Grid içindeki içeriğin taşmasını önler */
+            min-width: 0;
+        }
+
+
+        .tag-card {
+            margin-bottom: 3rem;
+            padding-bottom: 2rem;
+            border-bottom: 2px dashed #e0e0e0;
+            scroll-margin-top: 90px;
+
+            /* ÖNEMLİ */
+            min-width: 0;
+        }
+
+        .tag-card:last-child {
+            border-bottom: none;
+        }
+
+        .tag-card h3 {
+            color: var(--primary-color, #2c3e50);
+            font-size: 1.4rem;
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .tag-card p {
+            color: #555;
+            line-height: 1.6;
+            margin-bottom: 1rem;
+        }
+
+
+        /* =========================================
+   ÖRNEK KOD KUTUSU
+   ========================================= */
+
+        .code-block {
+            background-color: #7EC151;
+            color: #1a1a1a;
+            border: 1px solid #e0a800;
+            border-left: 5px solid #2c3e50;
+            padding: 1.2rem;
+            border-radius: 8px;
+            font-family: 'Consolas', 'Courier New', monospace;
+            font-size: 0.95rem;
+            line-height: 1.5;
+            margin: 1rem 0;
+            white-space: pre-wrap;
+            word-break: break-word;
+            overflow-x: auto;
+            font-weight: 600;
+
+            box-sizing: border-box;
+            max-width: 100%;
+        }
+
+
+        /* =========================================
+   MAVİ CANLI ÇIKTI KUTUSU
+   ========================================= */
+
+        .preview-box {
+            background-color: #ffffff;
+            border: 2px solid #3498db;
+            border-radius: 8px;
+            padding: 1.2rem;
+            margin-top: 1rem;
+
+            /*
+       EKRAN BÜYÜDÜKÇE BÜYÜR
+       EKRAN DARALDIKÇA DARALIR
+    */
+            width: 100%;
+            max-width: 100%;
+            min-width: 380px;
+
+            box-sizing: border-box;
+
+            /*
+       KIRMIZI KUTUNUN DIŞARI TAŞMASINA
+       İZİN VER
+    */
+            overflow: visible;
+        }
+
+
+        /* =========================================
+   MAVİ KUTUNUN İÇİNDEKİ NORMAL ELEMANLAR
+   ========================================= */
+
+        .preview-box p {
+            max-width: 100%;
+            box-sizing: border-box;
+        }
+
+
+        /*
+   BURADA ESKİ:
+   .preview-box * {
+       max-width: 100% !important;
+   }
+
+   KULLANMIYORUZ!
+
+   Çünkü bu kural kırmızı kutunun
+   600px sabit genişliğini bozuyordu.
+*/
+
+
+        /* =========================================
+   RESPONSIVE ÖRNEK KUTULARI
+   ========================================= */
+
+
+        /* KIRMIZI KUTU → SABİT 600px */
+
+        .preview-box .kirmizi-kutu {
+            width: 600px;
+            min-width: 600px;
+            max-width: none;
+
+            box-sizing: border-box;
+
+            background-color: #e74c3c;
+            color: white;
+            padding: 12px;
+            margin-bottom: 10px;
+            border-radius: 4px;
+            font-size: 0.85rem;
+        }
+
+
+        /* YEŞİL KUTU → MAVİ KUTUYU TAKİP EDER */
+
+        .preview-box .yesil-kutu {
+            width: 100%;
+            max-width: 100%;
+
+            box-sizing: border-box;
+
+            background-color: #2ecc71;
+            color: white;
+            padding: 12px;
+            border-radius: 4px;
+            font-size: 0.85rem;
+        }
+
+
+        /* =========================================
+   GENEL FORM / TABLO KURALLARI
+   ========================================= */
+
+        .preview-box form,
+        .preview-box fieldset {
+            max-width: 100%;
+            box-sizing: border-box;
+        }
+
+        .preview-box table {
+            max-width: 100%;
+            display: block;
+            overflow-x: auto;
+            white-space: nowrap;
+            box-sizing: border-box;
+        }
+
+
+        /* =========================================
+   ÖNİZLEME BAŞLIĞI
+   ========================================= */
+
+        .preview-title {
+            font-size: 0.8rem;
+            font-weight: bold;
+            color: #3498db;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 0.8rem;
+        }
+
+
+        /* =========================================
+   YUKARI ÇIK BUTONU
+   ========================================= */
+
+        .back-to-top {
+            position: fixed;
+            bottom: 25px;
+            right: 25px;
+            background-color: #3498db;
+            color: white;
+            border: none;
+            border-radius: 50px;
+            padding: 12px 20px;
+            font-size: 0.9rem;
+            font-weight: bold;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+            display: none;
+            align-items: center;
+            gap: 8px;
+            z-index: 10000;
+            transition: all 0.3s ease;
+        }
+
+        .back-to-top:hover {
+            background-color: #2980b9;
+            transform: translateY(-3px);
+        }
+
+
+        /* =========================================
+   MOBİL UYUM
+   ========================================= */
+
+        html,
+        body {
+            max-width: 100%;
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+        }
+
+
+        /*
+   Genel responsive taşma kontrolü
+*/
+
+        .docs-layout,
+        .docs-content,
+        .tag-card {
+            max-width: 100%;
+            box-sizing: border-box;
+        }
+
+
+        /* =========================================
+   MOBİL
+   ========================================= */
+
+        @media (max-width: 768px) {
+
+            .docs-layout {
+                grid-template-columns: 1fr;
+            }
+
+            .sidebar {
+                position: static;
+                max-height: 250px;
+            }
+
+            .back-to-top {
+                bottom: 15px;
+                right: 15px;
+                padding: 10px 15px;
+                font-size: 0.85rem;
+            }
+        }
+    </style>
+
+
+</head>
+
+<body>
+
+    <header>
+        <nav class="nav-container">
+            <a href="../../index.html" class="logo">&lt;Kodla<span>Hoca</span>/&gt;</a>
+            <div class="menu-toggle" id="mobile-menu">
+                <span></span><span></span><span></span>
+            </div>
+            <ul class="nav-links" id="nav-links">
+                <li><a href="../../index.html">Ana Sayfa</a></li>
+                <li><a href="../html/html-dersleri.html">HTML</a></li>
+                <li><a href="../css/css-dersleri.html" style="color: #3498db; font-weight: bold;">CSS</a></li>
+                <li><a href="../bootstrap/bootstrap-dersleri.html">Bootstrap</a></li>
+                <li><a href="../js/js-dersleri.html">JavaScript</a></li>
+                <li><a href="../react/react-dersleri.html">React.js</a></li>
+                <li><a href="../node/node-dersleri.html">Node.js</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section class="hero"
+        style="padding: 2.5rem 1rem; text-align:center; background: #2980b9; color:white; box-shadow: 0 4px 6px rgba(0,0,0,0.05);">
+        <h1 style="font-size: 2.2rem; margin-bottom: 0.5rem;">🎨 CSS3 Ders Notları &amp; Rehberi</h1>
+        <p style="font-size: 1.1rem; opacity: 0.9; max-width: 700px; margin: 0 auto;">Web sayfalarınızı görsel açıdan
+            zenginleştirmek, stillendirmek ve esnek düzenler (Flexbox/Grid) kurmak için CSS3 öğrenin.</p>
+    </section>
+
+    <main class="container docs-layout">
+
+        <aside class="sidebar">
+            <h4>Temel Kurallar</h4>
+            <ul>
+                <li><a href="#css-selectors">Seçiciler (Selectors)</a></li>
+                <li><a href="#css-colors">Renkler &amp; Arka Plan</a></li>
+            </ul>
+
+            <h4>Kutu Modeli</h4>
+            <ul>
+                <li><a href="#css-boxmodel">Margin &amp; Padding</a></li>
+                <li><a href="#css-border">Kenarlık (Border)</a></li>
+            </ul>
+
+            <h4>Tipografi &amp; Hizalama</h4>
+            <ul>
+                <li><a href="#css-text">Metin &amp; Font Stilleri</a></li>
+            </ul>
+
+            <h4>Esnek Düzenler</h4>
+            <ul>
+                <li><a href="#css-flexbox">Flexbox Düzeni</a></li>
+                <li><a href="#css-grid">CSS Grid Düzeni</a></li>
+            </ul>
+
+            <h4>Konumlandırma &amp; Efekt</h4>
+            <ul>
+                <li><a href="#css-position">Position Özelliği</a></li>
+                <li><a href="#css-shadows">Gölge &amp; Yuvarlatma</a></li>
+            </ul>
+
+            <h4>Örnek CSS Şablonları</h4>
+            <ul>
+                <li><a href="css-sablon1.html" style="color:#e67e22; font-weight:bold;">🎨 Şablon 1 (Temel Stiller &amp;
+                        Düzen)</a></li>
+                <li><a href="css-sablon2.html" style="color:#e67e22; font-weight:bold;">🎯 Şablon 2 (CSS Seçiciler)</a>
+                </li>
+                <li><a href="css-sablon3.html " style="color:#e67e22; font-weight:bold;">🎯Şablon 3 (Spacing, Align &
+                        Düzen)</a></li>
+                <li><a href="css-sablon4.html" style="color:#e67e22; font-weight:bold;">🎯Şablon 4 (Gölgeler, Efektler &
+                        Pseudo Elements)</a></li>
+                <li><a href="css-sablon5.html" style="color:#e67e22; font-weight:bold;">🧭 Şablon 5 (Flexbox Navbar)</a>
+                </li>
+                <li><a href="css-sablon6.html" style="color:#e67e22; font-weight:bold;">📱 Şablon 6 (Flexbox Dikey
+                        Navbar)</a></li>
+                <li><a href="css-sablon7.html" style="color:#e67e22; font-weight:bold;">🖥️ Şablon 7 (Örnek Site 1)</a>
+                </li>
+                <li><a href="css-sablon8.html" style="color:#e67e22; font-weight:bold;">🖥️ Şablon 8 (Örnek Site 2 -
+                        Çift Menülü)</a></li>
+                <li><a href="css-sablon9.html" style="color:#e67e22; font-weight:bold;">🖥️ Şablon 9 (Örnek Site 3 -
+                        Açılır Menülü)</a></li>
+                <li><a href="css-sablon10.html" style="color:#e67e22; font-weight:bold;">🥊 Şablon 10 (Örnek Site 4 -
+                        Kodsuz Challenge 1)</a></li>
+                <li><a href="css-sablon11.html" style="color:#e67e22; font-weight:bold;">🥊 Şablon 11 (Örnek Site 5 -
+                        Kodsuz Challenge 2)</a></li>
+                <li><a href="css-sablon12.html" style="color:#e67e22; font-weight:bold;">🥊 Şablon 12 (Örnek Site 6 -
+                        Kodsuz Challenge 3)</a></li>
+                <li><a href="css-sablon13.html" style="color:#e67e22; font-weight:bold;">🥊 Şablon 13 (Örnek Site 7 -
+                        Kodsuz Challenge 4)</a></li>
+                <li><a href="css-sablon14.html" style="color:#e67e22; font-weight:bold;">🥊 Şablon 14 (Örnek Site 8 -
+                        Kodsuz Challenge 5-Final)</a></li>
+            </ul>
+<h4>"@media" Etiketi ile Responsive Tasarım</h4>
+<ul>
+    <li><a href="#responsive-nedir">📱 Responsive Tasarım Nedir?</a></li>
+    <li><a href="#media-sintaks">⚙️ @media Sorgusu Sözdizimi</a></li>
+    <li><a href="#breakpoints">📐 Breakpoints (Ekran Kesme Noktaları)</a></li>
+    <li><a href="#responsive-layout">📐 Esnek Düzen (Flex/Grid &amp; @media)</a></li>
+    <li><a href="#responsive-images">🖼️ Responsive Görseller &amp; Tipografi</a></li>
+    <li><a href="#mobile-first">📱 Mobile-First vs Desktop-First</a></li>
+</ul>
+
+<h4>"@media" Etiketi ile Responsive Site Örnekleri</h4>
+<ul>
+    <li><a href="css-sablon15.html" style="color:#e67e22; font-weight:bold;">📱 Şablon 15 (Responsive Örnek Site 1 - Tek Menülü)</a></li>
+    <li><a href="css-sablon16.html" style="color:#e67e22; font-weight:bold;">📱 Şablon 16 (Responsive Örnek Site 2 - Çift Menülü)</a></li>
+    <li><a href="css-sablon17.html" style="color:#e67e22; font-weight:bold;">📱 Şablon 17 (Responsive Örnek Site 3 Challenge- Esnek Izgaralı)</a></li>
+</ul>
+        </aside>
+
+        <div class="docs-content">
+
+            <article class="tag-card" id="css-selectors">
+                <h3>🎯 CSS Seçiciler (Selectors)</h3>
+                <p>HTML elemanlarını hedef alarak stil uygulamamızı sağlar. Eleman adı, Sınıf (Class - <code>.</code>)
+                    ve Kimlik (ID - <code>#</code>) seçicileri en sık kullanılanlardır.</p>
+                <div class="code-block">/* Eleman Seçici */
+                    p { color: #2c3e50; }
+
+                    /* Class (Sınıf) Seçici */
+                    .vurgu-metni { color: #e74c3c; font-weight: bold; }
+
+                    /* ID (Kimlik) Seçici */
+                    #ozel-baslik { background-color: #f1c40f; padding: 5px; }</div>
+                <div class="preview-box">
+                    <div class="preview-title">📺 Ekran Çıktısı</div>
+                    <p style="color: #2c3e50; margin-bottom: 5px;">Standart Paragraf Metni (Eleman Seçici)</p>
+                    <p style="color: #e74c3c; font-weight: bold; margin-bottom: 5px;">Class ile Vurgulanmış Metin
+                        (.vurgu-metni)</p>
+                    <div style="background-color: #f1c40f; padding: 5px; font-weight:bold;">ID ile Özelleştirilmiş Alan
+                        (#ozel-baslik)</div>
+                </div>
+            </article>
+
+            <article class="tag-card" id="css-colors">
+                <h3>🎨 Renkler &amp; Arka Plan (Background)</h3>
+                <p>Metin rengi için <code>color</code>, arka plan rengi için <code>background-color</code> kullanılır.
+                </p>
+                <div class="code-block">.renkli-kutu {
+                    color: #ffffff;
+                    background-color: #3498db;
+                    padding: 10px;
+                    }</div>
+                <div class="preview-box">
+                    <div class="preview-title">📺 Ekran Çıktısı</div>
+                    <div
+                        style="color: #ffffff; background-color: #3498db; padding: 10px; border-radius: 4px; text-align: center; font-weight: bold;">
+                        Mavi Arka Planlı ve Beyaz Yazılı Kutu
+                    </div>
+                </div>
+            </article>
+
+            <article class="tag-card" id="css-boxmodel">
+                <h3>📦 Kutu Modeli (Margin &amp; Padding)</h3>
+                <p><code>padding</code> elemanın içindeki içeriğe boşluk verir, <code>margin</code> ise dış boşluk
+                    bırakır.</p>
+                <div class="code-block">.kutu {
+                    background-color: #e8f4fc;
+                    border: 1px solid #3498db;
+                    padding: 15px;
+                    margin: 10px 0;
+                    }</div>
+                <div class="preview-box">
+                    <div class="preview-title">📺 Ekran Çıktısı</div>
+                    <div style="background-color: #e8f4fc; border: 1px solid #3498db; padding: 15px; margin: 5px 0;">
+                        İçten 15px boşluğu (Padding) olan kutu alanı.
+                    </div>
+                </div>
+            </article>
+
+            <article class="tag-card" id="css-border">
+                <h3>🖼️ Kenarlık (Border) Özellikleri</h3>
+                <p>Elemanların etrafına çizgi ekler. Çizgi kalınlığı, türü (solid, dashed, dotted) ve rengi
+                    belirlenebilir.</p>
+                <div class="code-block">.duz-kenar { border: 2px solid #2ecc71; }
+                    .kesikli-kenar { border: 2px dashed #e74c3c; }</div>
+                <div class="preview-box">
+                    <div class="preview-title">📺 Ekran Çıktısı</div>
+                    <div style="border: 2px solid #2ecc71; padding: 8px; margin-bottom: 8px; font-weight: bold;">Düz
+                        Yeşil Kenarlık (solid)</div>
+                    <div style="border: 2px dashed #e74c3c; padding: 8px; font-weight: bold;">Kesikli Kırmızı Kenarlık
+                        (dashed)</div>
+                </div>
+            </article>
+
+            <article class="tag-card" id="css-text">
+                <h3>🔤 Metin Stilleri &amp; Fontlar</h3>
+                <p><code>font-family</code> yazı tipini, <code>text-align</code> hizalamayı yönetir.</p>
+                <div class="code-block">.metin-tasarim {
+                    font-family: Arial, sans-serif;
+                    text-align: center;
+                    text-transform: uppercase;
+                    }</div>
+                <div class="preview-box">
+                    <div class="preview-title">📺 Ekran Çıktısı</div>
+                    <div
+                        style="font-family: Arial, sans-serif; text-align: center; text-transform: uppercase; letter-spacing: 2px; color: #8e44ad; font-weight: bold;">
+                        Ortalanmış Büyük Harf Metin
+                    </div>
+                </div>
+            </article>
+
+            <article class="tag-card" id="css-flexbox">
+                <h3>🔀 Flexbox Esnek Yerleşim</h3>
+                <p>Elemanları tek bir eksende esnek olarak hizalamayı sağlar.</p>
+                <div class="code-block">.flex-kapsayici {
+                    display: flex;
+                    justify-content: space-between;
+                    gap: 10px;
+                    }</div>
+                <div class="preview-box">
+                    <div class="preview-title">📺 Ekran Çıktısı</div>
+                    <div
+                        style="display: flex; justify-content: space-between; align-items: center; gap: 10px; background: #f8f9fa; padding: 10px; border-radius: 4px;">
+                        <div style="background: #e74c3c; color: white; padding: 10px; flex: 1; text-align: center;">Kutu
+                            1</div>
+                        <div style="background: #3498db; color: white; padding: 10px; flex: 1; text-align: center;">Kutu
+                            2</div>
+                        <div style="background: #2ecc71; color: white; padding: 10px; flex: 1; text-align: center;">Kutu
+                            3</div>
+                    </div>
+                </div>
+            </article>
+
+            <article class="tag-card" id="css-grid">
+                <h3>📐 CSS Grid Izgara Düzeni</h3>
+                <p>İki boyutlu (satır ve sütun) sayfa düzenleri oluşturur.</p>
+                <div class="code-block">.grid-kapsayici {
+                    display: grid;
+                    grid-template-columns: repeat(2, 1fr);
+                    gap: 10px;
+                    }</div>
+                <div class="preview-box">
+                    <div class="preview-title">📺 Ekran Çıktısı</div>
+                    <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px;">
+                        <div style="background: #9b59b6; color: white; padding: 10px; text-align: center;">Grid 1</div>
+                        <div style="background: #34495e; color: white; padding: 10px; text-align: center;">Grid 2</div>
+                        <div style="background: #16a085; color: white; padding: 10px; text-align: center;">Grid 3</div>
+                        <div style="background: #f39c12; color: white; padding: 10px; text-align: center;">Grid 4</div>
+                    </div>
+                </div>
+            </article>
+
+            <article class="tag-card" id="css-position">
+                <h3>📍 Position (Konumlandırma)</h3>
+                <p>Elemanların konumunu bağımsızca belirler.</p>
+                <div class="code-block">.kapsayici { position: relative; }
+                    .rozet { position: absolute; top: 5px; right: 5px; }</div>
+                <div class="preview-box">
+                    <div class="preview-title">📺 Ekran Çıktısı</div>
+                    <div
+                        style="position: relative; height: 70px; background: #ecf0f1; border-radius: 4px; padding: 10px;">
+                        <div>Relative Kapsayıcı Alanı</div>
+                        <div
+                            style="position: absolute; top: 5px; right: 5px; background: #e74c3c; color: white; padding: 3px 8px; border-radius: 12px; font-size: 0.75rem; font-weight: bold;">
+                            Yeni</div>
+                    </div>
+                </div>
+            </article>
+
+            <article class="tag-card" id="css-shadows">
+                <h3>✨ Gölge &amp; Köşe Yuvarlatma</h3>
+                <p><code>border-radius</code> ve <code>box-shadow</code> ile görsel derinlik katar.</p>
+                <div class="code-block">.golgeli-kart {
+                    border-radius: 10px;
+                    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+                    }</div>
+                <div class="preview-box">
+                    <div class="preview-title">📺 Ekran Çıktısı</div>
+                    <div
+                        style="border-radius: 10px; box-shadow: 0 4px 10px rgba(0,0,0,0.15); padding: 15px; background: #fff; text-align: center; font-weight: bold; color: #2c3e50;">
+                        Köşeleri Yuvarlatılmış ve Gölgeli Şık Kart
+                    </div>
+                </div>
+            </article>
+
+            <!-- 1. RESPONSIVE TASARIM NEDİR? -->
+            <article class="tag-card" id="responsive-nedir">
+                <h3>📱 Responsive Tasarım Nedir?</h3>
+                <p>
+                    Responsive (Duyarlı/Esneme Uyumlu) tasarım; web sitelerinin masaüstü bilgisayarlar, tabletler ve
+                    akıllı telefonlar gibi farklı ekran boyutlarına ve çözünürlüklerine otomatik olarak uyum
+                    sağlamasıdır.
+                </p>
+                <p>
+                    CSS'te responsive tasarımın temelini <strong>Viewport Meta Etiketi</strong>, esnek ızgara sistemleri
+                    (Flexbox / Grid) ve <code>@media</code> sorguları oluşturur.
+                </p>
+
+                <!-- KOD BLOĞU (YEŞİL / SARI TEMAMIZ) -->
+                <div class="code-block">
+                    <!-- Mobil Cihazlar İçin Şart Olan HTML Viewport Etiketi -->
+                    &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
+
+                    &lt;style&gt;
+                    /* Sabit Genişlik (Responsive Değil - Ekran Daralınca Taşar) */
+                    .kutu-sabit {
+                    width: 600px;
+                    }
+
+                    /* Esnek Genişlik (Responsive Uyumlu - Ekran Daraldıkça Küçülür) */
+                    .kutu-esnek {
+                    width: 100%;
+                    box-sizing: border-box;
+                    }
+                    &lt;/style&gt;
+                </div>
+
+                <!-- MAVİ CANLI ÖNİZLEME KUTUSU -->
+                <div class="preview-box"
+                    style="position: relative; overflow: visible; width: 100%; min-width: 0; box-sizing: border-box;">
+                    <p style="margin-bottom: 12px; font-weight: bold; color: #2c3e50;">💡 Canlı Davranış Farkı
+                        (Pencereyi Daraltarak / F12 İncele ile Test Edin):</p>
+
+                    <!-- Kırmızı Kutu: Kapsayıcının genişliğini kilitlenmeden dışa taşıran yapı -->
+                    <div class="kirmizi-kutu"
+                        style="background-color: #e74c3c; color: white; padding: 12px; margin-bottom: 10px; border-radius: 4px; font-size: 0.85rem; width: 600px; max-width: none !important; display: block; box-sizing: border-box;">
+                        ❌ <strong>width: 600px;</strong> (Sabit Genişlik! Ekran daralsa da 600px kalır, mavi çerçevenin
+                        sağından dışarı fırlar)
+                    </div>
+
+                    <!-- Yeşil Kutu: Mavi kutuyla birlikte sıfır takılmayla %100 daralan esnek yapı -->
+                    <div class="yesil-kutu"
+                        style="background-color: #2ecc71; color: white; padding: 12px; border-radius: 4px; font-size: 0.85rem; width: 100%; box-sizing: border-box;">
+                        ✅ <strong>width: 100%;</strong> (Esnek Genişlik! Mavi çerçeve ve ekranla birlikte milim milim
+                        daralır)
+                    </div>
+                </div>
+            </article>
+
+            <!-- 2. @MEDIA SORUGUSU SÖZDİZİMİ -->
+            <article class="tag-card" id="media-sintaks">
+                <h3>⚙️ @media Sorgusu Sözdizimi</h3>
+                <p>
+                    <code>@media</code> kuralı, CSS kodlarının yalnızca belirlediğimiz belirli ekran koşulları (örneğin
+                    ekran genişliği 768px veya daha altındaysa) sağlandığında devreye girmesini sağlar.
+                </p>
+                <p>
+                    En yaygın kullanım şekli, cihaz türü olarak <strong>screen</strong> (ekran) ve ekran şartı olarak
+                    <strong>max-width</strong> (maksimum genişlik) belirlemektir.
+                </p>
+
+                <!-- KOD BLOĞU (YEŞİL / SARI TEMAMIZ) -->
+                <div class="code-block">
+                    /* Temel @media Yapısı */
+                    @media screen and (max-width: 768px) {
+                    /* Ekran genişliği 768px veya daha KÜÇÜK olduğunda çalışacak CSS kodları */
+                    .media-demo-box {
+                    background-color: #e67e22 !important; /* Turuncu renge dön */
+                    color: #ffffff;
+                    font-size: 0.9rem;
+                    }
+                    }</div>
+
+                <!-- MAVİ CANLI ÖNİZLEME KUTUSU -->
+                <div class="preview-box">
+                    <p style="margin-bottom: 12px; font-weight: bold; color: #2c3e50;">💡 Canlı @media Test Kutusu
+                        (Pencereyi 768px Altına Daraltın):</p>
+
+                    <!-- Dynamic Responsive Box -->
+                    <div class="media-demo-box"
+                        style="background-color: #3498db; color: white; padding: 15px; border-radius: 6px; text-align: center; font-weight: bold; transition: all 0.4s ease; width: 100%; box-sizing: border-box;">
+                        🖥️ Masaüstü Modu (Ekran > 768px: Mavi Renk)
+                    </div>
+
+                    <!-- inline style tag for live media demonstration -->
+                    <style>
+                        @media screen and (max-width: 768px) {
+                            .media-demo-box {
+                                background-color: #e67e22 !important;
+                                content: '📱 Mobil Modu (Ekran <= 768px: Turuncu Renk)';
+                            }
+                        }
+                    </style>
+                </div>
+            </article>
+
+            <!-- 3. BREAKPOINTS (EKRAN KESME NOKTALARI) -->
+            <article class="tag-card" id="breakpoints">
+                <h3>📐 Breakpoints (Ekran Kesme Noktaları)</h3>
+                <p>
+                    <strong>Breakpoint (Kesme Noktası)</strong>, web tasarımının farklı cihaz ekranlarına uyum sağlamak
+                    için biçim değiştirdiği piksel sınırıdır.
+                </p>
+                <p>
+                    Sektörde (Bootstrap ve Tailwind gibi kütüphanelerde de) kabul gören standart ekran genişlik
+                    sınırları şunlardır:
+                </p>
+
+                <!-- KOD BLOĞU (YEŞİL / SARI TEMAMIZ) -->
+                <div class="code-block">
+                    /* 1. Ekstra Küçük Cihazlar (Mobil Telefonlar: < 576px) */ @media screen and (max-width: 575px) {
+                        ... } /* 2. Tablet Cihazlar (576px - 768px) */ @media screen and (min-width: 576px) and
+                        (max-width: 768px) { ... } /* 3. Masaüstü Ekranlar (992px ve üzeri) */ @media screen and
+                        (min-width: 992px) { ... }</div>
+
+                        <!-- MAVİ CANLI ÖNİZLEME KUTUSU -->
+                        <div class="preview-box">
+                            <p style="margin-bottom: 12px; font-weight: bold; color: #2c3e50;">💡 Canlı Breakpoint Testi
+                                (Ekran Genişliğini Değiştirin):</p>
+
+                            <!-- 3 Kademeli Canlı Kutu -->
+                            <div class="breakpoint-demo-box"
+                                style="padding: 15px; border-radius: 6px; text-align: center; font-weight: bold; transition: all 0.3s ease; width: 100%; box-sizing: border-box;">
+                                <span class="bp-text">🖥️ Masaüstü Ekranı (> 768px)</span>
+                            </div>
+
+                            <style>
+                                /* Varsayılan: Masaüstü (Mavi) */
+                                .breakpoint-demo-box {
+                                    background-color: #2980b9;
+                                    color: white;
+                                }
+
+                                .bp-text::before {
+                                    content: "🖥️ Masaüstü Modu (Genişlik > 768px)";
+                                }
+
+                                /* Tablet Modu (576px - 768px Arası) */
+                                @media screen and (max-width: 768px) {
+                                    .breakpoint-demo-box {
+                                        background-color: #f39c12 !important;
+                                    }
+
+                                    .bp-text::before {
+                                        content: "📱 Tablet Modu (576px - 768px Arası)";
+                                    }
+                                }
+
+                                /* Mobil Modu (< 576px) */
+                                @media screen and (max-width: 575px) {
+                                    .breakpoint-demo-box {
+                                        background-color: #c0392b !important;
+                                    }
+
+                                    .bp-text::before {
+                                        content: "📱 Mobil Telefon Modu (< 576px)";
+                                    }
+                                }
+                            </style>
+                        </div>
+            </article>
+
+
+            <!-- 4. ESNEK DÜZEN (FLEX/GRID & @MEDIA) -->
+            <article class="tag-card" id="responsive-layout">
+                <h3>📐 Esnek Düzen (Flex/Grid &amp; @media)</h3>
+                <p>
+                    Masaüstü ekranlarda yan yana dikey sütunlar halinde sıralanan kartlar veya menüler, mobil ekranlarda
+                    yer darlığı nedeniyle alt alta dizilmelidir.
+                </p>
+                <p>
+                    Bu dönüşümü sağlamak için <strong>Flexbox</strong> kullanıyorsak
+                    <code>flex-direction: column</code>, <strong>CSS Grid</strong> kullanıyorsak
+                    <code>grid-template-columns: 1fr</code> kuralını <code>@media</code> bloğu içinde tanımlarız.
+                </p>
+
+                <!-- KOD BLOĞU (YEŞİL / SARI TEMAMIZ) -->
+                <div class="code-block">
+                    /* Masaüstünde 3 Kolonlu Grid Yapısı */
+                    .kart-grubu {
+                    display: grid;
+                    grid-template-columns: repeat(3, 1fr);
+                    gap: 15px;
+                    }
+
+                    /* Mobilde (<= 768px) Tek Kolona Düşürme */ @media screen and (max-width: 768px) { .kart-grubu {
+                        grid-template-columns: 1fr; /* Tüm kartlar alt alta dizilir */ } }</div>
+
+                        <!-- MAVİ CANLI ÖNİZLEME KUTUSU -->
+                        <div class="preview-box">
+                            <p style="margin-bottom: 12px; font-weight: bold; color: #2c3e50;">💡 Canlı Esnek Düzen
+                                Testi (Pencereyi 768px Altına Daraltın):</p>
+
+                            <!-- Dynamic Grid Container -->
+                            <div class="demo-flex-grid">
+                                <div class="demo-grid-item">📦 Kart 1 (Masaüstü: Yan Yana)</div>
+                                <div class="demo-grid-item">📦 Kart 2 (Masaüstü: Yan Yana)</div>
+                                <div class="demo-grid-item">📦 Kart 3 (Masaüstü: Yan Yana)</div>
+                            </div>
+
+                            <style>
+                                .demo-flex-grid {
+                                    display: grid;
+                                    grid-template-columns: repeat(3, 1fr);
+                                    gap: 12px;
+                                    width: 100%;
+                                    box-sizing: border-box;
+                                }
+
+                                .demo-grid-item {
+                                    background-color: #34495e;
+                                    color: white;
+                                    padding: 15px;
+                                    border-radius: 6px;
+                                    text-align: center;
+                                    font-size: 0.85rem;
+                                    font-weight: bold;
+                                    transition: all 0.3s ease;
+                                }
+
+                                /* 768px ve Altında Tek Kolona Dönüşüm */
+                                @media screen and (max-width: 768px) {
+                                    .demo-flex-grid {
+                                        grid-template-columns: 1fr !important;
+                                    }
+
+                                    .demo-grid-item {
+                                        background-color: #27ae60 !important;
+                                        /* Mobilde yeşil olur */
+                                    }
+                                }
+                            </style>
+                        </div>
+            </article>
+
+            <!-- 5. RESPONSIVE GÖRSELLER & TİPOGRAFİ -->
+            <article class="tag-card" id="responsive-images">
+                <h3>🖼️ Responsive Görseller &amp; Tipografi</h3>
+                <p>
+                    Ekran daraldığında görsellerin taşmasını engellemek ve metin boyutlarının mobil cihazlarda
+                    okunabilir kalmasını sağlamak responsive tasarımın temel kuralıdır.
+                </p>
+
+                <!-- KOD BLOĞU (YEŞİL / SARI TEMAMIZ) -->
+                <div class="code-block">
+                    /* 1. Responsive Görsel (Taşmayı Önler, Orantılı Küçülür) */
+                    img.responsive-img {
+                    max-width: 100%;
+                    height: auto;
+                    display: block;
+                    }
+
+                    /* 2. Responsive Tipografi (@media ile Metin Boyutu) */
+                    h2.responsive-text {
+                    font-size: 2rem; /* Masaüstü */
+                    }
+
+                    @media screen and (max-width: 768px) {
+                    h2.responsive-text {
+                    font-size: 1.3rem; /* Mobilde Küçülen Başlık */
+                    }
+                    }</div>
+
+                <!-- MAVİ CANLI ÖNİZLEME KUTUSU (520px Kilitlenmesini Kıran 380px Esnek Yapı) -->
+                <div class="preview-box"
+                    style="position: relative; overflow: hidden; width: 100%; max-width: 100%; min-width: 0; box-sizing: border-box;">
+                    <p style="margin-bottom: 12px; font-weight: bold; color: #2c3e50;">💡 Canlı Görsel ve Metin Esneklik
+                        Testi (380px Sınırına Kadar Daraltın):</p>
+
+                    <!-- Esnek Metin Denemesi -->
+                    <div class="demo-typography-box"
+                        style="margin-bottom: 15px; padding: 12px; background: #e8f4fc; border-left: 4px solid #3498db; border-radius: 4px; width: 100%; max-width: 100%; box-sizing: border-box;">
+                        <span class="demo-resp-heading"
+                            style="font-weight: bold; color: #2c3e50; transition: font-size 0.3s ease; display: block; word-break: break-word;">
+                            📱 Esnek Başlık Metni
+                        </span>
+                        <small style="color: #666;">(768px altında başlık boyutu otomatik küçülür, 380px'e kadar
+                            esner)</small>
+                    </div>
+
+                    <!-- Esnek SVG Görsel Denemesi -->
+                    <div
+                        style="width: 100%; max-width: 100%; background: #f8fafc; border: 1px dashed #3498db; padding: 10px; border-radius: 6px; box-sizing: border-box; text-align: center; overflow: hidden;">
+                        <svg class="demo-responsive-svg" viewBox="0 0 600 150"
+                            style="width: 100%; max-width: 100%; height: auto; min-width: 0; display: block; margin: 0 auto;">
+                            <rect width="600" height="150" rx="8" fill="#1e293b" />
+                            <text x="50%" y="45%" font-size="22" fill="#38bdf8" text-anchor="middle"
+                                dominant-baseline="middle" font-weight="bold">
+                                🖼️ max-width: 100% &amp; height: auto
+                            </text>
+                            <text x="50%" y="70%" font-size="14" fill="#94a3b8" text-anchor="middle"
+                                dominant-baseline="middle">
+                                Görsel Ekranla Birlikte 380px Sınırına Kadar Küçülür
+                            </text>
+                        </svg>
+                    </div>
+
+                    <style>
+                        .demo-resp-heading {
+                            font-size: 1.5rem;
+                        }
+
+                        @media screen and (max-width: 768px) {
+                            .demo-resp-heading {
+                                font-size: 1rem !important;
+                                color: #e67e22 !important;
+                            }
+                        }
+                    </style>
+                </div>
+            </article>
+
+            <!-- 6. MOBILE-FIRST VS DESKTOP-FIRST -->
+            <article class="tag-card" id="mobile-first">
+                <h3>📱 Mobile-First vs Desktop-First</h3>
+                <p>
+                    Responsive tasarım yaparken CSS kodlarını yazmanın iki farklı yaklaşımı vardır:
+                    <strong>Desktop-First</strong> (Masaüstünden Mobile) ve <strong>Mobile-First</strong> (Mobilden
+                    Masaüstüne).
+                </p>
+                <p>
+                    Günümüzde mobil internet kullanımı baskın olduğu için modern projelerde ve kütüphanelerde
+                    (Bootstrap, Tailwind gibi) ağırlıklı olarak <strong>Mobile-First (<code>min-width</code>)</strong>
+                    yaklaşımı tercih edilir.
+                </p>
+
+                <!-- KOD BLOĞU (YEŞİL / SARI TEMAMIZ) -->
+                <div class="code-block">
+                    /* 1. DESKTOP-FIRST YAKLAŞIMI (Masaüstünden Mobile) */
+                    /* Varsayılan: Masaüstü stilleri yazılır */
+                    .box { width: 33.33%; float: left; }
+
+                    /* Ekran küçüldükçe daraltılır */
+                    @media screen and (max-width: 768px) {
+                    .box { width: 100%; float: none; }
+                    }
+
+                    /* 2. MOBILE-FIRST YAKLAŞIMI (Mobilden Masaüstüne - ÖNERİLEN) */
+                    /* Varsayılan: Mobil stilleri yazılır (Yalın ve hızlı) */
+                    .box { width: 100%; }
+
+                    /* Ekran genişledikçe ek özellikler yüklenir */
+                    @media screen and (min-width: 769px) {
+                    .box { width: 33.33%; float: left; }
+                    }</div>
+
+                <!-- MAVİ CANLI ÖNİZLEME KUTUSU -->
+                <div class="preview-box"
+                    style="position: relative; overflow: hidden; width: 100%; max-width: 100%; min-width: 0; box-sizing: border-box;">
+                    <p style="margin-bottom: 12px; font-weight: bold; color: #2c3e50;">💡 Mobile-First (min-width) Canlı
+                        Mantık Testi (Pencereyi Genişletin):</p>
+
+                    <!-- Dynamic Mobile-First Box -->
+                    <div class="demo-mobile-first-box"
+                        style="padding: 15px; border-radius: 6px; text-align: center; font-weight: bold; transition: all 0.3s ease; width: 100%; box-sizing: border-box;">
+                        <span class="mf-text">📱 Varsayılan Mobil Mod (Ekran &lt;= 768px)</span>
+                    </div>
+
+                    <style>
+                        /* Varsayılan Stil: MOBİL (min-width kullanmadan doğrudan yazılır) */
+                        .demo-mobile-first-box {
+                            background-color: #27ae60;
+                            /* Mobil Varsayılan: Yeşil */
+                            color: white;
+                        }
+
+                        .mf-text::before {
+                            content: "📱 Mobil Varsayılan Mod (Genişlik <= 768px) - KOD EN BAŞTA ÇALIŞIR";
+                        }
+
+                        /* Masaüstüne Geçiş: (min-width: 769px) */
+                        @media screen and (min-width: 769px) {
+                            .demo-mobile-first-box {
+                                background-color: #8e44ad !important;
+                                /* Masaüstü: Mor */
+                            }
+
+                            .mf-text::before {
+                                content: "🖥️ Masaüstü Modu (min-width: 769px Sağlandı!)";
+                            }
+                        }
+                    </style>
+                </div>
+            </article>
+
+        </div>
+    </main>
+
+    <button id="scrollTopBtn" class="back-to-top" onclick="scrollToTop()">
+        ⬆️ Yukarı Çık
+    </button>
+
+    <footer style="background:#1a252f; color:#bdc3c7; text-align:center; padding:1.5rem; margin-top:2rem;">
+        <p>&copy; 2026 KodlaHoca Ders Portalı. Tüm Hakları Saklıdır.</p>
+    </footer>
+
+    <script>
+        const scrollTopBtn = document.getElementById("scrollTopBtn");
+        window.onscroll = function () {
+            if (document.body.scrollTop > 300 || document.documentElement.scrollTop > 300) {
+                scrollTopBtn.style.display = "flex";
+            } else {
+                scrollTopBtn.style.display = "none";
+            }
+        };
+
+        function scrollToTop() {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        const mobileMenu = document.getElementById('mobile-menu');
+        const navLinks = document.getElementById('nav-links');
+
+        if (mobileMenu && navLinks) {
+            mobileMenu.addEventListener('click', () => {
+                navLinks.classList.toggle('active');
+            });
+        }
+    </script>
+    <script src="../assets/js/main.js"></script>
+</body>
+
+</html>

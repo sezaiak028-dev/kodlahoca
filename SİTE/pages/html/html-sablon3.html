@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Şablon 3: Detaylı Tablo Yapısı - KodlaHoca</title>
+
+     <link rel="stylesheet" href="../../assets/css/style.css">
+    <style>
+        body { background-color:#B5B9F0; font-family: sans-serif; }
+        .sablon-container { max-width: 1100px; margin: 2rem auto; background: white; padding: 2rem; border-radius: 10px; box-shadow: 0 4px 10px rgba(0,0,0,0.05); }
+        .code-preview-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-top: 1.5rem; }
+        .code-box-green { background-color: #7EC151; color: #1a1a1a; padding: 1rem; border-radius: 8px; font-family: monospace; font-size: 0.85rem; white-space: pre-wrap; word-break: break-all; font-weight: 600; }
+        .render-box-blue { border: 2px solid #3498db; padding: 1rem; border-radius: 8px; background: #fff; overflow-x: auto; }
+        
+        /* Tablo Stilleri */
+        .custom-table { width: 100%; border-collapse: collapse; margin-top: 0.5rem; }
+        .custom-table th, .custom-table td { border: 1px solid #cbd5e1; padding: 10px 12px; text-align: left; }
+        .custom-table th { background-color: #1a252f; color: #ffffff; }
+        .custom-table tr:nth-child(even) { background-color: #f8fafc; }
+        .custom-table tfoot { background-color: #e2e8f0; font-weight: bold; }
+        @media (max-width: 768px) { .code-preview-grid { grid-template-columns: 1fr; } }
+    </style>
+</head>
+<body>
+    <header>
+        <nav class="nav-container">
+            <a href="../../index.html" class="logo">&lt;Kodla<span>Hoca</span>/&gt;</a>
+            <ul class="nav-links">
+                <li><a href="html-dersleri.html">← HTML Derslerine Dön</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="sablon-container">
+        <h2>📊 Şablon 3: Detaylı HTML Tablo Sayfası</h2>
+        <p>Gelişmiş <code>&lt;table&gt;</code>, <code>&lt;thead&gt;</code>, <code>&lt;tbody&gt;</code>, <code>&lt;tfoot&gt;</code>, <code>&lt;tr&gt;</code>, <code>&lt;th&gt;</code>, <code>&lt;td&gt;</code>, <code>colspan</code> ve <code>rowspan</code> etiketleri örneği.</p>
+
+        <div class="code-preview-grid">
+            <div>
+                <h4 style="color:#2c3e50; margin-bottom:0.5rem;">🟢 HTML Kaynak Kodu</h4>
+                <div class="code-box-green">
+&lt;table class="custom-table"&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;Öğrenci No&lt;/th&gt;
+      &lt;th&gt;Ad Soyad&lt;/th&gt;
+      &lt;th&gt;Vize&lt;/th&gt;
+      &lt;th&gt;Final&lt;/th&gt;
+      &lt;th&gt;Ortalama&lt;/th&gt;
+      &lt;th&gt;Durum&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;101&lt;/td&gt;
+      &lt;td&gt;Ali Kaya&lt;/td&gt;
+      &lt;td&gt;70&lt;/td&gt;
+      &lt;td&gt;85&lt;/td&gt;
+      &lt;td&gt;79.0&lt;/td&gt;
+      &lt;td style="color:green; font-weight:bold;"&gt;Geçti&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;102&lt;/td&gt;
+      &lt;td&gt;Ayşe Demir&lt;/td&gt;
+      &lt;td&gt;40&lt;/td&gt;
+      &lt;td&gt;45&lt;/td&gt;
+      &lt;td&gt;43.0&lt;/td&gt;
+      &lt;td style="color:red; font-weight:bold;"&gt;Kaldı&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;103&lt;/td&gt;
+      &lt;td&gt;Mehmet Can&lt;/td&gt;
+      &lt;td&gt;90&lt;/td&gt;
+      &lt;td&gt;95&lt;/td&gt;
+      &lt;td&gt;93.0&lt;/td&gt;
+      &lt;td style="color:green; font-weight:bold;"&gt;Geçti&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+  &lt;tfoot&gt;
+    &lt;tr&gt;
+      &lt;td colspan="4" style="text-align:right;"&gt;Sınıf Ortalaması:&lt;/td&gt;
+      &lt;td colspan="2"&gt;71.6&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tfoot&gt;
+&lt;/table&gt;
+                </div>
+            </div>
+
+            <div>
+                <h4 style="color:#3498db; margin-bottom:0.5rem;">📺 Canlı Tarayıcı Görünümü</h4>
+                <div class="render-box-blue">
+                    <table class="custom-table">
+                        <thead>
+                            <tr>
+                                <th>Öğrenci No</th>
+                                <th>Ad Soyad</th>
+                                <th>Vize</th>
+                                <th>Final</th>
+                                <th>Ortalama</th>
+                                <th>Durum</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>101</td>
+                                <td>Ali Kaya</td>
+                                <td>70</td>
+                                <td>85</td>
+                                <td>79.0</td>
+                                <td style="color:#27ae60; font-weight:bold;">Geçti</td>
+                            </tr>
+                            <tr>
+                                <td>102</td>
+                                <td>Ayşe Demir</td>
+                                <td>40</td>
+                                <td>45</td>
+                                <td>43.0</td>
+                                <td style="color:#e74c3c; font-weight:bold;">Kaldı</td>
+                            </tr>
+                            <tr>
+                                <td>103</td>
+                                <td>Mehmet Can</td>
+                                <td>90</td>
+                                <td>95</td>
+                                <td>93.0</td>
+                                <td style="color:#27ae60; font-weight:bold;">Geçti</td>
+                            </tr>
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <td colspan="4" style="text-align:right;">Sınıf Ortalaması:</td>
+                                <td colspan="2">71.6</td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

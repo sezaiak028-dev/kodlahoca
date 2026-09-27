@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Şablon 10: Örnek Site 4 (Kodsuz Challenge 1) - KodlaHoca</title>
+
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-title" content="HocaKodla">
+    <meta name="theme-color" content="#1a252f">
+
+    <link rel="icon" type="image/svg+xml;v=2" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Crect width='512' height='512' rx='120' fill='%231a252f'/%3E%3Cpath d='M160 170 L70 256 L160 342 M352 170 L442 256 L352 342 M290 140 L222 372' stroke='%2316a085' stroke-width='38' stroke-linecap='round' stroke-linejoin='round' fill='none'/%3E%3C/svg%3E">
+
+    <link rel="stylesheet" href="../../assets/css/style.css">
+    <link rel="stylesheet" href="../../assets/css/responsive.css">
+    <style>
+        /* İSTEDİĞİN ZEMİN RENGİ (#B5B9F0) KORUNDU */
+        body { background-color: #B5B9F0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+        
+        .sablon-container { max-width: 1200px; margin: 2rem auto; background: white; padding: 2rem; border-radius: 10px; box-shadow: 0 4px 10px rgba(0,0,0,0.05); }
+        
+        .step-title {
+            color: #2c3e50;
+            font-size: 1.4rem;
+            margin-bottom: 0.3rem;
+            padding-bottom: 0.4rem;
+            border-bottom: 2px solid #3498db;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .step-desc {
+            color: #666;
+            font-size: 0.95rem;
+            margin-bottom: 1.5rem;
+        }
+
+        /* 1. GERÇEK CANLI SİTE SİMÜLASYONU KAPSAYICISI */
+        .live-website-screen {
+            width: 100%;
+            min-height: 550px;
+            border: 3px solid #1e293b;
+            border-radius: 8px;
+            overflow: visible;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+            margin-bottom: 1.5rem;
+            background-color: #ffffff;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* SİMÜLASYON NAVBAR */
+        .sim-navbar {
+            background-color: #0f172a;
+            padding: 0 25px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 65px;
+            position: relative;
+            z-index: 100;
+            border-top-left-radius: 5px;
+            border-top-right-radius: 5px;
+        }
+
+        .sim-logo {
+            color: #38bdf8;
+            font-size: 1.3rem;
+            font-weight: bold;
+            letter-spacing: 0.5px;
+        }
+
+        .sim-nav-menu {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            gap: 5px;
+            height: 100%;
+        }
+
+        .sim-nav-item {
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
+
+        .sim-nav-link {
+            color: #f8fafc;
+            text-decoration: none;
+            padding: 0 16px;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            font-size: 0.92rem;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .sim-nav-link:hover {
+            background-color: #1e293b;
+            color: #38bdf8;
+        }
+
+        /* YATAY DROPDOWN MENÜ */
+        .sim-dropdown-menu {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background-color: #1e293b;
+            width: 190px;
+            list-style: none;
+            padding: 8px 0;
+            margin: 0;
+            border-radius: 0 0 6px 6px;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.25);
+            display: none;
+            z-index: 200;
+        }
+
+        .sim-dropdown-menu li a {
+            color: #cbd5e1;
+            padding: 10px 18px;
+            display: block;
+            text-decoration: none;
+            font-size: 0.88rem;
+            transition: all 0.2s ease;
+        }
+
+        .sim-dropdown-menu li a:hover {
+            background-color: #0284c7;
+            color: #ffffff;
+            padding-left: 22px;
+        }
+
+        .sim-nav-item:hover .sim-dropdown-menu {
+            display: block;
+        }
+
+        /* SİMÜLASYON HERO BÖLÜMÜ */
+        .sim-hero {
+            background: linear-gradient(135deg, #1e3a8a, #3b82f6);
+            color: white;
+            padding: 60px 20px;
+            text-align: center;
+        }
+
+        .sim-hero h2 {
+            font-size: 2rem;
+            margin-bottom: 12px;
+            font-weight: 700;
+        }
+
+        .sim-hero p {
+            font-size: 1rem;
+            max-width: 650px;
+            margin: 0 auto 20px auto;
+            opacity: 0.9;
+            line-height: 1.6;
+        }
+
+        .sim-hero-btn {
+            display: inline-block;
+            background-color: #f59e0b;
+            color: #0f172a;
+            padding: 10px 24px;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 0.9rem;
+            transition: transform 0.2s ease;
+        }
+
+        .sim-hero-btn:hover {
+            transform: scale(1.05);
+            background-color: #fbbf24;
+        }
+
+        /* SİMÜLASYON KARTLAR BÖLÜMÜ */
+        .sim-cards-container {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 25px;
+            padding: 40px 25px;
+            background-color: #f1f5f9;
+            flex: 1;
+        }
+
+        .sim-card {
+            background: white;
+            border: 1px solid #e2e8f0;
+            border-radius: 10px;
+            padding: 25px;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.03);
+            transition: translateY 0.3s ease;
+        }
+
+        .sim-card:hover {
+            box-shadow: 0 10px 15px rgba(0,0,0,0.08);
+        }
+
+        .sim-card-icon {
+            font-size: 2rem;
+            margin-bottom: 12px;
+        }
+
+        .sim-card h4 {
+            color: #0f172a;
+            margin-bottom: 10px;
+            font-size: 1.1rem;
+        }
+
+        .sim-card p {
+            color: #64748b;
+            font-size: 0.88rem;
+            line-height: 1.5;
+        }
+
+        /* SİMÜLASYON FOOTER */
+        .sim-footer {
+            background-color: #0f172a;
+            color: #94a3b8;
+            text-align: center;
+            padding: 18px;
+            font-size: 0.88rem;
+            border-bottom-left-radius: 5px;
+            border-bottom-right-radius: 5px;
+        }
+
+        /* MEYDAN OKUMA GÖREV KUTUSU (KODSUZ BÖLÜM STİLİ) */
+        .challenge-info-box {
+            background-color: #f0fdf4;
+            border-left: 6px solid #16a34a;
+            padding: 1.5rem;
+            border-radius: 8px;
+            color: #14532d;
+            font-size: 0.95rem;
+            line-height: 1.6;
+            margin-top: 1.5rem;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+        }
+
+        .challenge-info-box h4 {
+            margin-bottom: 10px;
+            font-size: 1.15rem;
+            color: #15803d;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .challenge-info-box ul {
+            margin-top: 8px;
+            padding-left: 20px;
+        }
+
+        .challenge-info-box li {
+            margin-bottom: 6px;
+        }
+
+        @media (max-width: 768px) { 
+            .sim-cards-container { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ORİJİNAL HEADER YAPIN (BİREBİR KORUNDU) -->
+    <header>
+        <nav class="nav-container">
+            <a href="../../index.html" class="logo">&lt;Kodla<span>Hoca</span>/&gt;</a>
+            <ul class="nav-links">
+                <li><a href="css-dersleri.html" style="color: var(--accent-color);">← CSS Derslerine Dön</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="sablon-container">
+        <h1 style="color:#2c3e50; font-size: 2rem; margin-bottom: 0.5rem;">🥊 Şablon 10: Örnek Site 4 (Kodsuz Challenge 1 - Yatay Menülü Site)</h1>
+        <p style="color:#555; margin-bottom: 2rem;">Öğrendiklerinizi test etme zamanı! Bu şablonda kaynak kodlar sunulmamaktadır. Yukarıdaki canlı tasarımı kendi bilgisayarınızda klonlamaya çalışın.</p>
+
+        <!-- CANLI WEB SİTESİ EKRANI -->
+        <h3 class="step-title">🌐 Canlı Web Sayfası Simülasyonu</h3>
+        <p class="step-desc">Aşağıdaki web sitesini detaylıca inceleyin, menü etkileşimlerini test edin ve tasarımın iskeletini analiz edin!</p>
+
+        <div class="live-website-screen">
+            <!-- NAVBAR -->
+            <nav class="sim-navbar">
+                <div class="sim-logo">⚡ TechPortal</div>
+                <ul class="sim-nav-menu">
+                    <li class="sim-nav-item"><a href="#" class="sim-nav-link">Ana Sayfa</a></li>
+                    
+                    <!-- AÇILIR MENÜ 1 -->
+                    <li class="sim-nav-item">
+                        <a href="#" class="sim-nav-link">Çözümler ▾</a>
+                        <ul class="sim-dropdown-menu">
+                            <li><a href="#">Web Geliştirme</a></li>
+                            <li><a href="#">Mobil Uygulama</a></li>
+                            <li><a href="#">Bulut Teknolojileri</a></li>
+                            <li><a href="#">Siber Güvenlik</a></li>
+                        </ul>
+                    </li>
+
+                    <!-- AÇILIR MENÜ 2 -->
+                    <li class="sim-nav-item">
+                        <a href="#" class="sim-nav-link">Ürünler ▾</a>
+                        <ul class="sim-dropdown-menu">
+                            <li><a href="#">SaaS Platformu</a></li>
+                            <li><a href="#">API Servisleri</a></li>
+                            <li><a href="#">Eklentiler</a></li>
+                        </ul>
+                    </li>
+
+                    <li class="sim-nav-item"><a href="#" class="sim-nav-link">İletişim</a></li>
+                </ul>
+            </nav>
+
+            <!-- HERO BÖLÜMÜ -->
+            <div class="sim-hero">
+                <h2>Geleceğin Teknolojilerini Bugün İnşa Edin</h2>
+                <p>Modern arayüzler, hızlı veri mimarisi ve esnek kod altyapısı ile projelerinizi bir üst seviyeye taşıyın.</p>
+                <a href="#" class="sim-hero-btn">Hemen Başlayın →</a>
+            </div>
+
+            <!-- KARTLAR BÖLÜMÜ -->
+            <div class="sim-cards-container">
+                <div class="sim-card">
+                    <div class="sim-card-icon">🚀</div>
+                    <h4>Yüksek Performans</h4>
+                    <p>Optimize edilmiş CSS ve esnek yerleşim sistemleri ile yıldırım hızında yüklenen arayüzler.</p>
+                </div>
+                <div class="sim-card">
+                    <div class="sim-card-icon">🛡️</div>
+                    <h4>Güvenli Altyapı</h4>
+                    <p>En son standartlara uygun semantik HTML5 mimarisi ve temiz kod blokları.</p>
+                </div>
+                <div class="sim-card">
+                    <div class="sim-card-icon">🎨</div>
+                    <h4>Esnek Tasarım</h4>
+                    <p>Flexbox ve CSS Grid güçleriyle şekillendirilmiş, düzenli ve göz yormayan kart düzenleri.</p>
+                </div>
+            </div>
+
+            <!-- FOOTER -->
+            <div class="sim-footer">
+                © 2026 TechPortal - Kodsuz Klonlama Meydan Okuması (Challenge 1)
+            </div>
+        </div>
+
+        <!-- MEYDAN OKUMA GÖREV KUTUSU -->
+        <div class="challenge-info-box">
+            <h4>🥊 Öğrenci Görevi (Challenge #1):</h4>
+            <p>Yukarıdaki web sitesinin canlı görünümünü incelediniz. Şimdi bu sayfanın **birebir klonunu** kendi bilgisayarınızda HTML ve CSS yazarak oluşturun!</p>
+            <ul>
+                <li><strong>Görsel Analiz:</strong> Üstte yatay navbar, ortada koyu mavi Hero alanı ve altında 3'lü kart düzeni kullanılmıştır.</li>
+                <li><strong>Açılır Menü:</strong> "Çözümler ▾" ve "Ürünler ▾" menülerine fareyle gelindiğinde alt menülerin çıkmasını sağlayın.</li>
+                <li><strong>İpucu:</strong> `<nav>`, `<header>`, `display: flex`, `display: grid`, `position: relative / absolute` ve `:hover` yapılarını hatırlayın!</li>
+            </ul>
+        </div>
+
+    </div>
+
+</body>
+</html>
